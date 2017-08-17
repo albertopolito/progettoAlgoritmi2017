@@ -2,7 +2,7 @@
 #define NODO_H
 #include <string>
 #include<vector>
-#include<algorithm>
+
 using namespace std;
 template<class T,class R>
 class Nodo
@@ -14,13 +14,13 @@ class Nodo
             Nodo *_nodo_adiacente;
         };
     public:
-        Nodo(T id_domanda);
+        Nodo(T contenuto);
         virtual ~Nodo();
-        Nodo(const Nodo& other);
+        Nodo(const Nodo& to_copy);
         void setAdiacenza(const R arco,const Nodo *nodo_adiacente);
         T getContenuto();
         void setContenuto(const T nuovo_contenuto);
-        vector<adiacenza> getAdiacenze();
+        //vector<adiacenza> getAdiacenze();
         void setNuovoColore(const short int nuovo_colore);
         short int getColore();
         void setColoreArco(const short int nuovo_colore,Nodo *nodo_adiacente);
