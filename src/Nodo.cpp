@@ -24,7 +24,7 @@ Nodo<T,R>::Nodo(T contenuto)
 template<class T, class R>
 Nodo<T,R>::~Nodo()
 {
-    //dtor
+
 }
 
 template<class T, class R>
@@ -57,12 +57,6 @@ void Nodo<T,R>:: setContenuto(const T nuovo_contenuto)
     _contenuto=nuovo_contenuto;
 }
 
-/*template<class T,class R>
-vector<adiacenza> Nodo<T,R>:: getAdiacenze()
-{
-    return _adiacenze;
-}*/
-
 template<class T,class R>
 void Nodo<T,R>:: setNuovoColore(const short int nuovo_colore)
 {
@@ -78,13 +72,37 @@ const short int Nodo<T,R>:: getColore()
 template<class T,class R>
 void Nodo<T,R>:: setTipologiaArco(const short int nuova_tipologia,const Nodo *nodo_adiacente)
 {
-    //da implementare
+    if(nuova_tipologia!=NEUTRO)
+    {
+        bool trovato_arco_neutro=0;
+        typename vector<adiacenza>::iterator f_it=_adiacenze.begin();
+        while(!trovato_arco_neutro){
+            f_it=find_if(f_it+1,_adiacenze.end(),find_adiacenza(nodo_adiacente));
+            if(*f_it!=NULL)
+            {
+                if(*f_it.tipologia_arco==NEUTRO)
+                {
+                    trovato_arco_neutro=1;
+                    *f_it.tipologia_arco=nuova_tipologia;
+                }
+            }else{
+                trovato_arco_neutro=1;
+            }
+        }
+    }
 }
 
 template<class T,class R>
-const Nodo<T,R> Nodo<T,R>:: findArcoPerTipologia(const short int tipologia_ricerca)
+const Nodo<T,R>* Nodo<T,R>:: findArcoPerTipologia(const short int tipologia_ricerca)
 {
-    //da implementare
+    typename vector<adiacenza>::iterator f_it;
+    f_it=find_if(_adiacenze.begin(),_adiacenze.end(),find_adiacenza(tipologia_ricerca));
+    if(*f_it!=NULL)
+    {
+        return *f_it.nodo_adiacente;
+    }else{
+        return NULL;
+    }
 }
 
 template<class T,class R>
@@ -110,7 +128,20 @@ const vector<R> Nodo<T,R>:: getPesoArchi()
 }
 
 template<class T,class R>
-const vector<Nodo<T,R> > Nodo<T,R>:: getNodiAdiacentiDaPesoArco(R peso_arco)
+const vector<Nodo<T,R>* > Nodo<T,R>:: getNodiAdiacentiDaPesoArco(R peso_arco)
 {
-
+    vector<Nodo<T,R>* > nodi_adiacenti_da_peso_arco;
+    bool trovato_arco_neutro=0;
+    typename vector<adiacenza>::iterator f_it=_adiacenze.begin();
+    while(*f_it!=NULL){
+        f_it=find_if(f_it+1,_adiacenze.end(),find_adiacenza(peso_arco));
+        if(*f_it!=NULL)
+        {
+            if(find_if(nodi_adiacenti_da_peso_arco.begin(),nodi_adiacenti_da_peso_arco.end(),nodi_adiacenti_da_peso_arco==*f_it.nodo_adiacenti)==NULL)
+            {
+                nodi_adiacenti_da_peso_arco.push_back(*f_it.nodo_adiacente);
+            }
+        }
+    }
+    return nodi_adiacenti_da_peso_arco;
 }
