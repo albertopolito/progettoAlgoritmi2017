@@ -12,7 +12,7 @@ class FileOutput
         FileOutput(const string nome_file);
         virtual ~FileOutput();
         FileOutput(const FileOutput& other);
-        virtual void scriviFileOutput();
+        virtual void scriviFileOutput()=0;
     protected:
         fstream _file_output;
         void apriFileOutput();

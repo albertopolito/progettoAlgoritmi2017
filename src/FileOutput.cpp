@@ -20,7 +20,3 @@ FileOutput::FileOutput(const FileOutput& other)
     //copy ctor
 }
 
-void FileOutput::scriviFileOutput()
-{
-    //copy ctor
-}

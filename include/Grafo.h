@@ -4,6 +4,11 @@
 #include <string>
 #include<vector>
 #include<algorithm>
+#define NEUTRO 0
+#define TREE 1
+#define BACKWARD 2
+#define FORWARD 3
+#define CROSS 4
 using namespace std;
 template<class T,class R>
 class Grafo
