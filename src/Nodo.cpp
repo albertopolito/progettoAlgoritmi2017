@@ -145,3 +145,27 @@ const vector<Nodo<T,R>* > Nodo<T,R>:: getNodiAdiacentiDaPesoArco(R peso_arco)
     }
     return nodi_adiacenti_da_peso_arco;
 }
+
+template<class T,class R>
+const int Nodo<T,R>::getTempoInizioVisita()
+{
+    return _tempo_inizio_visita;
+}
+
+template<class T,class R>
+const int Nodo<T,R>::getTempoFineVisita()
+{
+    return _tempo_fine_visita;
+}
+
+template<class T,class R>
+void Nodo<T,R>::setTempoInizioVisita(const int tempo_inizio_visita)
+{
+    _tempo_inizio_visita=tempo_inizio_visita;
+}
+
+template<class T,class R>
+void Nodo<T,R>::setTempoFineVisita(const int tempo_fine_visita)
+{
+    _tempo_fine_visita=tempo_fine_visita;
+}

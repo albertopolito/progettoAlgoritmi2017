@@ -63,6 +63,10 @@ class Nodo
         void resettaTipologiaArchi();
         const vector<R> getPesoArchi();
         const vector<Nodo<T,R>* > getNodiAdiacentiDaPesoArco(R peso_arco);
+        const int getTempoInizioVisita();
+        const int getTempoFineVisita();
+        void setTempoInizioVisita(const int tempo_inizio_visita);
+        void setTempoFineVisita(const int tempo_fine_visita);
     protected:
 
     private:
