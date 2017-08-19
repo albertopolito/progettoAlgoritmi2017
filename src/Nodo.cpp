@@ -61,13 +61,31 @@ short int Nodo<T,R>:: getColore()
 }
 
 template<class T,class R>
-void Nodo<T,R>:: setColoreArco(const short int nuovo_colore,Nodo *nodo_adiacente)
+void Nodo<T,R>:: setTipologiaArco(const short int nuova_tipologia,const Nodo *nodo_adiacente)
 {
     //da implementare
 }
 
 template<class T,class R>
-short int Nodo<T,R>:: getColoreArco(const Nodo *nodo_adiacente)
+Nodo<T,R> Nodo<T,R>:: findArcoPerTipologia(const short int tipologia_ricerca)
+{
+    //da implementare
+}
+
+template<class T,class R>
+void Nodo<T,R>:: resettaTipologiaArchi()
+{
+    //da implementare
+}
+
+template<class T,class R>
+vector<R> Nodo<T,R>:: getPesoArchi()
+{
+    //da implementare
+}
+
+template<class T,class R>
+vector<Nodo<T,R> > Nodo<T,R>:: getNodiAdiacentiDaPesoArco(R peso_arco)
 {
     //da implementare
 }

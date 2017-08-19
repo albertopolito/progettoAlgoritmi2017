@@ -2,6 +2,11 @@
 #define NODO_H
 #include <string>
 #include<vector>
+#define NEUTRO 0
+#define TREE 1
+#define BACKWARD 2
+#define FORWARD 3
+#define CROSS 4
 
 using namespace std;
 template<class T,class R>
@@ -9,7 +14,7 @@ class Nodo
 {
     struct adiacenza
         {
-            short int _colore_arco;
+            short int _tipologia_arco;
             R _arco;
             Nodo *_nodo_adiacente;
         };
@@ -23,8 +28,11 @@ class Nodo
         //vector<adiacenza> getAdiacenze();
         void setNuovoColore(const short int nuovo_colore);
         short int getColore();
-        void setColoreArco(const short int nuovo_colore,Nodo *nodo_adiacente);
-        short int getColoreArco(const Nodo *nodo_adiacente);
+        void setTipologiaArco(const short int nuova_tipologia,const Nodo *nodo_adiacente);
+        Nodo<T,R> findArcoPerTipologia(const short int tipologia_ricerca);
+        void resettaTipologiaArchi();
+        vector<R> getPesoArchi();
+        vector<Nodo<T,R> > getNodiAdiacentiDaPesoArco(R peso_arco);
     protected:
 
     private:
@@ -32,6 +40,8 @@ class Nodo
         vector<adiacenza> _adiacenze;
         T _contenuto;
         short int _colore_nodo;
+        int _tempo_inizio_visita;
+        int _tempo_fine_visita;
 };
 
 #endif // NODO_H
