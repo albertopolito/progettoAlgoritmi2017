@@ -78,7 +78,7 @@ void Nodo<T,R>:: setTipologiaArco(const short int nuova_tipologia,const Nodo *no
         typename vector<adiacenza>::iterator f_it=_adiacenze.begin();
         while(!trovato_arco_neutro){
             f_it=find_if(f_it+1,_adiacenze.end(),find_adiacenza(nodo_adiacente));
-            if(*f_it!=NULL)
+            if(f_it!=_adiacenze.end())
             {
                 if(*f_it.tipologia_arco==NEUTRO)
                 {
@@ -133,9 +133,9 @@ const vector<Nodo<T,R>* > Nodo<T,R>:: getNodiAdiacentiDaPesoArco(R peso_arco)
     vector<Nodo<T,R>* > nodi_adiacenti_da_peso_arco;
     bool trovato_arco_neutro=0;
     typename vector<adiacenza>::iterator f_it=_adiacenze.begin();
-    while(*f_it!=NULL){
+    while(f_it!=_adiacenze.end()){
         f_it=find_if(f_it+1,_adiacenze.end(),find_adiacenza(peso_arco));
-        if(*f_it!=NULL)
+        if(f_it!=_adiacenze.end())
         {
             if(find_if(nodi_adiacenti_da_peso_arco.begin(),nodi_adiacenti_da_peso_arco.end(),nodi_adiacenti_da_peso_arco==*f_it.nodo_adiacenti)==NULL)
             {
