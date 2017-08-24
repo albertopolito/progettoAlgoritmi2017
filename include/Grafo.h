@@ -18,15 +18,14 @@ class Grafo
         virtual ~Grafo();
         Grafo(const Grafo& to_copy);
         void setNuovoNodo(const T contenuto,const R arco,const T contenuto_nodo_adiacente);
-        const vector<R> daContenutoAnalisiInProfondita(const T contenuto);
-        const vector<T> daArcoAnalisiInProfondita(const R arco, const T contenuto);
+        const vector<R> daContenutoAnalisi(const T contenuto);
+        const vector<T> daArcoAnalisi(const R arco, const T contenuto);
         const bool aciclico();
     protected:
 
     private:
         bool _dfs_o_bfs;
         vector<Nodo<T,R>*> _lista_nodi;
-        //secondo vettore su quaderno
         void analisiTotaleInProfondita();
         void visitaNodoDfs(const Nodo<T,R>* nodo_da_visitare);
         void resettaNodi();

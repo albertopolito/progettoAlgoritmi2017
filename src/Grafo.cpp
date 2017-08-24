@@ -53,15 +53,21 @@ void Grafo<T,R>:: setNuovoNodo(const T contenuto,const R arco,const T contenuto_
 }
 
 template<class T,class R>
-const vector<R> Grafo<T,R>:: daContenutoAnalisiInProfondita(const T contenuto)
+const vector<R> Grafo<T,R>:: daContenutoAnalisi(const T contenuto)
 {
     return ricercaNodoPerContenuto(contenuto)->getPesoArchi();
 }
 
 template<class T,class R>
-const vector<T> Grafo<T,R>:: daArcoAnalisiInProfondita(const R arco, const T contenuto)
+const vector<T> Grafo<T,R>:: daArcoAnalisi(const R arco, const T contenuto)
 {
-    //da impliemantare ancora
+    vector<T> vettore_contenuto_adiacenze;
+    vector<Nodo<T,R>*> vettore_adiacenze=ricercaNodoPerContenuto(contenuto)->getNodiAdiacentiDaPesoArco(arco);
+    while(!vettore_adiacenze.empty())
+    {
+        vettore_contenuto_adiacenze.push_back(vettore_adiacenze.pop_back()->getContenuto());
+    }
+    return vettore_contenuto_adiacenze;
 }
 
 template<class T,class R>
