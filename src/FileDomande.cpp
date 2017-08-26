@@ -1,7 +1,7 @@
 #include "FileDomande.h"
 #include"FileInput.h"
 #include"VocabolarioId.h"
-#include <string>
+#include <sstream>
 #include<vector>
 #include<algorithm>
 
@@ -64,5 +64,70 @@ const vector<R> FileDomande<T,R>:: getTutteLeRispostePossibili()
 template<class T, class R>
 const bool FileDomande<T,R>:: leggiFile()
 {
+    T domanda_corrente;
+    T domanda_adiacente;
+    R risposta;
+    string striga_di_appoggio;
+    stringstream stream_riga;
+    string domanda;
+    short int numero_risposte=0;
+    if(apriFileInput())
+    {
+        return 1;
+    }else if(_file_input.end()){
+        return 1;
+    }else{
+        while(!_file_input.end()){
+            striga_di_appoggio.erase();
+            getline(_file_input,striga_di_appoggio);
+            stream_riga.str(striga_di_appoggio);
+            stream_riga>>striga_di_appoggio;
+
+            //leggi domanda
+            if((striga_di_appoggio=="[Q]")&&(numero_risposte==0))
+            {
+                if(stream_riga>>domanda_corrente>>numero_risposte)
+                {
+                    while(!stream_riga.end())
+                    {
+                        striga_di_appoggio.erase();
+                        stream_riga>>striga_di_appoggio;
+                        domanda+=striga_di_appoggio;
+                    }
+                    _vocabolario_domande.setNuovoElemento(domanda_corrente,domanda);
+                }else{
+                    return 1;
+                }
+            }
+
+            //leggi risposta
+            else if((striga_di_appoggio=="[A]")&&(numero_risposte>0))
+            {
+                numero_risposte--;
+                if(stream_riga>>risposta)
+                {
+                    if(stream_riga.end())
+                    {
+                        _grafo_domande_da_sottoporre.setNuovoNodo(domanda_corrente,risposta);
+                    }
+                    while(!stream_riga.end())
+                    {
+                        if(stream_riga>>domanda_adiacente)
+                        {
+                            _grafo_domande_da_sottoporre.setNuovoNodo(domanda_corrente,risposta,domanda_adiacente);
+                        }else{
+                            return 1;
+                        }
+                    }
+                }else{
+                    return 1;
+                }
+
+            //errore di lettura iniziale
+            }else {
+                return 1;
+            }
+        }
+    }
 
 }
