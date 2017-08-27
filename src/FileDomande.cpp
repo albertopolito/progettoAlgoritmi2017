@@ -2,8 +2,6 @@
 #include"FileInput.h"
 #include"VocabolarioId.h"
 #include <sstream>
-#include<vector>
-#include<algorithm>
 
 using namespace std;
 
@@ -58,7 +56,21 @@ const string FileDomande<T,R>:: getDomandaDaId(const T id_domanda)
 template<class T, class R>
 const vector<R> FileDomande<T,R>:: getTutteLeRispostePossibili()
 {
-
+    vector<R> tutte_le_risposte;
+    vector<T> tutte_le_domande=_vocabolario_domande.getTuttiGliId();
+    typename vector<T>::iterator it_domande;
+    typename vector<R>::iterator it_risposte;
+    for(it_domande=tutte_le_domande.begin();it_domande!=tutte_le_domande.end();it_domande++)
+    {
+        for(it_risposte=getRispostaDataLaDomanda(*it_domande).begin();it_risposte=getRispostaDataLaDomanda(*it_domande).end();it_risposte++)
+        {
+            if(find(tutte_le_risposte.begin(),tutte_le_risposte.end(),*it_risposte)==NULL)
+            {
+                tutte_le_risposte.push_back(*it_risposte);
+            }
+        }
+    }
+    return tutte_le_risposte;
 }
 
 template<class T, class R>
@@ -96,6 +108,7 @@ const bool FileDomande<T,R>:: leggiFile()
                     }
                     _vocabolario_domande.setNuovoElemento(domanda_corrente,domanda);
                 }else{
+                    chiudiFileInput();
                     return 1;
                 }
             }
@@ -116,18 +129,23 @@ const bool FileDomande<T,R>:: leggiFile()
                         {
                             _grafo_domande_da_sottoporre.setNuovoNodo(domanda_corrente,risposta,domanda_adiacente);
                         }else{
+                            chiudiFileInput();
                             return 1;
                         }
                     }
                 }else{
+                    chiudiFileInput();
                     return 1;
                 }
 
             //errore di lettura iniziale
             }else {
+                chiudiFileInput();
                 return 1;
             }
         }
-    }
 
+    }
+    chiudiFileInput();
+    return !_grafo_domande_da_sottoporre.aciclico();
 }

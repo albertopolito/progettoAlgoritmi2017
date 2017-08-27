@@ -1,8 +1,5 @@
 #ifndef GESTIONEREFERTAZIONE_H
 #define GESTIONEREFERTAZIONE_H
-#include <string>
-#include<vector>
-#include<algorithm>
 #include"FileRisposte.h"
 #include"FileDomande.h"
 #include"FileStart.h"
@@ -19,26 +16,24 @@ class GestioneRefertazione
         vector<string> risposte;
     };
     public:
-        GestioneRefertazione(string nome_file_risposte, string nome_file_domande, string nome_file_start, string nome_file_test);
+        GestioneRefertazione(const string nome_file_risposte,const string nome_file_domande,const string nome_file_start,const string nome_file_test);
+        GestioneRefertazione(const GestioneRefertazione& to_copy);
         virtual ~GestioneRefertazione();
-        vector<bool> analisiSintattica();
-        bool analisiSemantica();
-        void daFileDiTestAFileDiLog(string nome_file_log);
-        struct domanda_risposte prossimaDomanda();
+        const vector<bool> analisiSintattica();
+        const bool analisiSemantica();
+        void daFileDiTestAFileDiLog(const string nome_file_log);
+        const struct domanda_risposte prossimaDomanda();
         void setRisposta(string risposta);
-        bool fineDomande();
+        const bool fineDomande();
     protected:
 
     private:
-        string _nome_file_risposte;
-        string _nome_file_domande;//nome file
-        string _nome_file_start;
-        string _nome_file_test;
-        FileRisposte<R> _risposte=_nome_file_risposte;
-        FileDomande<T,R> _domande=_nome_file_domande;
-        FileStart<T> _start=_nome_file_start;
-        FileTest<T,R> _test=_nome_file_test;
+        FileRisposte<R> _risposte;
+        FileDomande<T,R> _domande;
+        FileStart<T> _start;
+        FileTest<T,R> _test;
         vector<domanda_rispote> _domande_da_porre;
+        typename vector<domanda_rispote>:: iterator _iteratore_delle_domande_da_porre;
 };
 
 #endif // GESTIONEREFERTAZIONE_H

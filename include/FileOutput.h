@@ -1,8 +1,6 @@
 #ifndef FILEOUTPUT_H
 #define FILEOUTPUT_H
 #include <string>
-#include<vector>
-#include<algorithm>
 #include<fstream>
 using namespace std;
 
@@ -14,8 +12,9 @@ class FileOutput
         FileOutput(const FileOutput& other);
         virtual void scriviFileOutput()=0;
     protected:
-        fstream _file_output;
+        ofstream _file_output;
         void apriFileOutput();
+        void chiudiFileOutput();
     private:
         string _nome_file;
 };

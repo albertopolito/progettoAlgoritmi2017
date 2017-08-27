@@ -3,9 +3,6 @@
 #include"FileInput.h"
 #include"VocabolarioId.h"
 #include"Grafo.h"
-#include <string>
-#include<vector>
-#include<algorithm>
 using namespace std;
 template<class T, class R>
 

@@ -1,9 +1,7 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 #include"Nodo.h"
-#include <string>
-#include<vector>
-#include<algorithm>
+
 #define NEUTRO 0
 #define TREE 1
 #define BACKWARD 2

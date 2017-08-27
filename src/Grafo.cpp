@@ -1,8 +1,6 @@
 #include "Grafo.h"
 #include"Nodo.h"
-#include <string>
-#include<vector>
-#include<algorithm>
+
 //tipologie degli archi
 #define NEUTRO 0
 #define TREE 1

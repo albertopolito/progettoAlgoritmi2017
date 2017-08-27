@@ -1,8 +1,6 @@
 #ifndef FILEINPUT_H
 #define FILEINPUT_H
 #include <string>
-#include<vector>
-#include<algorithm>
 #include<fstream>
 using namespace std;
 
@@ -15,8 +13,9 @@ class FileInput
 
         virtual bool leggiFile()=0; //la vorrei virtuale
     protected:
-        fstream _file_input;
+        ifstream _file_input;
         bool apriFileInput();//se errore 1 altrimenti 0
+        void chiudiFileInput();
     private:
         string _nome_file;
 };
