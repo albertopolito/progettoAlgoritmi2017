@@ -11,7 +11,7 @@ class FileInput
     public:
         FileInput(const string nome_file);
         virtual ~FileInput(); //chiude il file
-        FileInput(const FileInput& other);
+        FileInput(const FileInput &other);
 
         bool leggiFile(); //la vorrei virtuale
     protected:
