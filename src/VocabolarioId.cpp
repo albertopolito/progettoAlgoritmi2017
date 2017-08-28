@@ -22,3 +22,18 @@ void VocabolarioId<T>::setNuovoElemento(const T id,const string testo)
 {
 
 }
+
+template<class T>
+string VocabolarioId<T>::getStringaDaId(const T id)
+{
+
+}
+
+template<class T>
+T VocabolarioId<T>::getIdDaStriga(const string testo)
+{
+
+}
+
+//template class VocabolarioId<int>;
+template class VocabolarioId<string>;

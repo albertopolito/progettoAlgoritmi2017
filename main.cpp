@@ -10,6 +10,8 @@ using namespace std;
 
 int main()
 {
-    cout << "Hello world!" << endl;
+    string nome_A;
+    cin >> nome_A;
+    //FileRisposte<int> A(nome_A);
     return 0;
 }

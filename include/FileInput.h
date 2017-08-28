@@ -10,15 +10,16 @@ class FileInput
 {
     public:
         FileInput(const string nome_file);
-        virtual ~FileInput(); //chiude il file
-        FileInput(const FileInput &other);
+        virtual ~FileInput();               //chiude il file
+        FileInput(const FileInput& other);
 
-        bool leggiFile(); //la vorrei virtuale
+        virtual bool leggiFile();           //la vorrei virtuale
     protected:
         fstream _file_input;
-        bool apriFileInput();//se errore 1 altrimenti 0
-    private:
+        bool apriFileInput();               //se errore 1 altrimenti 0
         string _nome_file;
+    private:
+
 };
 
 #endif // FILEINPUT_H
