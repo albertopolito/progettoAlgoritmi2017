@@ -24,3 +24,8 @@ bool FileInput::apriFileInput()
 {
     return 0;
 }
+
+void FileInput::chiudiFileInput()
+{
+
+}

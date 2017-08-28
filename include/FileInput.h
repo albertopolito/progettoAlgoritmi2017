@@ -11,7 +11,7 @@ class FileInput
         virtual ~FileInput(); //chiude il file
         FileInput(const FileInput& other);
 
-        virtual bool leggiFile()=0; //la vorrei virtuale
+        virtual const bool leggiFile()=0; //la vorrei virtuale
     protected:
         ifstream _file_input;
         bool apriFileInput();//se errore 1 altrimenti 0
