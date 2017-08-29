@@ -10,12 +10,10 @@ using namespace std;
 
 int main()
 {
-    FileDomande<int,int> file("mio.txt");
-    Grafo<int,int> miografo;
-    miografo.setNuovoNodo(10,20,30);
-    file.getErroreInLettura();
-    file.getDomandaDaId(5);
-    file.getDomandaDataRisposta(5,10);
-    file.getTutteLeRispostePossibili();
-    file.getRispostaDataLaDomanda(5);
+    Grafo<string,string> miografo;
+    miografo.setNuovoNodo("a","ciao","b");
+    miografo.setNuovoNodo("b","boh","d");
+    miografo.setNuovoNodo("b","12","e");
+    miografo.setNuovoNodo("e","12","a");
+    cout<<miografo.aciclico()<<endl;
 }
