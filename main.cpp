@@ -13,7 +13,8 @@ int main()
     string nome_A;
     cin >> nome_A;
     cin.ignore();
-    FileRisposte<int> A(nome_A);
+    FileStart<int> A(nome_A);
     A.leggiFile();
+    A.testStampaListaDomande();
     return 0;
 }

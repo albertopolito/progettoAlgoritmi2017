@@ -26,8 +26,9 @@ class FileRisposte : public FileInput
 template<class R>
 FileRisposte<R>::FileRisposte(const string nome_file): FileInput(nome_file)
 {
-    cout << "call FileRisposte" << endl;
-};
+    //ctor
+    apriFileInput();
+}
 
 template<class R>
 FileRisposte<R>::~FileRisposte()
@@ -38,8 +39,8 @@ FileRisposte<R>::~FileRisposte()
 template<class R>
 FileRisposte<R>::FileRisposte(const FileRisposte& other): FileInput(other)
 {
-    apriFileInput();
-};
+    //copy ctor
+}
 
 template<class R>
 bool FileRisposte<R>::leggiFile()
@@ -47,7 +48,8 @@ bool FileRisposte<R>::leggiFile()
     R id_risposta;
     string testo_risposta;
 
-    if(apriFileInput()){
+    if(!_file_input.is_open()){
+        cerr << "Error " << _nome_file << " : file not open" << endl;
         return 1;
     }else if(_file_input.eof()){
         chiudiFileInput();
@@ -56,8 +58,6 @@ bool FileRisposte<R>::leggiFile()
         while(!_file_input.eof()){
             testo_risposta.clear();
             if(_file_input>>id_risposta && (getline(_file_input, testo_risposta))!= NULL){
-
-                cout << id_risposta << " " << testo_risposta << endl;
                 _vocabolario_risposte.setNuovoElemento(id_risposta, testo_risposta);
             } else {
                 chiudiFileInput();
