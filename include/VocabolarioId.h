@@ -18,7 +18,7 @@ class VocabolarioId
         void setNuovoElemento(const T id,const string testo);
         string getStringaDaId(const T id);
         T getIdDaStriga(const string testo);
-        vector<T> getTuttiGliId(); ///riempie un vettore con tutti gli id che sono all'interno del vocabolario
+        vector<T> getTuttiGliId(); ///riempie un vettore con tutte le stringhe che sono all'interno del vocabolario
         bool controlloSintattico();
     protected:
 

@@ -1,17 +1,17 @@
 #ifndef GRAFO_H
 #define GRAFO_H
 #include"Nodo.h"
-//tipologie degli archi
+///tipologie degli archi
 #define NEUTRO 0
 #define TREE 1
 #define BACKWARD 2
 #define FORWARD 3
 #define CROSS 4
-//colori dei nodi
+///colori dei nodi
 #define WHITE 0
 #define GREY 1
 #define BLACK 2
-//tipo di analisi
+///tipo di analisi
 #define NESSUNA_ANALISI 0
 #define PROFONDITA 1
 #define AMPIEZZA 2
@@ -26,6 +26,8 @@ class Grafo
         Grafo(const Grafo& to_copy);
         ///immette un nuovo nodo attraverso il contenuto del nodo, l'arco, e il contenuto del nodo adiacente
         void setNuovoNodo(const T contenuto,const R arco,const T contenuto_nodo_adiacente);
+        ///immette un nuovo nodo senza archi
+        void setNuovoNodo(const T contenuto);
         ///ritorna un vettore degli archi che partono dal nodo ricercato
         const vector<R> daContenutoAnalisi(const T contenuto);
         ///ritorna il contenuto dei nodi collegati al nodo ricercato attraverso un ben preciso peso degli archi
@@ -74,11 +76,11 @@ Grafo<T,R>::~Grafo()
 template<class T,class R>
 Grafo<T,R>::Grafo(const Grafo& to_copy)
 {
-    this->_lista_nodi=to_copy._lista_nodi;
+    this->_dfs_o_bfs
 }
 
 template<class T,class R>
-void Grafo<T,R>:: setNuovoNodo(const T contenuto,const R arco,const T contenuto_nodo_adiacente=0)
+void Grafo<T,R>:: setNuovoNodo(const T contenuto,const R arco,const T contenuto_nodo_adiacente)
 {
     Nodo<T,R>* puntatore_nodo_a_cui_aggiungere_adiacenze=NULL;
     Nodo<T,R>* puntatore_nodo_adiacente=NULL;
@@ -94,6 +96,17 @@ void Grafo<T,R>:: setNuovoNodo(const T contenuto,const R arco,const T contenuto_
     }
     //immetto una nuova adiacenza al nodo
     puntatore_nodo_a_cui_aggiungere_adiacenze->setAdiacenza(arco,puntatore_nodo_adiacente);
+}
+
+template<class T,class R>
+void Grafo<T,R>:: setNuovoNodo(const T contenuto)
+{
+    Nodo<T,R>* puntatore_nodo=NULL;
+    //gurdo se il nod0 richiesto è già nella lista, se non lo è lo creo
+    if((puntatore_nodo=ricercaNodoPerContenuto(contenuto))==NULL)
+    {
+        puntatore_nodo=immettiNellaListaUnNuovoNodo(contenuto);
+    }
 }
 
 template<class T,class R>

@@ -3,17 +3,16 @@
 #include <string>
 #include<vector>
 #include<algorithm>
-//tipologie degli archi
+///tipologie degli archi
 #define NEUTRO 0
 #define TREE 1
 #define BACKWARD 2
 #define FORWARD 3
 #define CROSS 4
-//colori dei nodi
+///colori dei nodi
 #define WHITE 0
 #define GREY 1
 #define BLACK 2
-
 
 using namespace std;
 template<class T,class R>

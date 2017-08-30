@@ -7,27 +7,37 @@
 using namespace std;
 
 template<class T, class R>
-
+///file delle domande, derivato dal file di input
 class FileDomande : public FileInput
 {
     public:
+        ///costruttore, apre il file di input e, leggendolo verifica la sintassi, e l'aciclicità del grafo
         FileDomande(const string nome_file): FileInput(nome_file)
         {
-            _errore_lettura_file=(leggiFile());
+            _errore_lettura_file=(leggiFile()); //imposta la variabile di errore in lettura
         };
         virtual ~FileDomande();
         FileDomande(const FileDomande& to_copy);
+        ///ritorna il valore 1 se ho un errore in lettura del file altrimenti 0
         const bool getErroreInLettura();
+        ///ritorna un vettore con le risposte possibili per quella domanda
         const vector<R> getRispostaDataLaDomanda(const T id_domanda);
+        ///ritorna un vettore con le domande successive data la risposta alla domanda precedente
         const vector<T> getDomandaDataRisposta(const T id_domanda, const R id_risposta);
+        ///ritorna l'id data la stringa della domanda
         const string getDomandaDaId(const T id_domanda);
+        ///ritorna tutte le risposte possibili
         const vector<R> getTutteLeRispostePossibili();
     protected:
 
     private:
-        VocabolarioId<R> _vocabolario_domande;
+        ///ha all'interno tutte le domande correlate con il loro id
+        VocabolarioId<T> _vocabolario_domande;
+        ///struttura dati che mantiene le domande e le risposte relative
         Grafo<T,R> _grafo_domande_da_sottoporre;
+        ///variabile di errore
         bool _errore_lettura_file;
+        ///implementazione della funzione virtuale della classe FileInput
         const bool leggiFile();
 };
 
@@ -57,12 +67,17 @@ const vector<R> FileDomande<T,R>:: getRispostaDataLaDomanda(const T id_domanda)
     vector<R> vettore_senza_ripetizioni=_grafo_domande_da_sottoporre.daContenutoAnalisi(id_domanda);
     typename vector<R>::iterator itr_inizio_analisi=vettore_senza_ripetizioni.begin();
     typename vector<R>::iterator itr_fine_vettore_senza_ripetizioni=vettore_senza_ripetizioni.end();
+    //cerco le ripetizioni degli archi e le rimuovo
     while(itr_inizio_analisi!=itr_fine_vettore_senza_ripetizioni)
     {
         R valore_di_cui_cercare_la_copia=*itr_inizio_analisi;
         itr_inizio_analisi++;
-        itr_fine_vettore_senza_ripetizioni=remove(itr_inizio_analisi,itr_fine_vettore_senza_ripetizioni,valore_di_cui_cercare_la_copia);
+        if(itr_inizio_analisi!=itr_fine_vettore_senza_ripetizioni)
+        {
+            itr_fine_vettore_senza_ripetizioni=remove(itr_inizio_analisi,itr_fine_vettore_senza_ripetizioni,valore_di_cui_cercare_la_copia);
+        }
     }
+    //compatto il vettore lasciando solo i dati utili
     vettore_senza_ripetizioni.erase(itr_fine_vettore_senza_ripetizioni,vettore_senza_ripetizioni.end());
     return vettore_senza_ripetizioni;
 }
@@ -84,8 +99,9 @@ const vector<R> FileDomande<T,R>:: getTutteLeRispostePossibili()
 {
     vector<R> tutte_le_risposte;
     vector<T> tutte_le_domande=_vocabolario_domande.getTuttiGliId();
-    typename vector<T>::iterator it_domande;
+    typename vector<string>::iterator it_domande;
     typename vector<R>::iterator it_risposte;
+    //analizzo tutte le risposte e, prima di inserirle nel vettore elimino le ripetizioni
     for(it_domande=tutte_le_domande.begin();it_domande!=tutte_le_domande.end();it_domande++)
     {
         for(it_risposte=vector<R>(getRispostaDataLaDomanda(*it_domande)).begin();it_risposte!=getRispostaDataLaDomanda(*it_domande).end();it_risposte++)
@@ -109,23 +125,23 @@ const bool FileDomande<T,R>:: leggiFile()
     stringstream stream_riga;
     string domanda;
     short int numero_risposte=0;
+    //faccio i controlli di apertura del file e guardo se il file è vuoto, se ciò succede dò errore
     if(apriFileInput())
     {
         return 1;
     }else if(_file_input.eof()){
         return 1;
     }else{
+        //leggo il file riga per riga tramite la stringa di appoggio e lo stream
         while(!_file_input.eof()){
             striga_di_appoggio.erase();
             getline(_file_input,striga_di_appoggio);
             stream_riga.str(striga_di_appoggio);
+            striga_di_appoggio.erase();
             stream_riga>>striga_di_appoggio;
-
-            //leggi domanda
-            if((striga_di_appoggio=="[Q]")&&(numero_risposte==0))
+            //leggi domanda con relativi controlli e immissioni nelle strutture dati previste
+            if(((striga_di_appoggio=="[Q]")&&(numero_risposte==0))&&(stream_riga>>domanda_corrente>>numero_risposte))
             {
-                if(stream_riga>>domanda_corrente>>numero_risposte)
-                {
                     while(!stream_riga.eof())
                     {
                         striga_di_appoggio.erase();
@@ -133,38 +149,28 @@ const bool FileDomande<T,R>:: leggiFile()
                         domanda+=striga_di_appoggio;
                     }
                     _vocabolario_domande.setNuovoElemento(domanda_corrente,domanda);
-                }else{
-                    chiudiFileInput();
-                    return 1;
-                }
             }
-
-            //leggi risposta
-            else if((striga_di_appoggio=="[A]")&&(numero_risposte>0))
+            //leggi risposta con relativi controlli e immissioni nelle strutture dati previste
+            else if(((striga_di_appoggio=="[A]")&&(numero_risposte>0))&&(stream_riga>>risposta))
             {
-                numero_risposte--;
-                if(stream_riga>>risposta)
-                {
+                    numero_risposte--;
                     if(stream_riga.eof())
                     {
-                        _grafo_domande_da_sottoporre.setNuovoNodo(domanda_corrente,risposta);
-                    }
-                    while(!stream_riga.eof())
-                    {
-                        if(stream_riga>>domanda_adiacente)
+                        //immetto un nodo fittizio con come contenuto un valore nullo (T()) come adiacenza così posso usare sempre lostesso formato per le risposte
+                        _grafo_domande_da_sottoporre.setNuovoNodo(domanda_corrente,risposta,T());
+                    }else {
+                        while(!stream_riga.eof())
                         {
-                            _grafo_domande_da_sottoporre.setNuovoNodo(domanda_corrente,risposta,domanda_adiacente);
-                        }else{
-                            chiudiFileInput();
-                            return 1;
+                            if(stream_riga>>domanda_adiacente)
+                            {
+                                _grafo_domande_da_sottoporre.setNuovoNodo(domanda_corrente,risposta,domanda_adiacente);
+                            }else{
+                                chiudiFileInput();
+                                return 1;
+                            }
                         }
                     }
-                }else{
-                    chiudiFileInput();
-                    return 1;
-                }
-
-            //errore di lettura iniziale
+            //errore di lettura
             }else {
                 chiudiFileInput();
                 return 1;
@@ -173,7 +179,8 @@ const bool FileDomande<T,R>:: leggiFile()
 
     }
     chiudiFileInput();
-    return !_grafo_domande_da_sottoporre.aciclico();
+    //ritorno ancora l'ultimo controllo sull'aciclicità del grafo di modo che le domande passate non si ripetano all'infinito
+    return (!_grafo_domande_da_sottoporre.aciclico()&&_vocabolario_domande.controlloSintattico());
 }
 
 #endif // FILEDOMANDE_H
