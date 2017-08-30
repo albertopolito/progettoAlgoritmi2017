@@ -1,5 +1,5 @@
 #include "FileInput.h"
-#include <string>
+#include<string>
 #include<vector>
 #include<algorithm>
 #include<fstream>
@@ -26,18 +26,28 @@ FileInput::FileInput(const FileInput &other)
 
 bool FileInput::leggiFile()
 {
+    cout << "FileInput::leggiFile()";
     return 0;
 }
 
 bool FileInput::apriFileInput()
 {
-    _file_input.open(_nome_file.c_str(), std::fstream::in);
-    if(!_file_input.is_open())
-    {
+    _file_input.open(_nome_file.c_str());
+    if(!_file_input.is_open()){
         cerr << "Error: file " << _nome_file << endl;
         return 1;
-    } else
-    {
+    } else {
+        return 0;
+    }
+}
+
+bool FileInput::chiudiFileInput()
+{
+    _file_input.close();
+    if(_file_input.is_open()){
+        cerr << "Error: file " << _nome_file << endl;
+        return 1;
+    } else {
         return 0;
     }
 }

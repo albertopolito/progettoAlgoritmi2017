@@ -12,6 +12,8 @@ int main()
 {
     string nome_A;
     cin >> nome_A;
-    //FileRisposte<int> A(nome_A);
+    cin.ignore();
+    FileRisposte<int> A(nome_A);
+    A.leggiFile();
     return 0;
 }
