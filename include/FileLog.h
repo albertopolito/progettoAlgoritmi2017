@@ -15,11 +15,13 @@ class FileLog : public FileOutput
         };
         virtual ~FileLog();
         FileLog(const FileLog& other);
+        const bool getErroreApertura();
         void scriviFileOutput(const R id_risposta,const T id_domanda, const string domanda, const string risposta, const vector<T> domande_successive);
 
     protected:
 
     private:
+        bool _errore_apertura;
 };
 
 #endif // FILELOG_H

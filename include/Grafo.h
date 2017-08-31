@@ -76,7 +76,25 @@ Grafo<T,R>::~Grafo()
 template<class T,class R>
 Grafo<T,R>::Grafo(const Grafo& to_copy)
 {
-    this->_dfs_o_bfs
+    //finchè la lista dei nodi da copiare non è vuota l'analizzo
+    while(!to_copy._lista_nodi.empty())
+    {
+        //analizzo il peso degli archi e le adiacenze a cui sono collegati e scrivo un grafo con all'interno nodi con indirizzi diversi ma stesso contenuto
+        Nodo<T,R>* nodo=to_copy._lista_nodi.back();
+        typename vector<R>::iterator it_archi;
+        for(it_archi=nodo->getPesoArchi().begin();it_archi!=nodo->getPesoArchi().end();it_archi++)
+        {
+            typename vector<Nodo<T,R>*>::iterator it_nodi_adiacenti;
+            for(it_nodi_adiacenti=nodo->getNodiAdiacentiDaPesoArco(*it_archi).begin();it_nodi_adiacenti!=nodo->getNodiAdiacentiDaPesoArco(*it_archi).end();it_nodi_adiacenti++)
+            {
+                Nodo<T,R>* nodo_adiacente=*it_nodi_adiacenti;
+                this->setNuovoNodo(nodo->getContenuto(),*it_archi,nodo_adiacente->getContenuto());
+            }
+        }
+        //elimino l'ultimo nodo dalla lista di nodi da copiare e ricomincio
+        to_copy._lista_nodi.pop_back();
+    }
+    //il vettore della lista nodi rimane copiato ma al rovescio però ciò non è importante, basta che le adiacenze siano giuste
 }
 
 template<class T,class R>

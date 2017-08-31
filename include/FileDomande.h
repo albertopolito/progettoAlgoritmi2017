@@ -180,7 +180,7 @@ const bool FileDomande<T,R>:: leggiFile()
     }
     chiudiFileInput();
     //ritorno ancora l'ultimo controllo sull'aciclicità del grafo di modo che le domande passate non si ripetano all'infinito
-    return (!_grafo_domande_da_sottoporre.aciclico()&&_vocabolario_domande.controlloSintattico());
+    return (!_grafo_domande_da_sottoporre.aciclico()||!_vocabolario_domande.controlloSintattico());
 }
 
 #endif // FILEDOMANDE_H

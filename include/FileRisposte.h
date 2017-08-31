@@ -16,12 +16,17 @@ class FileRisposte : public FileInput
         };
         virtual ~FileRisposte();
         FileRisposte(const FileRisposte& other);
-        bool leggiFile();
-        string getRispostaDaId(const R id);
+        ///ritorna il valore 1 se ho un errore in lettura del file altrimenti 0
+        const bool getErroreInLettura();
+        const string getRispostaDaId(const R id);
+        const R getIdDaRisposta(const string risposta);
     protected:
 
     private:
         VocabolarioId<R> _vocabolario_risposte;
+        ///variabile di errore
+        bool _errore_lettura_file;
+        const bool leggiFile();
 };
 
 #endif // FILERISPOSTE_H
