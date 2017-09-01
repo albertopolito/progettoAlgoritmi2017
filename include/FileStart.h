@@ -43,7 +43,7 @@ bool FileStart<T>::leggiFile()
     T id_domanda;
 
     if(!_file_input.is_open()){
-        cerr << "Error " << _nome_file << " : file not open" << endl;
+        cerr << "Errore " << _nome_file << " : file non aperto" << endl;
         return 1;
     } else if(_file_input.eof()){
         chiudiFileInput();

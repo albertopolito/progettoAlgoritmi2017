@@ -8,14 +8,14 @@ FileInput::FileInput(const string nome_file)
 {
     //ctor
     _nome_file = nome_file;
-    cout << "call FileInput" << endl;
+    //cout << "call FileInput" << endl;
 }
 
 FileInput::~FileInput()
 {
     //dtor
     _file_input.close();
-    cout << "FileInput dtor" << endl;
+    //cout << "FileInput dtor" << endl;
 }
 
 FileInput::FileInput(const FileInput &other)
@@ -26,7 +26,6 @@ FileInput::FileInput(const FileInput &other)
 
 bool FileInput::leggiFile()
 {
-    cout << "FileInput::leggiFile()";
     return 0;
 }
 
@@ -34,7 +33,7 @@ bool FileInput::apriFileInput()
 {
     _file_input.open(_nome_file.c_str());
     if(!_file_input.is_open()){
-        cerr << "Error: file " << _nome_file << endl;
+        cerr << "Errore: file " << _nome_file << endl;
         return 1;
     } else {
         return 0;
@@ -45,7 +44,7 @@ bool FileInput::chiudiFileInput()
 {
     _file_input.close();
     if(_file_input.is_open()){
-        cerr << "Error: file " << _nome_file << endl;
+        cerr << "Errore: file " << _nome_file << endl;
         return 1;
     } else {
         return 0;

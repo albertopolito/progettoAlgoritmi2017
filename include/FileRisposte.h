@@ -49,7 +49,7 @@ bool FileRisposte<R>::leggiFile()
     string testo_risposta;
 
     if(!_file_input.is_open()){
-        cerr << "Error " << _nome_file << " : file not open" << endl;
+        cerr << "Errore " << _nome_file << " : file non aperto" << endl;
         return 1;
     }else if(_file_input.eof()){
         chiudiFileInput();
@@ -58,7 +58,15 @@ bool FileRisposte<R>::leggiFile()
         while(!_file_input.eof()){
             testo_risposta.clear();
             if(_file_input>>id_risposta && (getline(_file_input, testo_risposta))!= NULL){
-                _vocabolario_risposte.setNuovoElemento(id_risposta, testo_risposta);
+                if(_vocabolario_risposte.getStringaDaId(id_risposta) != "\0"){
+                    cerr << "Errore: ID risposta non unico" << endl;
+                    return 1;
+                } else if (_vocabolario_risposte.getIdDaStriga(testo_risposta) != 0){
+                    cerr << "Errore: testo risposta non unico" << endl;
+                    return 1;
+                } else {
+                    _vocabolario_risposte.setNuovoElemento(id_risposta, testo_risposta);
+                }
             } else {
                 chiudiFileInput();
                 return 1;

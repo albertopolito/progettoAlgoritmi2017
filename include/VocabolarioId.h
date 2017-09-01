@@ -16,8 +16,8 @@ class VocabolarioId
         virtual ~VocabolarioId();
         VocabolarioId(const VocabolarioId& other);
         void setNuovoElemento(const T id,const string testo);
-        string getStringaDaId(const T id);
-        T getIdDaStriga(const string testo);
+        string getStringaDaId(const T id);          //ritorna "\0" se non trovato
+        T getIdDaStriga(const string testo);        //ritorna 0 se non trovato
         bool controlloSintattico();
     protected:
 
