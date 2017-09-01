@@ -22,7 +22,8 @@ class FileStart : public FileInput
         virtual ~FileStart();
         ///ritorna il valore 1 se ho un errore in lettura del file altrimenti 0
         const bool getErroreInLettura();
-        const vector<T> getDomandeObbligatorie();
+        const T getDomandaObbligatoria();
+        const bool finitoDomandeObbligatorie();
     protected:
 
     private:
