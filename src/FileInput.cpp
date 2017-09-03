@@ -5,7 +5,7 @@
 #include<fstream>
 FileInput::FileInput(const string nome_file)
 {
-    //ctor
+    _nome_file=nome_file;
 }
 
 FileInput::~FileInput()
@@ -13,16 +13,16 @@ FileInput::~FileInput()
     //dtor
 }
 
-FileInput::FileInput(const FileInput& other)
+FileInput::FileInput(const FileInput& to_copy)
 {
-    //copy ctor
+    this->_nome_file=to_copy._nome_file;
 }
 
 
 //da guardare
 bool FileInput::apriFileInput()
 {
-    return 0;
+
 }
 
 void FileInput::chiudiFileInput()
