@@ -10,7 +10,7 @@ class FileInput
         FileInput(const string nome_file);
         virtual ~FileInput(); //chiude il file se ancora aperto
         FileInput(const FileInput& to_copy);
-        virtual const bool leggiFile()=0; //la vorrei virtuale
+        virtual const bool leggiFile()=0;
     protected:
         ifstream _file_input;
         bool apriFileInput();//se errore 1 altrimenti 0

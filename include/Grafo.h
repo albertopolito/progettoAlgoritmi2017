@@ -16,6 +16,7 @@
 #define PROFONDITA 1
 #define AMPIEZZA 2
 
+
 using namespace std;
 template<class T,class R>
 class Grafo
@@ -153,16 +154,20 @@ const bool Grafo<T,R>:: aciclico()
     if(_dfs_o_bfs!=PROFONDITA)  //se non ho già fatto l'analisi in profondità la faccio
     {
         analisiTotaleInProfondita();
+
     }
     //cerco in ogni nodo del grafo se gli archi ettichettati con backward, se ne esiste anche solo uno allora il grafo è ciclico, altrimenti è aciclico
     for(itr_lista_nodi=_lista_nodi.begin();itr_lista_nodi!=_lista_nodi.end();itr_lista_nodi++)
     {
         Nodo<T,R>* nodo=*itr_lista_nodi;
         if(nodo->findArcoPerTipologia(BACKWARD)!=NULL)
+
             return 0;
+
     }
 
     return 1;
+
 }
 
 template<class T,class R>
@@ -174,6 +179,7 @@ void Grafo<T,R>:: analisiTotaleInProfondita()
     _tempo_totale=0;            //setto a zero il tempo di visita totale
     for(itr_lista_nodi=_lista_nodi.begin();itr_lista_nodi!=_lista_nodi.end();itr_lista_nodi++)
     {
+
         Nodo<T,R>* nodo=*itr_lista_nodi;    //puntatore di appoggio
         if(nodo->getColore()==WHITE)        //per tutti i nodi bianchi implemento la visita in profondità
         {
@@ -189,6 +195,8 @@ void Grafo<T,R>:: visitaNodoDfs( Nodo<T,R>* nodo_da_visitare)
     nodo_da_visitare->setNuovoColore(GREY);
     _tempo_totale++;
     nodo_da_visitare->setTempoInizioVisita(_tempo_totale);
+
+
     //visito il nodo, ricerco le adiacenze ancora da analizzare tramite l'analisi della neutralità degli archi che gli partono
     while((nodo_adiacente=nodo_da_visitare->findArcoPerTipologia(NEUTRO))!=NULL)
     {
@@ -199,12 +207,13 @@ void Grafo<T,R>:: visitaNodoDfs( Nodo<T,R>* nodo_da_visitare)
                         break;
             case GREY:  nodo_da_visitare->setTipologiaArco(BACKWARD,nodo_adiacente);//se il nodo è grigio allora l'arco è backward e non lo analizzo
                         break;
-            case BLACK: if(nodo_adiacente->getTempoInizioVisita()>nodo_da_visitare->getTempoInizioVisita())
+            case BLACK:if(nodo_adiacente->getTempoInizioVisita()>nodo_da_visitare->getTempoInizioVisita())
                         {
                             //se il nodo è nero e si verifica la condizione sopracitata allora l'arco è forward e non lo analizzo
                             nodo_da_visitare->setTipologiaArco(FORWARD,nodo_adiacente);
                         }else{
                             //altrimenti è di cross
+
                             nodo_da_visitare->setTipologiaArco(CROSS,nodo_adiacente);
                         }
                         break;
@@ -214,7 +223,6 @@ void Grafo<T,R>:: visitaNodoDfs( Nodo<T,R>* nodo_da_visitare)
     nodo_da_visitare->setNuovoColore(BLACK);
     _tempo_totale++;
     nodo_da_visitare->setTempoFineVisita(_tempo_totale);
-
 }
 
 template<class T,class R>

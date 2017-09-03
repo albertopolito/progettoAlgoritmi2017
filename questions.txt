@@ -1,0 +1,83 @@
+﻿[Q] 1 2 Sesso del paziente
+
+[A] 17 3
+
+[A] 18 3 2
+
+[Q] 2 2 La paziente è in cinta?
+
+[A] 19
+
+[A] 20
+
+[Q] 3 2 Il paziente è fumatore?
+
+[A] 21 4 11
+
+[A] 20
+
+[Q] 4 2 Il paziente è stato sottoposto a controllo ai polmoni?
+
+[A] 1
+
+[A] 2
+
+[Q] 5 2 È stata acquisita una retinografia dell’occhio sinistro?
+
+[A] 1 7 8
+
+[A] 2
+
+[Q] 6 2 È stata acquisita una retinografia dell’occhio destro?
+
+[A] 1 7 8
+
+[A] 2
+
+[Q] 7 2 L’immagine viene giudicata ammissibile?
+
+[A] 12
+
+[A] 13
+
+[Q] 8 3 La qualità dell’immagine viene giudicata ammissibile?
+
+[A] 14 9
+
+[A] 15
+
+[A] 16
+
+[Q] 9 4 L’immagine presenta macchie?
+
+[A] 4 10
+
+[A] 5 10
+
+[A] 6 10
+
+[A] 7 10
+
+[Q] 10 4 L’immagine presenta lesioni?
+
+[A] 8
+
+[A] 9
+
+[A] 10
+
+[A] 11
+
+[Q] 11 2 Il paziente è stato sottoposto a controllo per invecchiamento precoce?
+
+[A] 1
+
+[A] 2
+
+[Q] 12 3 Età del paziente?
+
+[A] 24
+
+[A] 22
+
+[A] 23

@@ -37,13 +37,13 @@ class Nodo
             Nodo<T,R>* f_nodo_adiacente;    //per indirizzo dell'adiacenza
             bool ricerca_nodo_adiacente;    //indica che sto ricercando per indirizzo dell'adiacenza
 
-            find_adiacenza(short int tipologia) : f_tipologia(tipologia)    //costruttore della struct per la ricerca per tipologia
+            find_adiacenza(const short int tipologia,const bool diverso_da_template) : f_tipologia(tipologia)    //costruttore della struct per la ricerca per tipologia
             {
                 ricerca_tipologia=1;        //setto il flag per capire che sto ricercando per tipologia, ed annullo gli altri
                 ricerca_peso_arco=0;
                 ricerca_nodo_adiacente=0;
             }
-            find_adiacenza(R peso_arco) : f_peso_arco(peso_arco)            //costruttore della struct per la ricerca per peso dell'arco
+            find_adiacenza(const R peso_arco) : f_peso_arco(peso_arco)            //costruttore della struct per la ricerca per peso dell'arco
             {
                 ricerca_tipologia=0;        //setto il flag per capire che sto ricercando per peso dell'arco, ed annullo gli altri
                 ricerca_peso_arco=1;
@@ -176,7 +176,7 @@ void Nodo<T,R>:: setTipologiaArco(const short int nuova_tipologia, Nodo *nodo_ad
         typename vector<adiacenza>::iterator f_it=_adiacenze.begin();
         //finchè non ho trovato un arco neutro che è collegato al nodo di cui ho passato l'indirizzo alla funzione
 
-        while((!trovato_arco_neutro)&&((f_it=find_if(_adiacenze.begin(),_adiacenze.end(),find_adiacenza(nodo_adiacente)))!=_adiacenze.end())){
+        while((!trovato_arco_neutro)&&((f_it=find_if(f_it,_adiacenze.end(),find_adiacenza(nodo_adiacente)))!=_adiacenze.end())){
 
                 if(adiacenza(*f_it).tipologia_arco==NEUTRO)
                 {   //se ho trovato un arco ancora neutro collegato all'adiacenza allora faccio terminare il ciclo e scrivo la nuova tipologia
@@ -186,6 +186,7 @@ void Nodo<T,R>:: setTipologiaArco(const short int nuova_tipologia, Nodo *nodo_ad
                     temp.tipologia_arco=nuova_tipologia;
                     *f_it=temp;
                 }
+                f_it++;
         }
 
     }
@@ -194,10 +195,11 @@ void Nodo<T,R>:: setTipologiaArco(const short int nuova_tipologia, Nodo *nodo_ad
 template<class T,class R>
 Nodo<T,R>* Nodo<T,R>:: findArcoPerTipologia(const short int tipologia_ricerca)
 {
+
     typename vector<adiacenza>::iterator f_it;
     if(!_adiacenze.empty())
     {
-        f_it=find_if(_adiacenze.begin(),_adiacenze.end(),find_adiacenza(tipologia_ricerca));
+        f_it=find_if(_adiacenze.begin(),_adiacenze.end(),find_adiacenza(tipologia_ricerca,0));
         if(f_it!=_adiacenze.end())  //se ho trovato un arco con la tipologia ricercata allora lo ritorno alla funzione  attraverso il suo indirizzo
         {
             return adiacenza(*f_it).nodo_adiacente;
@@ -205,6 +207,7 @@ Nodo<T,R>* Nodo<T,R>:: findArcoPerTipologia(const short int tipologia_ricerca)
         //altrimenti gli ritorno un indirizzo nullo
         return NULL;
     }
+
     return NULL;
 }
 

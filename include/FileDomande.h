@@ -4,6 +4,7 @@
 #include"VocabolarioId.h"
 #include"Grafo.h"
 #include<sstream>
+#include<iostream>
 using namespace std;
 
 template<class T, class R>
@@ -134,25 +135,30 @@ const bool FileDomande<T,R>:: leggiFile()
     }else{
         //leggo il file riga per riga tramite la stringa di appoggio e lo stream
         while(!_file_input.eof()){
-            striga_di_appoggio.erase();
+            stream_riga.clear();
+            striga_di_appoggio.clear();
             getline(_file_input,striga_di_appoggio);
             stream_riga.str(striga_di_appoggio);
-            striga_di_appoggio.erase();
+            striga_di_appoggio.clear();
             stream_riga>>striga_di_appoggio;
+
             //leggi domanda con relativi controlli e immissioni nelle strutture dati previste
             if(((striga_di_appoggio=="[Q]")&&(numero_risposte==0))&&(stream_riga>>domanda_corrente>>numero_risposte))
             {
                     while(!stream_riga.eof())
                     {
-                        striga_di_appoggio.erase();
+                        striga_di_appoggio.clear();
                         stream_riga>>striga_di_appoggio;
                         domanda+=striga_di_appoggio;
+                        domanda+=" ";
                     }
                     _vocabolario_domande.setNuovoElemento(domanda_corrente,domanda);
+                    domanda.clear();
             }
             //leggi risposta con relativi controlli e immissioni nelle strutture dati previste
             else if(((striga_di_appoggio=="[A]")&&(numero_risposte>0))&&(stream_riga>>risposta))
             {
+
                     numero_risposte--;
                     if(stream_riga.eof())
                     {
@@ -172,12 +178,14 @@ const bool FileDomande<T,R>:: leggiFile()
                     }
             //errore di lettura
             }else {
+
                 chiudiFileInput();
                 return 1;
             }
         }
 
     }
+
     chiudiFileInput();
     //ritorno ancora l'ultimo controllo sull'aciclicità del grafo di modo che le domande passate non si ripetano all'infinito
     return (!_grafo_domande_da_sottoporre.aciclico()||!_vocabolario_domande.controlloSintattico());
