@@ -5,9 +5,8 @@
 #include<fstream>
 using namespace std;
 
-FileInput::FileInput(const string nome_file)
+FileInput::FileInput()
 {
-    _nome_file=nome_file;
 }
 
 FileInput::~FileInput()
@@ -17,16 +16,11 @@ FileInput::~FileInput()
 
 FileInput::FileInput(const FileInput& to_copy)
 {
-    this->_nome_file=to_copy._nome_file;
-    if(!to_copy._file_input.is_open())
-    {
-        this->_file_input.open(this->_nome_file.c_str());
-    }
 }
 
-bool FileInput::apriFileInput()
+bool FileInput::apriFileInput(const string nome_file)
 {
-    _file_input.open(_nome_file.c_str());
+    _file_input.open(nome_file.c_str());
     return !_file_input.is_open();
 }
 

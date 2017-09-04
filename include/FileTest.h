@@ -23,6 +23,30 @@ class FileTest : public FileInput , FileOutput
         R id_risposta;
         T id_domanda;
         bool ho_risposto;
+        test(R n_id_risposta,T n_id_domanda,bool risposto)
+        {
+            id_domanda=n_id_domanda;
+            id_risposta=n_id_risposta;
+            ho_risposto=risposto;
+        }
+    };
+    struct f_test{
+        T f_id_risposta;
+        R f_id_domanda;
+        bool f_ricerca_risposta_domanda;
+        f_test(R id_risposta) : f_id_risposta(id_risposta)
+        {
+            f_ricerca_risposta_domanda=0;
+        }
+
+        f_test(T id_domanda, const bool domanda) : f_id_domanda(id_domanda)
+        {
+            f_ricerca_risposta_domanda=1;
+        }
+        bool operator () ( const test& f_test ) const
+        {
+            return ((!f_ricerca_risposta_domanda&&f_test.id_risposta==f_id_risposta)||(f_ricerca_risposta_domanda&&f_test.id_domanda==f_id_domanda));
+        }
     };
     public:
         FileTest();
@@ -56,23 +80,20 @@ const bool  FileTest<T,R>:: apriInLetturaScrittura(const string nome_file, const
 {
     if(modalita)
     {
-        FileOutput(nome_file);
-        return apriFileOutput();
+        return apriFileOutput(nome_file);
     }else{
-        FileInput(nome_file);
-        return (apriFileInput()||leggiFile());
+        return (apriFileInput(nome_file)||leggiFile());
     }
 }
 
 template<class T, class R>
 const T FileTest<T,R>:: leggiDomandaCorrente()
 {
-    if(*_it_domande_con_risposta!=_domande_con_risposta.end())
+    if(_it_domande_con_risposta!=_domande_con_risposta.end())
     {
         return test(*_it_domande_con_risposta).id_domanda;
-    }else{
-        return T();
     }
+    return T();
 }
 
 template<class T, class R>
@@ -85,26 +106,18 @@ void FileTest<T,R>:: prossimaDomanda()
 template<class T, class R>
 const R FileTest<T,R>::getRispostaDaDomanda(const T id_domanda, const bool modalita)
 {
-    bool found = 0;
-    typename vector<test>::iterator _domande_con_risposta_iterator;
-    _domande_con_risposta_iterator = _domande_con_risposta.begin();
-
-//Cerca un id che corrisponda:
-    for (; _domande_con_risposta_iterator != _domande_con_risposta.end(); _domande_con_risposta_iterator++){
-        if ((*_domande_con_risposta_iterator).id_domanda == id_domanda){
-
-            //Trovato l'ID segna la domanda come risposta
-            //e restituisce l'ID della risposta
-            if(modalita==FUNZIONAMENTO)
-            {
-               (*_domande_con_risposta_iterator).ho_risposto = 1;
-            }
-            return (*_domande_con_risposta_iterator).id_risposta;
-            found = 1;
+    typename vector<test>::iterator it_test=find_if(_domande_con_risposta.begin(),_domande_con_risposta.end(),f_test(id_domanda,0));
+    if(it_test!=_domande_con_risposta.end())
+    {
+        R id_risposta=test(*it_test).id_risposta;
+        if(modalita==FUNZIONAMENTO)
+        {
+            test temp(test(*it_test).id_risposta,test(*it_test).id_domanda,1);
+            _domande_con_risposta.erase(it_test);
+            _domande_con_risposta.push_back(temp);
         }
-    }
-    // Restituisce 0 in caso di ID domanda non trovato
-    if (found == 0){
+        return id_risposta;
+    }else{
         return R();
     }
 }
@@ -112,7 +125,8 @@ const R FileTest<T,R>::getRispostaDaDomanda(const T id_domanda, const bool modal
 template<class T, class R>
 const bool FileTest<T,R>::hoGiaRisposto(const T id_domanda)
 {
-
+    typename vector<test>::iterator it_test=find_if(_domande_con_risposta.begin(),_domande_con_risposta.end(),f_test(id_domanda,0));
+    return test(*it_test).ho_risposto;
 }
 
 template<class T, class R>
@@ -145,20 +159,14 @@ template<class T, class R>
 // Aggiunge un nuovo elemento al vettore degli ID
 void FileTest<T, R>::immettiNuovoElemento(const T id_domanda,const R id_risposta, const bool modalita_scrittura_in_struttura_dati)
 {
-    typename vector<test>::iterator _domande_con_risposta_iterator;
-    test t;
-    t.id_domanda = id_domanda;
-    t.id_risposta = id_risposta;
+    test t(id_risposta,id_domanda,0);
     if(modalita_scrittura_in_struttura_dati==DA_FILE)
     {
         t.ho_risposto = 0;
     }else{
         t.ho_risposto = 1;
     }
-
-    _domande_con_risposta.begin();
     _domande_con_risposta.push_back(t);
-    _domande_con_risposta_iterator = _domande_con_risposta.begin();
 }
 
 template<class T, class R>
@@ -177,4 +185,27 @@ void FileTest<T,R>::scriviFileOutput()
         _file_output << (*_domande_con_risposta_iterator).id_domanda << " " << (*_domande_con_risposta_iterator).id_risposta << endl;
     }
 }
+
+template<class T, class R>
+const bool FileTest<T,R>::leggiFile()
+{
+    if(_file_input.eof())
+    {
+        return 1;
+    }else{
+        while(!_file_input.eof())
+        {
+            R id_risposta;
+            T id_domanda;
+            if(!(_file_input>>id_domanda>>id_risposta)||(getRispostaDaDomanda(id_domanda,ANALISI)!=R()))
+            {
+                return 1;
+            }else{
+                immettiNuovoElemento(id_domanda,id_risposta,DA_FILE);
+            }
+        }
+        return 0;
+    }
+}
+
 #endif // FILETEST_H

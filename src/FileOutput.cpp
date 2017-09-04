@@ -9,10 +9,6 @@ FileOutput::FileOutput()
 {
     //ctor
 }
-FileOutput::FileOutput(const string nome_file)
-{
-    _nome_file=nome_file;
-}
 
 FileOutput::~FileOutput()
 {
@@ -21,11 +17,7 @@ FileOutput::~FileOutput()
 
 FileOutput::FileOutput(const FileOutput& to_copy)
 {
-    this->_nome_file=to_copy._nome_file;
-    if(!to_copy._file_output.is_open())
-    {
-        this->_file_output.open(this->_nome_file.c_str());
-    }
+
 }
 
 void FileOutput::scriviFileOutput()
@@ -33,9 +25,9 @@ void FileOutput::scriviFileOutput()
     //copy ctor
 }
 
-const bool FileOutput::apriFileOutput()
+const bool FileOutput::apriFileOutput(const string nome_file)
 {
-    _file_output.open(_nome_file.c_str());
+    _file_output.open(nome_file.c_str());
     if(_file_output.is_open())
     {
         return 0;

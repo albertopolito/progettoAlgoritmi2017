@@ -13,14 +13,9 @@ class FileDomande : public FileInput
 {
     public:
         ///costruttore, apre il file di input e, leggendolo verifica la sintassi, e l'aciclicità del grafo
-        FileDomande(const string nome_file): FileInput(nome_file)
-        {
-            _errore_lettura_file=(leggiFile()); //imposta la variabile di errore in lettura
-        };
+        FileDomande();
         virtual ~FileDomande();
         FileDomande(const FileDomande& to_copy);
-        ///ritorna il valore 1 se ho un errore in lettura del file altrimenti 0
-        const bool getErroreInLettura();
         ///ritorna un vettore con le risposte possibili per quella domanda
         const vector<R> getRispostaDataLaDomanda(const T id_domanda);
         ///ritorna un vettore con le domande successive data la risposta alla domanda precedente
@@ -29,6 +24,8 @@ class FileDomande : public FileInput
         const string getDomandaDaId(const T id_domanda);
         ///ritorna tutte le risposte possibili
         const vector<R> getTutteLeRispostePossibili();
+        ///implementazione della funzione virtuale della classe FileInput
+        const bool leggiFile(const string nome_file);
     protected:
 
     private:
@@ -36,10 +33,6 @@ class FileDomande : public FileInput
         VocabolarioId<T> _vocabolario_domande;
         ///struttura dati che mantiene le domande e le risposte relative
         Grafo<T,R> _grafo_domande_da_sottoporre;
-        ///variabile di errore
-        bool _errore_lettura_file;
-        ///implementazione della funzione virtuale della classe FileInput
-        const bool leggiFile();
 };
 
 template<class T, class R>
@@ -54,12 +47,6 @@ FileDomande<T,R>::FileDomande(const FileDomande& to_copy)
     this->_errore_lettura_file=to_copy._errore_lettura_file;
     this->_grafo_domande_da_sottoporre=to_copy._grafo_domande_da_sottoporre;
     this->_vocabolario_domande=to_copy._vocabolario_domande;
-}
-
-template<class T, class R>
-const bool FileDomande<T,R>:: getErroreInLettura()
-{
-    return _errore_lettura_file;
 }
 
 template<class T, class R>
@@ -117,7 +104,7 @@ const vector<R> FileDomande<T,R>:: getTutteLeRispostePossibili()
 }
 
 template<class T, class R>
-const bool FileDomande<T,R>:: leggiFile()
+const bool FileDomande<T,R>:: leggiFile(const string nome_file)
 {
     T domanda_corrente;
     T domanda_adiacente;
@@ -127,7 +114,7 @@ const bool FileDomande<T,R>:: leggiFile()
     string domanda;
     short int numero_risposte=0;
     //faccio i controlli di apertura del file e guardo se il file è vuoto, se ciò succede dò errore
-    if(apriFileInput())
+    if(apriFileInput(nome_file.c_str()))
     {
         return 1;
     }else if(_file_input.eof()){

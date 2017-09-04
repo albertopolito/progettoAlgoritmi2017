@@ -50,15 +50,17 @@ class GestioneRefertazione
         vector<T> _domande_da_porre;
         ///flag che indica in che modalità si trova il programma, cioè se devo leggere o scrivere il file di test
         bool _modalita_di_funzionamento_per_il_file_test;
+        bool _errore_risposte;
+        bool _errore_domande;
+        bool _errore_start;
 };
-
 template<class T, class R>
 GestioneRefertazione<T,R>::GestioneRefertazione(const string nome_file_risposte,const string nome_file_domande,const string nome_file_start)
 {
     //inizializzazione delle 3 classi
-    _risposte(nome_file_risposte);
-    _domande(nome_file_domande);
-    _start(nome_file_start);
+    _errore_risposte=_risposte.leggiFile(nome_file_risposte);
+    _errore_domande=_domande.leggiFile(nome_file_domande);
+    _errore_start=_start.leggiFile(nome_file_start);
 }
 
 template<class T, class R>
@@ -69,7 +71,7 @@ GestioneRefertazione<T,R>::GestioneRefertazione(const GestioneRefertazione& to_c
     this->_iteratore_delle_domande_da_porre=to_copy._iteratore_delle_domande_da_porre;
     this->_risposte=to_copy._risposte;
     this->_start=to_copy._start;
-    this->_test=to_copy._start;
+    this->_test=to_copy._test;
 }
 
 template<class T, class R>
@@ -87,28 +89,30 @@ void GestioneRefertazione<T,R>::setModalitaDiFunzionamentoFileTest(const bool mo
 template<class T, class R>
 const bool GestioneRefertazione<T,R>:: analisiSintatticaSemanticaEdInizializzazione()
 {
-    if(_risposte.getErroreInLettura()&&_domande.getErroreInLettura()&&_start.getErroreInLettura())
+    if(_errore_risposte&&_errore_domande&&_errore_start)
     {
         return 1;   //se ho un errore nella lettura dei tre file non continuo l'analisi e dò un errore
     }else{
         typename vector<R>::iterator it_risposte;
+        vector<R> risposte_possibili=_domande.getTutteLeRispostePossibili();
         //guardo che gli id delle risposte che ci sono nel file delle domande sono presenti anche nel file delle risposte
-        for(it_risposte=_domande.getTutteLeRispostePossibili().begin();it_risposte!=_domande.getTutteLeRispostePossibili().end();it_risposte++)
+        for(it_risposte=risposte_possibili.begin();it_risposte!=risposte_possibili.end();it_risposte++)
         {
             if(_risposte.getRispostaDaId(*it_risposte)=="")
             {
                 return 1;
             }
         }
-        typename vector<T>::iterator it_domande_obbligatorie;
         //guardo che gli id delle domande obbligatorie nel file di start esistano, cioè siano contenute nel file delle domande
-        for(it_domande_obbligatorie=_start.getDomandeObbligatorie().begin();it_domande_obbligatorie!=_start.getDomandeObbligatorie().end();it_domande_obbligatorie++)
+        _start.resettaDomandeObbligatorie();
+        while(!_start.finitoDomandeObbligatorie())
         {
-            if(_domande.getDomandaDaId(*it_domande_obbligatorie)=="")
+            if(_domande.getDomandaDaId(_start.getDomandaObbligatoria())=="")
             {
                 return 1;
             }
         }
+
     }
     //i controlli sono andati abuon fine allore inizializzo il vettore delle domande da porre con la prima domanda obbligatoria
     _domande_da_porre.push_back(_start.getDomandaObbligatoria());
@@ -130,7 +134,7 @@ const bool  GestioneRefertazione<T,R>:: apriLetturaScritturaFileTest(const strin
         while(!_test.hoFinitoLeDomande())
         {
             vector<R> risposte_valide=_domande.getRispostaDataLaDomanda(_test.leggiDomandaCorrente());
-            if(find(risposte_valide.begin(),risposte_valide.end(),_test.getRispostaDaDomanda(_test.leggiDomandaCorrente))==risposte_valide.end())
+            if(find(risposte_valide.begin(),risposte_valide.end(),_test.getRispostaDaDomanda(_test.leggiDomandaCorrente()))==risposte_valide.end())
             {
                 return 1;
             }
@@ -144,8 +148,8 @@ template<class T, class R>
 const bool GestioneRefertazione<T,R>:: daFileDiTestAFileDiLog(const string nome_file_log)
 {
     //inizializzo la classe del file di log, se ho un problema in apertura allora esco dalla funzione e dò errore
-    FileLog<T,R> log(nome_file_log);
-    if(log.getErroreApertura())
+    FileLog<T,R> log;
+    if(log.apriFileLog(nome_file_log))
     {
         return 1;
     }else{
@@ -172,16 +176,22 @@ const bool GestioneRefertazione<T,R>:: daFileDiTestAFileDiLog(const string nome_
                 T domanda_corrente=_domande_da_porre.back();
                 if(domanda_corrente!=T())
                 {
+                    vector<T> domande;
                     log.scriviFileOutput(_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO),domanda_corrente,_domande.getDomandaDaId(domanda_corrente),_risposte.getRispostaDaId(_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO)),_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO)));
                     _domande_da_porre.pop_back();
-                    _domande_da_porre.push_back(reverse(_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente)).begin(),_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente)).end()));
+                    domande=_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente));
+                    reverse(domande.begin(),domande.end());
+                    for(typename vector<T>::iterator it=domande.begin();it!=domande.end();it++)
+                    {
+                        _domande_da_porre.push_back(*it);
+                    }
                 }
             }
             //ritorno il parametro che mi indica se ho preso o no in considerazione tutte le righe scritte sul file di test, se non è così do in uscita un errore
             return !_test.hoFinitoLeDomande(FUNZIONAMENTO);
         }
-        return 0;
     }
+    return 0;
 }
 
 template<class T, class R>
@@ -217,14 +227,20 @@ const bool GestioneRefertazione<T,R>:: setRisposta(const string risposta)
             //se la risposta data non è valida ritorno un errore
             return 1;
         }else{
+            vector<T> domande;
             //immetto altre domande nel vettore finchè non le finisco
             _test.immettiNuovoElemento(_domande_da_porre.back(),id_risposta,DA_FUNZIONAMENTO);
             _domande_da_porre.pop_back();
-            _domande_da_porre.push_back(reverse(_domande.getDomandaDataRisposta(domanda_posta,id_risposta).begin(),_domande.getDomandaDataRisposta(domanda_posta,id_risposta).end()));
+            domande=_domande.getDomandaDataRisposta(domanda_posta,id_risposta);
+            reverse (domande.begin(),domande.end());
+            for(typename vector<T>::iterator it=domande.begin();it!=domande.end();it++)
+            {
+               _domande_da_porre.push_back(*it);
+            }
             while(_domande_da_porre.back()==T()||_test.hoGiaRisposto(_domande_da_porre.back()))
             {
                 _domande_da_porre.pop_back();
-                if(!_start.finitoDomandeObbligatorie)
+                if(!_start.finitoDomandeObbligatorie())
                 {
                     _domande_da_porre.push_back(_start.getDomandaObbligatoria());
                 }
@@ -252,12 +268,11 @@ const bool GestioneRefertazione<T,R>:: scriviFileTest()
 template<class T, class R>
 const bool GestioneRefertazione<T,R>:: fineDomande()
 {
-    if(_domande_da_porre.empty()&&_start.finitoDomandeObbligatorie)
+    if(_domande_da_porre.empty()&&_start.finitoDomandeObbligatorie())
     {
         return 1;
-    }else{
-        return 0;
     }
+    return 0;
 }
 
 #endif // GESTIONEREFERTAZIONE_H

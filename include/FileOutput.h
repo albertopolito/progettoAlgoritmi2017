@@ -10,15 +10,13 @@ class FileOutput
 {
     public:
         FileOutput();
-        FileOutput(const string nome_file);
         virtual ~FileOutput();
         FileOutput(const FileOutput& to_copy);
-        const bool apriFileOutput();
+        const bool apriFileOutput(const string nome_file);
         void chiudiFileOutput();
         virtual void scriviFileOutput();
     protected:
         ofstream _file_output;
-
     private:
         string _nome_file;
 };

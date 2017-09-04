@@ -11,18 +11,14 @@ template<class T, class R>
 class FileLog : public FileOutput
 {
     public:
-        FileLog(const string nome_file) : FileOutput(nome_file)
-        {
-        };
+        FileLog();
         virtual ~FileLog();
-        void apriFileLog();
-        bool getErrore();
+        const bool apriFileLog(const string nome_file);
         FileLog(const FileLog& other);
         void chiudiFileLog();
         void scriviFileOutput(const R id_risposta,const T id_domanda, const string domanda, const string risposta, const vector<T> domande_successive);
     protected:
     private:
-        bool _errore_apertura;
 };
 template<class T, class R>
 FileLog<T,R>::~FileLog()
@@ -37,15 +33,9 @@ FileLog<T,R>::FileLog(const FileLog& other)
 }
 
 template<class T, class R>
-void FileLog<T,R>::apriFileLog()
+const bool FileLog<T,R>::apriFileLog(const string nome_file)
 {
-    _errore_apertura=apriFileOutput();
-}
-
-template<class T, class R>
-bool FileLog<T,R>::getErrore()
-{
-    return _errore_apertura;
+    return apriFileOutput(nome_file);
 }
 
 template<class T, class R>
@@ -57,18 +47,14 @@ void FileLog<T,R>::chiudiFileLog()
 
 template<class T, class R>
 // Scrive il file di log
-void FileLog<T,R>::scriviFileOutput(const R id_risposta,const T id_domanda, const string domanda, const string risposta, const vector<T> domande_successive)
+void FileLog<T,R>::scriviFileOutput(const R id_risposta,const T id_domanda, const string domanda, const string risposta,const vector<T> domande_successive)
 {
-
-    if(!_errore_apertura)
-    {
         _file_output << id_domanda << " " << id_risposta << "\n";
         _file_output << domanda << " "<< risposta << "\n" << "Nuove domande:";
         for (typename vector<T>::iterator it=domande_successive.begin();it!=domande_successive.end(); it++){
             _file_output << " "<< *it;
         }
         _file_output << "\n";
-    }
 }
 
 #endif // FILELOG_H

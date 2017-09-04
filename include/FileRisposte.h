@@ -12,27 +12,22 @@ template<class R>
 class FileRisposte : public FileInput
 {
     public:
-        FileRisposte(const string nome_file);
+        FileRisposte();
         virtual ~FileRisposte();
         FileRisposte(const FileRisposte& other);
-        ///ritorna il valore 1 se ho un errore in lettura del file altrimenti 0
-        const bool getErroreInLettura();
         const string getRispostaDaId(const R id);
         const R getIdDaRisposta(const string risposta);
+        const bool leggiFile(const string nome_file);
     protected:
 
     private:
         VocabolarioId<R> _vocabolario_risposte;
-        ///variabile di errore
-        bool _errore_lettura_file;
-        const bool leggiFile();
 };
 
 template<class R>
-FileRisposte<R>::FileRisposte(const string nome_file): FileInput(nome_file)
+FileRisposte<R>::FileRisposte()
 {
-    //ctor
-    apriFileInput();
+
 }
 
 template<class R>
@@ -48,17 +43,14 @@ FileRisposte<R>::FileRisposte(const FileRisposte& other): FileInput(other)
 }
 
 template<class R>
-const bool FileRisposte<R>::leggiFile()
+const bool FileRisposte<R>::leggiFile(const string nome_file)
 {
     R id_risposta;
     string testo_risposta;
-
-    if(apriFileInput()){
-        _errore_lettura_file=1;
+    if(apriFileInput(nome_file.c_str())){
         return 1;
     }else if(_file_input.eof()){
         chiudiFileInput();
-        _errore_lettura_file=1;
         return 1;
     }else{
         while(!_file_input.eof()){
@@ -67,14 +59,12 @@ const bool FileRisposte<R>::leggiFile()
                 _vocabolario_risposte.setNuovoElemento(id_risposta, testo_risposta);
             } else {
                 chiudiFileInput();
-                _errore_lettura_file=1;
                 return 1;
             }
         }
     }
     chiudiFileInput();
-    _errore_lettura_file=_vocabolario_risposte.controlloSintattico();
-    return _errore_lettura_file;
+    return _vocabolario_risposte.controlloSintattico();
 }
 
 template<class R>
@@ -87,11 +77,5 @@ template<class R>
 const R FileRisposte<R>:: getIdDaRisposta(const string risposta)
 {
     return _vocabolario_risposte.getIdDaStriga(risposta);
-}
-
-template<class R>
-const bool FileRisposte<R>:: getErroreInLettura()
-{
-    return _errore_lettura_file;
 }
 #endif // FILERISPOSTE_H

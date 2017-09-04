@@ -10,47 +10,33 @@ template<class T>
 class FileStart : public FileInput
 {
     public:
-        FileStart(const string nome_file): FileInput(nome_file)
-        {
-            if(!apriFileInput())
-            {
-                _errore_lettura_file=leggiFile();
-            }else{
-                _errore_lettura_file=1;
-            }
-        };
+        FileStart();
         virtual ~FileStart();
         ///ritorna il valore 1 se ho un errore in lettura del file altrimenti 0
-        const bool getErroreInLettura();
         const T getDomandaObbligatoria();
         const bool finitoDomandeObbligatorie();
-        const bool leggiFile();
+        void resettaDomandeObbligatorie();
+        const bool leggiFile(const string nome_file);
     protected:
 
     private:
         vector<T> _domande_obbligatorie;
-        bool _errore_lettura_file;
+        typename vector<T>::iterator _it_domande_obbligatorie;
 };
 
 
 template<class T>
 FileStart<T>::~FileStart()
 {
-    //dtor
+    resettaDomandeObbligatorie();
 }
 
-template<class T>
-const bool FileStart<T>::getErroreInLettura()
-{
-    return _errore_lettura_file;
-}
 
 template<class T>
-const bool FileStart<T>::leggiFile()
+const bool FileStart<T>::leggiFile(const string nome_file)
 {
     T id_domanda;
-
-    if(apriFileInput()){
+    if(apriFileInput(nome_file.c_str())){
         return 1;
     } else if(_file_input.eof()){
         chiudiFileInput();
@@ -72,20 +58,24 @@ const bool FileStart<T>::leggiFile()
 template<class T>
 const T FileStart<T>::getDomandaObbligatoria()
 {
-    T domanda_di_appoggio;
-    domanda_di_appoggio = _domande_obbligatorie.front();
-    _domande_obbligatorie.pop_front();
+    T domanda_di_appoggio=*_it_domande_obbligatorie;
+    _it_domande_obbligatorie++;
     return domanda_di_appoggio;
 }
 
 template<class T>
 const bool FileStart<T>::finitoDomandeObbligatorie()
 {
-    if(_domande_obbligatorie.empty()){
+    if(_it_domande_obbligatorie==_domande_obbligatorie.end()){
         return 1;
     } else {
         return 0;
     }
 }
 
+template<class T>
+void FileStart<T>::resettaDomandeObbligatorie()
+{
+    _it_domande_obbligatorie=_domande_obbligatorie.begin();
+}
 #endif // FILESTART_H
