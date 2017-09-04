@@ -1,5 +1,7 @@
 #include <iostream>
 #include<stdio.h>
+#include<stdlib.h>
+#include<string>
 #include "GestioneRefertazione.h"
 using namespace std;
 
@@ -8,18 +10,27 @@ int main()
     GestioneRefertazione<string,string> referto_medico("answers.txt","nome.txt","starting_sequence.txt");
     if(referto_medico.analisiSintatticaSemanticaEdInizializzazione())
     {
-        cerr<<"errore nell'apertura o nella lettura dei file immessi"<<endl;
+        cerr<<"Errore apertura o lettura file"<<endl;
         exit(1);
     }else{
         string nome_file_test;
         bool modalita_apertura;
-        cout<<"immetti il nome intero del file di test"<<endl;
+        cout<<"Nome File Test: > "<<endl;
         cin>>nome_file_test;
-        cout<<"immetti 0 se vuoi leggere il file di test e 1 se invece intendi scriverlo"<<endl;
+        if(nome_file_test.find(".")==string::npos)
+        {
+            nome_file_test.append(".txt");
+        }
+        cout<<"[0] Leggere il File"<<endl;
+        cout<<"[1] Scrivere il File"<<endl;
+        cout<<"> "<<endl;
         while(!cin>>modalita_apertura)
         {
-            cout<<"errore nella scelta"<<endl;
-            cout<<"immetti 0 se vuoi leggere il file di test e 1 se invece intendi scriverlo"<<endl;
+            cout<<"Errore nella scelta"<<endl;
+            system("cls");
+            cout<<"[0] Leggere il File"<<endl;
+            cout<<"[1] Scrivere il File"<<endl;
+            cout<<"> "<<endl;
         }
         referto_medico.setModalitaDiFunzionamentoFileTest(modalita_apertura);
         if(!referto_medico.apriLetturaScritturaFileTest(nome_file_test))
