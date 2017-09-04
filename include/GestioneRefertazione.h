@@ -29,7 +29,9 @@ class GestioneRefertazione
 
             ///dà in uscita la nuova domanda da porre all'utente
             const string getNuovaDomanda();
-            ///registra la risposta data se è corretta offrendo in uscita un flag per verificare il corretto funzionamento della procedura inoltre fa anadare avanti le domande
+
+            const vector<string> getRisposta();
+            ///registra la risposta data se è corretta, offrendo in uscita un flag per verificare il corretto funzionamento della procedura, inoltre fa anadare avanti le domande
             const bool setRisposta(const string risposta);
             ///quando le domande sono concluse scrive il file di test e setta la sua uscita a 0 altrimenti la setta a 1
             const bool scriviFileTest();
@@ -186,6 +188,18 @@ template<class T, class R>
 const string GestioneRefertazione<T,R>:: getNuovaDomanda()
 {
     return _domande.getDomandaDaId(_domande_da_porre.back());
+}
+
+template<class T, class R>
+const vector<string> GestioneRefertazione<T,R>:: getRisposta()
+{
+    vector<string> vettore_di_ritorno;
+    vector<R> risposte=_domande.getRispostaDataLaDomanda(_domande_da_porre.back());
+    for(typename vector<R>::iterator it_risposte=risposte.begin();it_risposte!=risposte.end();it_risposte++)
+    {
+        vettore_di_ritorno.push_back(_risposte.getRispostaDaId(*it_risposte));
+    }
+    return vettore_di_ritorno;
 }
 
 template<class T, class R>

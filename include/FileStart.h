@@ -24,11 +24,11 @@ class FileStart : public FileInput
         const bool getErroreInLettura();
         const T getDomandaObbligatoria();
         const bool finitoDomandeObbligatorie();
-        bool leggiFile();
+        const bool leggiFile();
     protected:
 
     private:
-        const vector<T> _domande_obbligatorie;
+        vector<T> _domande_obbligatorie;
         bool _errore_lettura_file;
 };
 
@@ -40,11 +40,17 @@ FileStart<T>::~FileStart()
 }
 
 template<class T>
-bool FileStart<T>::leggiFile()
+const bool FileStart<T>::getErroreInLettura()
+{
+    return _errore_lettura_file;
+}
+
+template<class T>
+const bool FileStart<T>::leggiFile()
 {
     T id_domanda;
 
-    if(!_file_input.is_open()){
+    if(apriFileInput()){
         return 1;
     } else if(_file_input.eof()){
         chiudiFileInput();
@@ -76,9 +82,9 @@ template<class T>
 const bool FileStart<T>::finitoDomandeObbligatorie()
 {
     if(_domande_obbligatorie.empty()){
-        return 0;
-    } else {
         return 1;
+    } else {
+        return 0;
     }
 }
 

@@ -4,6 +4,7 @@
 #include<vector>
 #include<algorithm>
 #include "FileOutput.h"
+#include <iostream>
 using namespace std;
 
 template<class T, class R>
@@ -11,20 +12,17 @@ class FileLog : public FileOutput
 {
     public:
         FileLog(const string nome_file) : FileOutput(nome_file)
-          {
+        {
         };
         virtual ~FileLog();
+        void apriFileLog();
+        bool getErrore();
         FileLog(const FileLog& other);
-        FileLog(){
-        };
+        void chiudiFileLog();
         void scriviFileOutput(const R id_risposta,const T id_domanda, const string domanda, const string risposta, const vector<T> domande_successive);
     protected:
-
     private:
-        string _log_file_name;
-
-        ofstream _log_file;
-
+        bool _errore_apertura;
 };
 template<class T, class R>
 FileLog<T,R>::~FileLog()
@@ -39,30 +37,38 @@ FileLog<T,R>::FileLog(const FileLog& other)
 }
 
 template<class T, class R>
+void FileLog<T,R>::apriFileLog()
+{
+    _errore_apertura=apriFileOutput();
+}
+
+template<class T, class R>
+bool FileLog<T,R>::getErrore()
+{
+    return _errore_apertura;
+}
+
+template<class T, class R>
+void FileLog<T,R>::chiudiFileLog()
+{
+    chiudiFileOutput();
+}
+
+
+template<class T, class R>
 // Scrive il file di log
-void FileLog<T, R>::scriviFileOutput(const R id_risposta,const T id_domanda, const string domanda, const string risposta, const vector<T> domande_successive){
-    cout << "Inserisci nome del file di log: " << endl;
-    cin >> _log_file_name;
+void FileLog<T,R>::scriviFileOutput(const R id_risposta,const T id_domanda, const string domanda, const string risposta, const vector<T> domande_successive)
+{
 
-    ifstream f(_log_file_name.c_str());
-
-    if (!f.good()){
-        cout << "File non esistente" <<endl;
-        exit(EXIT_FAILURE);
-}
-
-_log_file.open(_log_file_name.c_str(), ofstream::app);
-
-_log_file << id_domanda << " " << id_risposta << "\n";
-
-_log_file << domanda << " "<< risposta << "\n" << "Nuove domande:";
-
-for (int i = 0; i <domande_successive.size(); i++){
-    _log_file << " "<< domande_successive.at(i) ;
-}
-_log_file << "\n";
-
-_log_file.close();
+    if(!_errore_apertura)
+    {
+        _file_output << id_domanda << " " << id_risposta << "\n";
+        _file_output << domanda << " "<< risposta << "\n" << "Nuove domande:";
+        for (typename vector<T>::iterator it=domande_successive.begin();it!=domande_successive.end(); it++){
+            _file_output << " "<< *it;
+        }
+        _file_output << "\n";
+    }
 }
 
 #endif // FILELOG_H
