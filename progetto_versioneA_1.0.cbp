@@ -50,10 +50,13 @@
 		<Unit filename="src/FileInput.cpp" />
 		<Unit filename="src/FileLog.cpp" />
 		<Unit filename="src/FileOutput.cpp" />
+		<Unit filename="src/FileRisposte.cpp" />
+		<Unit filename="src/FileStart.cpp" />
 		<Unit filename="src/FileTest.cpp" />
 		<Unit filename="src/GestioneRefertazione.cpp" />
 		<Unit filename="src/Grafo.cpp" />
 		<Unit filename="src/Nodo.cpp" />
+		<Unit filename="src/VocabolarioId.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

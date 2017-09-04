@@ -9,13 +9,16 @@ using namespace std;
 class FileOutput
 {
     public:
+        FileOutput();
         FileOutput(const string nome_file);
         virtual ~FileOutput();
-        FileOutput(const FileOutput& other);
+        FileOutput(const FileOutput& to_copy);
+        const bool apriFileOutput();
+        void chiudiFileOutput();
         virtual void scriviFileOutput();
     protected:
-        fstream _file_output;
-        void apriFileOutput();
+        ofstream _file_output;
+
     private:
         string _nome_file;
 };

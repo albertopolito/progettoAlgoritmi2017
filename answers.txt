@@ -1,0 +1,25 @@
+1 Sì
+2 No
+3 Indistinguibile
+4 Zero macchie
+5 Meno di cinque macchie
+6 Meno di dieci macchie
+7 Più di dieci macchie
+8 Zero lesioni
+9 Meno di cinque lesioni
+10 Meno di dieci lesioni
+11 Più di dieci lesioni
+12 Immagine necessaria per il referto
+13 Immagine non necessaria per il referto
+14 Immagine chiara e luminosa, refertabile
+15 Immagine scura, non refertabile
+16 Immagine mossa o non definita, non refertabile
+17 Maschio
+18 Femmina
+19 Paziente in cinta
+20 Paziente non in cinta
+21 Paziente fumatore
+22 Paziente non fumatore
+22 Meno di 30 anni
+23 Da 30 a 65 anni
+24 Più di 65 anni

@@ -1,52 +1,39 @@
 #include "FileInput.h"
-#include<string>
+#include <string>
 #include<vector>
 #include<algorithm>
 #include<fstream>
-#include<iostream>
+using namespace std;
+
 FileInput::FileInput(const string nome_file)
 {
-    //ctor
-    _nome_file = nome_file;
-    //cout << "call FileInput" << endl;
+    _nome_file=nome_file;
 }
 
 FileInput::~FileInput()
 {
-    //dtor
-    _file_input.close();
-    //cout << "FileInput dtor" << endl;
+    chiudiFileInput();
 }
 
-FileInput::FileInput(const FileInput &other)
+FileInput::FileInput(const FileInput& to_copy)
 {
-    //copy ctor
-    _nome_file = other._nome_file;
-}
-
-bool FileInput::leggiFile()
-{
-    return 0;
+    this->_nome_file=to_copy._nome_file;
+    if(!to_copy._file_input.is_open())
+    {
+        this->_file_input.open(this->_nome_file.c_str());
+    }
 }
 
 bool FileInput::apriFileInput()
 {
     _file_input.open(_nome_file.c_str());
-    if(!_file_input.is_open()){
-        cerr << "Errore: file " << _nome_file << endl;
-        return 1;
-    } else {
-        return 0;
-    }
+    return !_file_input.is_open();
 }
 
-bool FileInput::chiudiFileInput()
+void FileInput::chiudiFileInput()
 {
-    _file_input.close();
-    if(_file_input.is_open()){
-        cerr << "Errore: file " << _nome_file << endl;
-        return 1;
-    } else {
-        return 0;
+    if(_file_input.is_open())
+    {
+        _file_input.close();
     }
 }
