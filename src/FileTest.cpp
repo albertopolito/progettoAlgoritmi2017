@@ -2,11 +2,8 @@
 #include <string>
 #include<vector>
 #include<algorithm>
+#include <iostream>
 
 using namespace std;
 
-template<class T, class R>
-FileTest<T,R>::~FileTest()
-{
-    //dtor
-}
+

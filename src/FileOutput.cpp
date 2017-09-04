@@ -5,6 +5,10 @@
 #include<fstream>
 using namespace std;
 
+FileOutput::FileOutput()
+{
+    //ctor
+}
 FileOutput::FileOutput(const string nome_file)
 {
     //ctor
@@ -20,3 +24,7 @@ FileOutput::FileOutput(const FileOutput& other)
     //copy ctor
 }
 
+void FileOutput::scriviFileOutput()
+{
+    //copy ctor
+}

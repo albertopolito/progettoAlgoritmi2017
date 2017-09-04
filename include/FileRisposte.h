@@ -48,7 +48,7 @@ FileRisposte<R>::FileRisposte(const FileRisposte& other): FileInput(other)
 }
 
 template<class R>
-bool FileRisposte<R>::leggiFile()
+const bool FileRisposte<R>::leggiFile()
 {
     R id_risposta;
     string testo_risposta;
@@ -83,7 +83,7 @@ bool FileRisposte<R>::leggiFile()
 }
 
 template<class R>
-string FileRisposte<R>::getRispostaDaId(const R id)
+const string FileRisposte<R>::getRispostaDaId(const R id)
 {
     return _vocabolario_risposte.getIdDaStriga(id);
 }
