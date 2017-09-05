@@ -20,6 +20,13 @@ class FileLog : public FileOutput
     protected:
     private:
 };
+
+template<class T, class R>
+FileLog<T,R>::FileLog()
+{
+    //ctor
+}
+
 template<class T, class R>
 FileLog<T,R>::~FileLog()
 {
@@ -51,7 +58,9 @@ void FileLog<T,R>::scriviFileOutput(const R id_risposta,const T id_domanda, cons
 {
         _file_output << id_domanda << " " << id_risposta << "\n";
         _file_output << domanda << " "<< risposta << "\n" << "Nuove domande:";
-        for (typename vector<T>::iterator it=domande_successive.begin();it!=domande_successive.end(); it++){
+        vector<T> domande=domande_successive;
+        typename vector<T>::iterator it;
+        for (it=domande.begin();it!=domande.end(); it++){
             _file_output << " "<< *it;
         }
         _file_output << "\n";

@@ -5,6 +5,7 @@
 #include"FileStart.h"
 #include"FileTest.h"
 #include"FileLog.h"
+#include <iostream>
 ///modalità di lettura o scrittura del file di test
 #define LETTURA 0
 #define SCRITTURA 1
@@ -89,15 +90,18 @@ void GestioneRefertazione<T,R>::setModalitaDiFunzionamentoFileTest(const bool mo
 template<class T, class R>
 const bool GestioneRefertazione<T,R>:: analisiSintatticaSemanticaEdInizializzazione()
 {
-    if(_errore_risposte&&_errore_domande&&_errore_start)
+    if(_errore_risposte||_errore_domande||_errore_start)
     {
         return 1;   //se ho un errore nella lettura dei tre file non continuo l'analisi e dò un errore
     }else{
         typename vector<R>::iterator it_risposte;
+
         vector<R> risposte_possibili=_domande.getTutteLeRispostePossibili();
+
         //guardo che gli id delle risposte che ci sono nel file delle domande sono presenti anche nel file delle risposte
         for(it_risposte=risposte_possibili.begin();it_risposte!=risposte_possibili.end();it_risposte++)
         {
+
             if(_risposte.getRispostaDaId(*it_risposte)=="")
             {
                 return 1;
@@ -114,6 +118,7 @@ const bool GestioneRefertazione<T,R>:: analisiSintatticaSemanticaEdInizializzazi
         }
 
     }
+    _start.resettaDomandeObbligatorie();
     //i controlli sono andati abuon fine allore inizializzo il vettore delle domande da porre con la prima domanda obbligatoria
     _domande_da_porre.push_back(_start.getDomandaObbligatoria());
     return 0;
@@ -127,13 +132,17 @@ const bool  GestioneRefertazione<T,R>:: apriLetturaScritturaFileTest(const strin
     {
        return 1;    //se ho un errore nell'apertura allora ritorno un errore e non continuo
     }
+
     //se devo leggere il file
     if(_modalita_di_funzionamento_per_il_file_test==LETTURA)
     {
+        _test.resettaIlPuntoDiAnalisi();
         //lo analizzo guardando grazie al grafo inserito nel file delle domande se le risposte sono valide, se non lo sono dò errore
-        while(!_test.hoFinitoLeDomande())
+        while(!_test.hoFinitoLeDomande(ANALISI))
         {
+
             vector<R> risposte_valide=_domande.getRispostaDataLaDomanda(_test.leggiDomandaCorrente());
+
             if(find(risposte_valide.begin(),risposte_valide.end(),_test.getRispostaDaDomanda(_test.leggiDomandaCorrente()))==risposte_valide.end())
             {
                 return 1;
@@ -153,8 +162,10 @@ const bool GestioneRefertazione<T,R>:: daFileDiTestAFileDiLog(const string nome_
     {
         return 1;
     }else{
+
         if(_modalita_di_funzionamento_per_il_file_test==SCRITTURA)
         {
+
             //dò errore se non ho finito di sottoporre le domande all'utente
             if(!fineDomande())
             {
@@ -173,18 +184,29 @@ const bool GestioneRefertazione<T,R>:: daFileDiTestAFileDiLog(const string nome_
             //finchè le domande da porre non sono finite le leggo tutte in modo corretto attraverso il file delle domande e scrivo il file di log
             while(!fineDomande())
             {
+                if(_domande_da_porre.empty())
+                {
+                    _domande_da_porre.push_back(_start.getDomandaObbligatoria());
+                }
                 T domanda_corrente=_domande_da_porre.back();
+                cout<<domanda_corrente<<endl;
                 if(domanda_corrente!=T())
                 {
                     vector<T> domande;
                     log.scriviFileOutput(_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO),domanda_corrente,_domande.getDomandaDaId(domanda_corrente),_risposte.getRispostaDaId(_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO)),_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO)));
+                    cout<<"scritto"<<endl;
                     _domande_da_porre.pop_back();
                     domande=_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente));
                     reverse(domande.begin(),domande.end());
                     for(typename vector<T>::iterator it=domande.begin();it!=domande.end();it++)
                     {
-                        _domande_da_porre.push_back(*it);
+                        if((*it)!=T())
+                        {
+                            _domande_da_porre.push_back(*it);
+                            cout<<(*it)<<endl;
+                        }
                     }
+
                 }
             }
             //ritorno il parametro che mi indica se ho preso o no in considerazione tutte le righe scritte sul file di test, se non è così do in uscita un errore
@@ -219,6 +241,7 @@ const bool GestioneRefertazione<T,R>:: setRisposta(const string risposta)
     //dò errore anche se ho finito le domande da porre
     if(_modalita_di_funzionamento_per_il_file_test==SCRITTURA||!fineDomande())
     {
+        cout<<"inizio set risposta"<<endl;
         T domanda_posta=_domande_da_porre.back();
         R id_risposta=_risposte.getIdDaRisposta(risposta);
         vector<R> risposte_valide=_domande.getRispostaDataLaDomanda(domanda_posta);
@@ -237,13 +260,21 @@ const bool GestioneRefertazione<T,R>:: setRisposta(const string risposta)
             {
                _domande_da_porre.push_back(*it);
             }
-            while(_domande_da_porre.back()==T()||_test.hoGiaRisposto(_domande_da_porre.back()))
+            if(!_domande_da_porre.empty())
             {
-                _domande_da_porre.pop_back();
+            while((_domande_da_porre.back()==T()||_test.hoGiaRisposto(_domande_da_porre.back()))&&!_start.finitoDomandeObbligatorie())
+            {
+                cout<<"dentro while"<<endl;
+
+                    _domande_da_porre.pop_back();
+                cout<<"dopo pop"<<endl;
                 if(!_start.finitoDomandeObbligatorie())
                 {
                     _domande_da_porre.push_back(_start.getDomandaObbligatoria());
+                    cout<<"aggiunta domanda"<<endl;
                 }
+                cout<<"fine while"<<endl;
+            }
             }
             return 0;
         }

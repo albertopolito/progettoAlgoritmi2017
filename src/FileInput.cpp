@@ -16,12 +16,18 @@ FileInput::~FileInput()
 
 FileInput::FileInput(const FileInput& to_copy)
 {
+
 }
 
-bool FileInput::apriFileInput(const string nome_file)
+const bool FileInput::apriFileInput(const string nome_file)
 {
     _file_input.open(nome_file.c_str());
     return !_file_input.is_open();
+}
+
+const bool FileInput:: leggiFile(const string nome_file)
+{
+    return 0;
 }
 
 void FileInput::chiudiFileInput()

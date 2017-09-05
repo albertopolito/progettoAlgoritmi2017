@@ -1,0 +1,25 @@
+1 si'
+2 no
+3 indistinguibile
+4 zero macchie
+5 meno di cinque macchie
+6 meno di dieci macchie
+7 piu' di dieci macchie
+8 no lesioni
+9 meno di cinque lesioni
+10 meno di dieci lesioni
+11 piu' di dieci lesioni
+12 necessaria per il referto
+13 non necessaria per il referto
+14 chiara luminosa refertabile
+15 scura non refertabile
+16 mossa o non definita non refertabile
+17 maschio
+18 femmina
+19 incinta
+20 non incinta
+21 fumatore
+22 non fumatore
+23 meno di 30
+24 da 30 a 65
+25 piu' di 65

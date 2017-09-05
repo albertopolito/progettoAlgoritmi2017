@@ -36,6 +36,12 @@ class FileDomande : public FileInput
 };
 
 template<class T, class R>
+FileDomande<T,R>::FileDomande()
+{
+    //ctor
+}
+
+template<class T, class R>
 FileDomande<T,R>::~FileDomande()
 {
     //dtor
@@ -92,7 +98,8 @@ const vector<R> FileDomande<T,R>:: getTutteLeRispostePossibili()
     //analizzo tutte le risposte e, prima di inserirle nel vettore elimino le ripetizioni
     for(it_domande=tutte_le_domande.begin();it_domande!=tutte_le_domande.end();it_domande++)
     {
-        for(it_risposte=vector<R>(getRispostaDataLaDomanda(*it_domande)).begin();it_risposte!=getRispostaDataLaDomanda(*it_domande).end();it_risposte++)
+        vector<R> risposte=getRispostaDataLaDomanda(*it_domande);
+        for(it_risposte=risposte.begin();it_risposte!=risposte.end();it_risposte++)
         {
             if(find(tutte_le_risposte.begin(),tutte_le_risposte.end(),*it_risposte)!=tutte_le_risposte.end())
             {
@@ -175,7 +182,7 @@ const bool FileDomande<T,R>:: leggiFile(const string nome_file)
 
     chiudiFileInput();
     //ritorno ancora l'ultimo controllo sull'aciclicità del grafo di modo che le domande passate non si ripetano all'infinito
-    return (!_grafo_domande_da_sottoporre.aciclico()||!_vocabolario_domande.controlloSintattico());
+    return (!_grafo_domande_da_sottoporre.aciclico()||_vocabolario_domande.controlloSintattico());
 }
 
 #endif // FILEDOMANDE_H

@@ -26,9 +26,14 @@ class FileStart : public FileInput
 
 
 template<class T>
-FileStart<T>::~FileStart()
+FileStart<T>::FileStart()
 {
     resettaDomandeObbligatorie();
+}
+
+template<class T>
+FileStart<T>::~FileStart()
+{
 }
 
 

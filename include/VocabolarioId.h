@@ -3,6 +3,7 @@
 #include <string>
 #include<vector>
 #include<algorithm>
+#include<iostream>
 using namespace std;
 template<class T>
 class VocabolarioId
@@ -117,8 +118,11 @@ bool VocabolarioId<T>:: controlloSintattico()
 {
     for(typename vector<_vocabolo>::iterator it=_vocaboli.begin();it!=_vocaboli.end();it++)
     {
-        if((find_if(_vocaboli.begin(),_vocaboli.end(),f_vocabolo(_vocabolo(*it)._id))!=_vocaboli.end())||(find_if(_vocaboli.begin(),_vocaboli.end(),f_vocabolo(_vocabolo(*it)._testo,0))!=_vocaboli.end()))
+        typename vector<_vocabolo>::iterator it_id=find_if(_vocaboli.begin(),it,f_vocabolo(_vocabolo(*it)._id));
+        typename vector<_vocabolo>::iterator it_testo=find_if(_vocaboli.begin(),it,f_vocabolo(_vocabolo(*it)._testo,0));
+        if((it_id!=it)||(it_testo!=it))
         {
+            cout<<_vocabolo(*it)._testo<<endl;
             return 1;
         }
     }

@@ -56,8 +56,10 @@ const bool FileRisposte<R>::leggiFile(const string nome_file)
         while(!_file_input.eof()){
             testo_risposta.clear();
             if(_file_input>>id_risposta && (getline(_file_input, testo_risposta))!= NULL){
+
                 _vocabolario_risposte.setNuovoElemento(id_risposta, testo_risposta);
             } else {
+
                 chiudiFileInput();
                 return 1;
             }

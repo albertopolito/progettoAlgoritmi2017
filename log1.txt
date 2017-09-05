@@ -1,0 +1,12 @@
+12 23
+età paziente   meno di 30
+Nuove domande: 
+1 18
+sesso   femmina
+Nuove domande: 2 3
+2 20
+incinta   non incinta
+Nuove domande: 
+5 2
+occhio sx   no
+Nuove domande: 

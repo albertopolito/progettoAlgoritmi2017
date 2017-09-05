@@ -3,6 +3,7 @@
 #include <string>
 #include<vector>
 #include<algorithm>
+#include<iostream>
 #include "FileOutput.h"
 #include "FileInput.h"
 ///modalità apertura file
@@ -23,6 +24,10 @@ class FileTest : public FileInput , FileOutput
         R id_risposta;
         T id_domanda;
         bool ho_risposto;
+        test()
+        {
+
+        }
         test(R n_id_risposta,T n_id_domanda,bool risposto)
         {
             id_domanda=n_id_domanda;
@@ -31,9 +36,10 @@ class FileTest : public FileInput , FileOutput
         }
     };
     struct f_test{
-        T f_id_risposta;
-        R f_id_domanda;
-        bool f_ricerca_risposta_domanda;
+        R f_id_risposta;
+        T f_id_domanda;
+        bool f_ho_risposto;
+        short int f_ricerca_risposta_domanda;
         f_test(R id_risposta) : f_id_risposta(id_risposta)
         {
             f_ricerca_risposta_domanda=0;
@@ -43,9 +49,15 @@ class FileTest : public FileInput , FileOutput
         {
             f_ricerca_risposta_domanda=1;
         }
+
+        f_test(T id_domanda, bool risposto, const bool domanda) : f_id_domanda(id_domanda),f_ho_risposto(risposto)
+        {
+            f_ricerca_risposta_domanda=2;
+        }
+
         bool operator () ( const test& f_test ) const
         {
-            return ((!f_ricerca_risposta_domanda&&f_test.id_risposta==f_id_risposta)||(f_ricerca_risposta_domanda&&f_test.id_domanda==f_id_domanda));
+            return ((f_ricerca_risposta_domanda==0&&f_test.id_risposta==f_id_risposta)||(f_ricerca_risposta_domanda==1&&f_test.id_domanda==f_id_domanda)||(f_ricerca_risposta_domanda==2&&f_test.id_domanda==f_id_domanda&&f_test.ho_risposto==f_ho_risposto));
         }
     };
     public:
@@ -76,13 +88,26 @@ FileTest<T,R>::FileTest()
 }
 
 template<class T, class R>
+FileTest<T,R>::~FileTest()
+{
+
+}
+
+template<class T, class R>
 const bool  FileTest<T,R>:: apriInLetturaScrittura(const string nome_file, const bool modalita)
 {
+    cout<<"modo"<<modalita<<endl;
+
     if(modalita)
     {
         return apriFileOutput(nome_file);
     }else{
-        return (apriFileInput(nome_file)||leggiFile());
+        if(!apriFileInput(nome_file))
+        {
+            cout<<"aperto file"<<endl;
+            return (leggiFile());
+        }
+
     }
 }
 
@@ -99,16 +124,17 @@ const T FileTest<T,R>:: leggiDomandaCorrente()
 template<class T, class R>
 void FileTest<T,R>:: prossimaDomanda()
 {
-    if(_it_domande_con_risposta!=_domande_con_risposta.end())
-        _it_domande_con_risposta++;
+    _it_domande_con_risposta++;
 }
 
 template<class T, class R>
 const R FileTest<T,R>::getRispostaDaDomanda(const T id_domanda, const bool modalita)
 {
+    cout<<"passato "<<endl;
     typename vector<test>::iterator it_test=find_if(_domande_con_risposta.begin(),_domande_con_risposta.end(),f_test(id_domanda,0));
     if(it_test!=_domande_con_risposta.end())
     {
+
         R id_risposta=test(*it_test).id_risposta;
         if(modalita==FUNZIONAMENTO)
         {
@@ -125,8 +151,15 @@ const R FileTest<T,R>::getRispostaDaDomanda(const T id_domanda, const bool modal
 template<class T, class R>
 const bool FileTest<T,R>::hoGiaRisposto(const T id_domanda)
 {
-    typename vector<test>::iterator it_test=find_if(_domande_con_risposta.begin(),_domande_con_risposta.end(),f_test(id_domanda,0));
-    return test(*it_test).ho_risposto;
+
+    typename vector<test>::iterator it_test=find_if(_domande_con_risposta.begin(),_domande_con_risposta.end(),f_test(id_domanda,1,0));
+    if(it_test==_domande_con_risposta.end())
+    {
+        cout<<"non ancora risposto"<<endl;
+        return 0;
+    }else{
+        return 1;
+    }
 }
 
 template<class T, class R>
@@ -152,7 +185,6 @@ const bool FileTest<T,R>::hoFinitoLeDomande(const bool modalita)
             return 0;
         }
     }
-    return 0;
 }
 
 template<class T, class R>
@@ -189,6 +221,7 @@ void FileTest<T,R>::scriviFileOutput()
 template<class T, class R>
 const bool FileTest<T,R>::leggiFile()
 {
+    cout<<"sto leggendo"<<endl;
     if(_file_input.eof())
     {
         return 1;
@@ -197,12 +230,14 @@ const bool FileTest<T,R>::leggiFile()
         {
             R id_risposta;
             T id_domanda;
+
             if(!(_file_input>>id_domanda>>id_risposta)||(getRispostaDaDomanda(id_domanda,ANALISI)!=R()))
             {
                 return 1;
             }else{
                 immettiNuovoElemento(id_domanda,id_risposta,DA_FILE);
             }
+            cout<<id_domanda<<id_risposta<<endl;
         }
         return 0;
     }

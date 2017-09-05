@@ -5,21 +5,23 @@ using namespace std;
 
 int main()
 {
-    GestioneRefertazione<string,string> referto_medico("answers.txt","nome.txt","starting_sequence.txt");
+    GestioneRefertazione<string,string> referto_medico("risposte.txt","nome.txt","start.txt");
     if(referto_medico.analisiSintatticaSemanticaEdInizializzazione())
     {
         cerr<<"errore nell'apertura o nella lettura dei file immessi"<<endl;
         exit(1);
     }else{
         string nome_file_test;
-        bool modalita_apertura;
+        short int modalita_apertura;
         cout<<"immetti il nome intero del file di test"<<endl;
         cin>>nome_file_test;
         cout<<"immetti 0 se vuoi leggere il file di test e 1 se invece intendi scriverlo"<<endl;
-        while(!cin>>modalita_apertura)
+        cin>>modalita_apertura;
+        while(modalita_apertura>1||modalita_apertura<0)
         {
             cout<<"errore nella scelta"<<endl;
             cout<<"immetti 0 se vuoi leggere il file di test e 1 se invece intendi scriverlo"<<endl;
+            cin>>modalita_apertura;
         }
         referto_medico.setModalitaDiFunzionamentoFileTest(modalita_apertura);
         if(!referto_medico.apriLetturaScritturaFileTest(nome_file_test))
@@ -39,11 +41,16 @@ int main()
                                        i++;
                                        cout<<i<<" "<<*it<<endl;
                                    }
-                                   while(!cin>>risposta||referto_medico.setRisposta(referto_medico.getRisposta()[risposta--]))
+                                   cin>>risposta;
+                                   cout<<risposte[--risposta];
+                                   string risp=risposte[risposta];
+                                   while(referto_medico.setRisposta(risp))
                                    {
                                        cout<<"la risposta non è corretta, immetti una nuova risposta"<<endl;
+                                       cin>>risposta;
                                    }
                                 }
+                                cout<<"fine scrittura file di test"<<endl;
                                 referto_medico.scriviFileTest();
                                 break;
             }
