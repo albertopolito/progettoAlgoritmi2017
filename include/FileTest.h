@@ -3,7 +3,6 @@
 #include <string>
 #include<vector>
 #include<algorithm>
-#include<iostream>
 #include "FileOutput.h"
 #include "FileInput.h"
 ///modalità apertura file
@@ -24,10 +23,10 @@ class FileTest : public FileInput , FileOutput
         R id_risposta;
         T id_domanda;
         bool ho_risposto;
-        test()
+/*        test()
         {
 
-        }
+        }*/
         test(R n_id_risposta,T n_id_domanda,bool risposto)
         {
             id_domanda=n_id_domanda;
@@ -96,18 +95,16 @@ FileTest<T,R>::~FileTest()
 template<class T, class R>
 const bool  FileTest<T,R>:: apriInLetturaScrittura(const string nome_file, const bool modalita)
 {
-    cout<<"modo"<<modalita<<endl;
-
     if(modalita)
     {
         return apriFileOutput(nome_file);
     }else{
         if(!apriFileInput(nome_file))
         {
-            cout<<"aperto file"<<endl;
             return (leggiFile());
+        }else{
+            return 1;
         }
-
     }
 }
 
@@ -130,7 +127,6 @@ void FileTest<T,R>:: prossimaDomanda()
 template<class T, class R>
 const R FileTest<T,R>::getRispostaDaDomanda(const T id_domanda, const bool modalita)
 {
-    cout<<"passato "<<endl;
     typename vector<test>::iterator it_test=find_if(_domande_con_risposta.begin(),_domande_con_risposta.end(),f_test(id_domanda,0));
     if(it_test!=_domande_con_risposta.end())
     {
@@ -155,7 +151,6 @@ const bool FileTest<T,R>::hoGiaRisposto(const T id_domanda)
     typename vector<test>::iterator it_test=find_if(_domande_con_risposta.begin(),_domande_con_risposta.end(),f_test(id_domanda,1,0));
     if(it_test==_domande_con_risposta.end())
     {
-        cout<<"non ancora risposto"<<endl;
         return 0;
     }else{
         return 1;
@@ -176,7 +171,7 @@ const bool FileTest<T,R>::hoFinitoLeDomande(const bool modalita)
             }
         }
         return 1;
-    }else if(modalita==ANALISI)
+    }else
     {
         if(_it_domande_con_risposta==_domande_con_risposta.end())
         {
@@ -212,16 +207,17 @@ void FileTest<T,R>::scriviFileOutput()
 {
     typename vector<test>::iterator _domande_con_risposta_iterator;
     _domande_con_risposta_iterator = _domande_con_risposta.begin();
+    _file_output<< (*_domande_con_risposta_iterator).id_domanda << " " << (*_domande_con_risposta_iterator).id_risposta;
+    _domande_con_risposta_iterator++;
     for (; _domande_con_risposta_iterator != _domande_con_risposta.end(); _domande_con_risposta_iterator++)
     {
-        _file_output << (*_domande_con_risposta_iterator).id_domanda << " " << (*_domande_con_risposta_iterator).id_risposta << endl;
+        _file_output<< endl << (*_domande_con_risposta_iterator).id_domanda << " " << (*_domande_con_risposta_iterator).id_risposta;
     }
 }
 
 template<class T, class R>
 const bool FileTest<T,R>::leggiFile()
 {
-    cout<<"sto leggendo"<<endl;
     if(_file_input.eof())
     {
         return 1;
@@ -237,7 +233,6 @@ const bool FileTest<T,R>::leggiFile()
             }else{
                 immettiNuovoElemento(id_domanda,id_risposta,DA_FILE);
             }
-            cout<<id_domanda<<id_risposta<<endl;
         }
         return 0;
     }

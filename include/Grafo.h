@@ -144,6 +144,7 @@ const vector<T> Grafo<T,R>:: daArcoAnalisi(const R arco, const T contenuto)
         vettore_contenuto_adiacenze.push_back(vettore_adiacenze.back()->getContenuto());
         vettore_adiacenze.pop_back();
     }
+    reverse(vettore_contenuto_adiacenze.begin(),vettore_contenuto_adiacenze.end());
     return vettore_contenuto_adiacenze;
 }
 

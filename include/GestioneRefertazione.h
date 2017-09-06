@@ -5,7 +5,7 @@
 #include"FileStart.h"
 #include"FileTest.h"
 #include"FileLog.h"
-#include <iostream>
+//#include <iostream>
 ///modalità di lettura o scrittura del file di test
 #define LETTURA 0
 #define SCRITTURA 1
@@ -140,14 +140,18 @@ const bool  GestioneRefertazione<T,R>:: apriLetturaScritturaFileTest(const strin
         //lo analizzo guardando grazie al grafo inserito nel file delle domande se le risposte sono valide, se non lo sono dò errore
         while(!_test.hoFinitoLeDomande(ANALISI))
         {
-
-            vector<R> risposte_valide=_domande.getRispostaDataLaDomanda(_test.leggiDomandaCorrente());
-
-            if(find(risposte_valide.begin(),risposte_valide.end(),_test.getRispostaDaDomanda(_test.leggiDomandaCorrente()))==risposte_valide.end())
+            if(_domande.getDomandaDaId(_test.leggiDomandaCorrente())!=T())
             {
+                vector<R> risposte_valide=_domande.getRispostaDataLaDomanda(_test.leggiDomandaCorrente());
+
+                if(find(risposte_valide.begin(),risposte_valide.end(),_test.getRispostaDaDomanda(_test.leggiDomandaCorrente()))==risposte_valide.end())
+                {
+                    return 1;
+                }
+                _test.prossimaDomanda();
+            }else{
                 return 1;
             }
-            _test.prossimaDomanda();
         }
     }
     return 0;
@@ -189,12 +193,10 @@ const bool GestioneRefertazione<T,R>:: daFileDiTestAFileDiLog(const string nome_
                     _domande_da_porre.push_back(_start.getDomandaObbligatoria());
                 }
                 T domanda_corrente=_domande_da_porre.back();
-                cout<<domanda_corrente<<endl;
                 if(domanda_corrente!=T())
                 {
                     vector<T> domande;
                     log.scriviFileOutput(_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO),domanda_corrente,_domande.getDomandaDaId(domanda_corrente),_risposte.getRispostaDaId(_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO)),_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO)));
-                    cout<<"scritto"<<endl;
                     _domande_da_porre.pop_back();
                     domande=_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente));
                     reverse(domande.begin(),domande.end());
@@ -203,7 +205,6 @@ const bool GestioneRefertazione<T,R>:: daFileDiTestAFileDiLog(const string nome_
                         if((*it)!=T())
                         {
                             _domande_da_porre.push_back(*it);
-                            cout<<(*it)<<endl;
                         }
                     }
 
@@ -239,9 +240,8 @@ const bool GestioneRefertazione<T,R>:: setRisposta(const string risposta)
 {
     //faccio un primo controllo per essere certo di essere veramente in modalità scrittura e dò errore se non è così
     //dò errore anche se ho finito le domande da porre
-    if(_modalita_di_funzionamento_per_il_file_test==SCRITTURA||!fineDomande())
+    if(_modalita_di_funzionamento_per_il_file_test==SCRITTURA&&!fineDomande())
     {
-        cout<<"inizio set risposta"<<endl;
         T domanda_posta=_domande_da_porre.back();
         R id_risposta=_risposte.getIdDaRisposta(risposta);
         vector<R> risposte_valide=_domande.getRispostaDataLaDomanda(domanda_posta);
@@ -262,18 +262,14 @@ const bool GestioneRefertazione<T,R>:: setRisposta(const string risposta)
             }
             if(!_domande_da_porre.empty())
             {
-            while((_domande_da_porre.back()==T()||_test.hoGiaRisposto(_domande_da_porre.back()))&&!_start.finitoDomandeObbligatorie())
-            {
-                cout<<"dentro while"<<endl;
 
+            while(!_domande_da_porre.empty()&&(_domande_da_porre.back()==T()||_test.hoGiaRisposto(_domande_da_porre.back())))
+            {
                     _domande_da_porre.pop_back();
-                cout<<"dopo pop"<<endl;
-                if(!_start.finitoDomandeObbligatorie())
+                if(!_start.finitoDomandeObbligatorie()&&_domande_da_porre.empty())
                 {
                     _domande_da_porre.push_back(_start.getDomandaObbligatoria());
-                    cout<<"aggiunta domanda"<<endl;
                 }
-                cout<<"fine while"<<endl;
             }
             }
             return 0;
@@ -299,6 +295,7 @@ const bool GestioneRefertazione<T,R>:: scriviFileTest()
 template<class T, class R>
 const bool GestioneRefertazione<T,R>:: fineDomande()
 {
+
     if(_domande_da_porre.empty()&&_start.finitoDomandeObbligatorie())
     {
         return 1;

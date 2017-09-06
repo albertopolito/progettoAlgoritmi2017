@@ -4,7 +4,6 @@
 #include<vector>
 #include<algorithm>
 #include "FileOutput.h"
-#include <iostream>
 using namespace std;
 
 template<class T, class R>
@@ -63,7 +62,7 @@ void FileLog<T,R>::scriviFileOutput(const R id_risposta,const T id_domanda, cons
         for (it=domande.begin();it!=domande.end(); it++){
             _file_output << " "<< *it;
         }
-        _file_output << "\n";
+        _file_output << endl<<endl;
 }
 
 #endif // FILELOG_H

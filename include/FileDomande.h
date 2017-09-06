@@ -4,7 +4,6 @@
 #include"VocabolarioId.h"
 #include"Grafo.h"
 #include<sstream>
-#include<iostream>
 using namespace std;
 
 template<class T, class R>

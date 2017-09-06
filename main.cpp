@@ -32,7 +32,7 @@ int main()
                                 break;
                 case SCRITTURA: while(!referto_medico.fineDomande())
                                 {
-                                   cout<<referto_medico.getNuovaDomanda()<<endl;
+                                   cout<<endl<<referto_medico.getNuovaDomanda()<<endl;
                                    int risposta;
                                    int i=0;
                                    vector<string> risposte=referto_medico.getRisposta();
@@ -42,9 +42,7 @@ int main()
                                        cout<<i<<" "<<*it<<endl;
                                    }
                                    cin>>risposta;
-                                   cout<<risposte[--risposta];
-                                   string risp=risposte[risposta];
-                                   while(referto_medico.setRisposta(risp))
+                                   while(risposta<1||risposta>i||referto_medico.setRisposta(risposte[--risposta]))
                                    {
                                        cout<<"la risposta non è corretta, immetti una nuova risposta"<<endl;
                                        cin>>risposta;
@@ -62,6 +60,9 @@ int main()
                 cerr<<"errore nell'apertura o nella scrittura del file immesso"<<endl;
                 exit(1);
             }
+        }else{
+            cerr<<"file di test corrotto"<<endl;
+            exit(1);
         }
     }
     cout<<"fine refertazione"<<endl;
