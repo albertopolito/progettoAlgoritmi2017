@@ -8,6 +8,7 @@
 ///modalità di lettura o scrittura del file di test
 #define LETTURA 0
 #define SCRITTURA 1
+
 using namespace std;
 
 template<class T, class R>
@@ -106,14 +107,19 @@ const bool GestioneRefertazione<T,R>:: analisiSintatticaSemanticaEdInizializzazi
         }
         //guardo che gli id delle domande obbligatorie nel file di start esistano, cioè siano contenute nel file delle domande
         _start.resettaDomandeObbligatorie();
+        vector<T> domande_iniziali;
         while(!_start.finitoDomandeObbligatorie())
         {
-            if(_domande.getDomandaDaId(_start.getDomandaObbligatoria())=="")
+            domande_iniziali.push_back(_start.getDomandaObbligatoria());
+            if(_domande.getDomandaDaId(domande_iniziali.back())=="")
             {
                 return 1;
             }
         }
-
+        if(_domande.controlloAccodamentoDomande(domande_iniziali))
+        {
+            return 1;
+        }
     }
     _start.resettaDomandeObbligatorie();
     //i controlli sono andati abuon fine allore inizializzo il vettore delle domande da porre con la prima domanda obbligatoria

@@ -94,6 +94,10 @@ class Nodo
         void setTempoInizioVisita(const int tempo_inizio_visita);
         ///per le visite in ampiezza e in profondità, setta il tempo in cui è finita la visita
         void setTempoFineVisita(const int tempo_fine_visita);
+        ///immette una nuova radice da cui deriva il nodo
+        void setNuovaRadice(const T contenuto_radice);
+        ///ritorna tutte le radici del nodo
+        const vector<T> getRadici();
     protected:
 
     private:
@@ -101,6 +105,8 @@ class Nodo
         vector<adiacenza> _adiacenze;
         ///contenuto nodo corrente
         T _contenuto;
+        ///radici degli alberi da cui deriva
+        vector<T> _radici;
         ///colore del nodo corrente
         short int _colore_nodo;
         ///tempo inizio visita nodo corrente
@@ -281,4 +287,18 @@ void Nodo<T,R>::setTempoFineVisita(const int tempo_fine_visita)
     _tempo_fine_visita=tempo_fine_visita;
 }
 
+template<class T,class R>
+void Nodo<T,R>::setNuovaRadice(const T contenuto_radice)
+{
+    if(find(_radici.begin(),_radici.end(),contenuto_radice)==_radici.end())
+    {
+        _radici.push_back(contenuto_radice);
+    }
+}
+
+template<class T,class R>
+const vector<T> Nodo<T,R>::getRadici()
+{
+    return _radici;
+}
 #endif // NODO_H

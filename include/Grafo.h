@@ -15,7 +15,7 @@
 #define NESSUNA_ANALISI 0
 #define PROFONDITA 1
 #define AMPIEZZA 2
-
+#include<iostream>
 
 using namespace std;
 template<class T,class R>
@@ -33,21 +33,19 @@ class Grafo
         const vector<R> daContenutoAnalisi(const T contenuto);
         ///ritorna il contenuto dei nodi collegati al nodo ricercato attraverso un ben preciso peso degli archi
         const vector<T> daArcoAnalisi(const R arco, const T contenuto);
-        ///ritorna 1 se è aciclico, o se ciclico
-        const bool aciclico();
+        ///ritorna 1 se gli alberi con quelle radici sono ciclici, o esistono archi di cross, 0 altrimenti
+        const bool aciclicoOppureArchiDiCross(/*const*/ vector<T> contenuto_radici, const short int tipologia_arco_da_ricercare);
     protected:
 
     private:
-        ///flag che dice se la tipologia degli archi è valida per l'analisi in ampiezza o in profondità è 0=nullo, 1=profondità, 2=ampiezza
-        short int _dfs_o_bfs;
         ///lista dei nodi interni al grafo
         vector<Nodo<T,R>*> _lista_nodi;
         ///tempo totale della visita
         int _tempo_totale;
         ///implementa l'analisi in profondità su tutto il grafo
-        void analisiTotaleInProfondita();
+        void analisiTotaleInProfondita( vector<Nodo<T,R>*> nodi_da_visitare);
         ///implementa l'analisi in profondità per un singolo nodo
-        void visitaNodoDfs( Nodo<T,R>* nodo_da_visitare);
+        void visitaNodoDfs( Nodo<T,R>* nodo_da_visitare, const T contenuto_radice);
         ///resetta i valori di analisi del grafo
         void resettaNodi();
         ///crea un nuovo nodo e lo immette nella lista; ritorna il puntatore al nodo creato
@@ -60,7 +58,7 @@ class Grafo
 template<class T,class R>
 Grafo<T,R>::Grafo()
 {
-    _dfs_o_bfs=NESSUNA_ANALISI;    //inizializzo il flag di analisi con un valore nullo
+
 }
 
 template<class T,class R>
@@ -149,53 +147,80 @@ const vector<T> Grafo<T,R>:: daArcoAnalisi(const R arco, const T contenuto)
 }
 
 template<class T,class R>
-const bool Grafo<T,R>:: aciclico()
+const bool Grafo<T,R>:: aciclicoOppureArchiDiCross(/*const*/ vector<T> contenuto_radici, const short int tipologia_arco_da_ricercare)
 {
     typename vector<Nodo<T,R>*>::iterator itr_lista_nodi;
-    if(_dfs_o_bfs!=PROFONDITA)  //se non ho già fatto l'analisi in profondità la faccio
-    {
-        analisiTotaleInProfondita();
-
-    }
-    //cerco in ogni nodo del grafo se gli archi ettichettati con backward, se ne esiste anche solo uno allora il grafo è ciclico, altrimenti è aciclico
+    vector<Nodo<T,R>*> nodi_da_analizzare;
     for(itr_lista_nodi=_lista_nodi.begin();itr_lista_nodi!=_lista_nodi.end();itr_lista_nodi++)
     {
         Nodo<T,R>* nodo=*itr_lista_nodi;
-        if(nodo->findArcoPerTipologia(BACKWARD)!=NULL)
+        for(typename vector<T>::iterator it=contenuto_radici.begin();it!=contenuto_radici.end();it++)
         {
-            return 0;
+            if(nodo->getContenuto()==*it)
+            {
+                nodi_da_analizzare.push_back(nodo);
+            }
         }
-
-
-
     }
+    resettaNodi();
+    analisiTotaleInProfondita(nodi_da_analizzare);
+    //cerco nei nodi radici passati alla funzione se gli archi sono ettichettati con cross, se ne esiste anche solo uno allora il grafo è ciclico, altrimenti è aciclico
+    //preparo i nodi da analizzare
+    for(itr_lista_nodi=_lista_nodi.begin();itr_lista_nodi!=_lista_nodi.end();itr_lista_nodi++)
+    {
+        Nodo<T,R>* nodo=*itr_lista_nodi;
+        for(typename vector<T>::iterator it=contenuto_radici.begin();it!=contenuto_radici.end();it++)
+        {
+            if(tipologia_arco_da_ricercare==CROSS)
+            {
+                if(nodo->getRadici().size()>1)
+                {
+                    if(nodo->getContenuto()!=0)
+                    {
+                        return 1;
+                    }
+                }
+                if(nodo->findArcoPerTipologia(CROSS)!=NULL)
+                {
+                    nodo=nodo->findArcoPerTipologia(CROSS);
+                    if(nodo->getContenuto()!=0)
+                    {
+                        return 1;
+                    }
+                }
 
-    return 1;
-
+            }else{
+                if(nodo->findArcoPerTipologia(tipologia_arco_da_ricercare)!=NULL)
+                {
+                    return 1;
+                }
+            }
+        }
+    }
+    return 0;
 }
 
 template<class T,class R>
-void Grafo<T,R>:: analisiTotaleInProfondita()
+void Grafo<T,R>:: analisiTotaleInProfondita(vector<Nodo<T,R>*> nodi_da_visitare)
 {
     typename vector<Nodo<T,R>*>::iterator itr_lista_nodi;
     resettaNodi();              //resetto il colore e la tipologia degli archi per ogni nodo
-    _dfs_o_bfs=PROFONDITA;      //setto che sto svolgendo l'analisi in profondità
     _tempo_totale=0;            //setto a zero il tempo di visita totale
-    for(itr_lista_nodi=_lista_nodi.begin();itr_lista_nodi!=_lista_nodi.end();itr_lista_nodi++)
+    for(itr_lista_nodi=nodi_da_visitare.begin();itr_lista_nodi!=nodi_da_visitare.end();itr_lista_nodi++)
     {
-
         Nodo<T,R>* nodo=*itr_lista_nodi;    //puntatore di appoggio
+        nodo->setNuovaRadice(nodo->getContenuto());
         if(nodo->getColore()==WHITE)        //per tutti i nodi bianchi implemento la visita in profondità
         {
-            visitaNodoDfs(*itr_lista_nodi);
+            visitaNodoDfs(*itr_lista_nodi,nodo->getContenuto());
         }
     }
 }
 
 template<class T,class R>
-void Grafo<T,R>:: visitaNodoDfs( Nodo<T,R>* nodo_da_visitare)
+void Grafo<T,R>:: visitaNodoDfs( Nodo<T,R>* nodo_da_visitare, const T contenuto_radice)
 {
-    Nodo<T,R>* nodo_adiacente;
+    Nodo<T,R>* nodo_adiacente=NULL;
     nodo_da_visitare->setNuovoColore(GREY);
     _tempo_totale++;
     nodo_da_visitare->setTempoInizioVisita(_tempo_totale);
@@ -204,10 +229,11 @@ void Grafo<T,R>:: visitaNodoDfs( Nodo<T,R>* nodo_da_visitare)
     //visito il nodo, ricerco le adiacenze ancora da analizzare tramite l'analisi della neutralità degli archi che gli partono
     while((nodo_adiacente=nodo_da_visitare->findArcoPerTipologia(NEUTRO))!=NULL)
     {
+        nodo_adiacente->setNuovaRadice(contenuto_radice);
         switch(nodo_adiacente->getColore())
         {
             case WHITE: nodo_da_visitare->setTipologiaArco(TREE,nodo_adiacente);    //se il nodo adiacente è bianco allora la tipologia dell'arco è TREE
-                        visitaNodoDfs(nodo_adiacente);                              //e richiamo ricorsivamente se stessa per continuare l'analisi
+                        visitaNodoDfs(nodo_adiacente,contenuto_radice);                              //e richiamo ricorsivamente se stessa per continuare l'analisi
                         break;
             case GREY:  nodo_da_visitare->setTipologiaArco(BACKWARD,nodo_adiacente);//se il nodo è grigio allora l'arco è backward e non lo analizzo
                         break;
@@ -242,7 +268,6 @@ template<class T,class R>
 void Grafo<T,R>::resettaNodi()
 {
     //resetto l'analisi e tutti i nodi, perciò le tipologie degli archi e il colore dei nodi
-    _dfs_o_bfs=NESSUNA_ANALISI;
     typename vector<Nodo<T,R>*>::iterator itr_lista_nodi;
     for(itr_lista_nodi=_lista_nodi.begin();itr_lista_nodi!=_lista_nodi.end();itr_lista_nodi++)
     {

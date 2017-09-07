@@ -25,6 +25,8 @@ class FileDomande : public FileInput
         const vector<R> getTutteLeRispostePossibili();
         ///implementazione della funzione virtuale della classe FileInput
         const bool leggiFile(const string nome_file);
+        ///controllo incrociato con file di start
+        const bool controlloAccodamentoDomande(vector<T> inizio_domande);
     protected:
 
     private:
@@ -181,7 +183,13 @@ const bool FileDomande<T,R>:: leggiFile(const string nome_file)
 
     chiudiFileInput();
     //ritorno ancora l'ultimo controllo sull'aciclicità del grafo di modo che le domande passate non si ripetano all'infinito
-    return (!_grafo_domande_da_sottoporre.aciclico()||_vocabolario_domande.controlloSintattico());
+    return (_vocabolario_domande.controlloSintattico());
+}
+
+template<class T, class R>
+const bool FileDomande<T,R>:: controlloAccodamentoDomande(vector<T> inizio_domande)
+{
+    return(_grafo_domande_da_sottoporre.aciclicoOppureArchiDiCross(inizio_domande,CROSS)||_grafo_domande_da_sottoporre.aciclicoOppureArchiDiCross(inizio_domande,BACKWARD));
 }
 
 #endif // FILEDOMANDE_H
