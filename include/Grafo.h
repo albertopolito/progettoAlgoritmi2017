@@ -162,8 +162,11 @@ const bool Grafo<T,R>:: aciclico()
     {
         Nodo<T,R>* nodo=*itr_lista_nodi;
         if(nodo->findArcoPerTipologia(BACKWARD)!=NULL)
-
+        {
             return 0;
+        }
+
+
 
     }
 

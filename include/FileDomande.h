@@ -92,7 +92,7 @@ const vector<R> FileDomande<T,R>:: getTutteLeRispostePossibili()
 {
     vector<R> tutte_le_risposte;
     vector<T> tutte_le_domande=_vocabolario_domande.getTuttiGliId();
-    typename vector<string>::iterator it_domande;
+    typename vector<T>::iterator it_domande;
     typename vector<R>::iterator it_risposte;
     //analizzo tutte le risposte e, prima di inserirle nel vettore elimino le ripetizioni
     for(it_domande=tutte_le_domande.begin();it_domande!=tutte_le_domande.end();it_domande++)
@@ -100,7 +100,7 @@ const vector<R> FileDomande<T,R>:: getTutteLeRispostePossibili()
         vector<R> risposte=getRispostaDataLaDomanda(*it_domande);
         for(it_risposte=risposte.begin();it_risposte!=risposte.end();it_risposte++)
         {
-            if(find(tutte_le_risposte.begin(),tutte_le_risposte.end(),*it_risposte)!=tutte_le_risposte.end())
+            if(find(tutte_le_risposte.begin(),tutte_le_risposte.end(),*it_risposte)==tutte_le_risposte.end())
             {
                 tutte_le_risposte.push_back(*it_risposte);
             }

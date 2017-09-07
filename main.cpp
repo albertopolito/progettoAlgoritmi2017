@@ -5,7 +5,7 @@ using namespace std;
 
 int main()
 {
-    GestioneRefertazione<string,string> referto_medico("risposte.txt","nome.txt","start.txt");
+    GestioneRefertazione<int,int> referto_medico("risposte.txt","domande.txt","start.txt");
     if(referto_medico.analisiSintatticaSemanticaEdInizializzazione())
     {
         cerr<<"errore nell'apertura o nella lettura dei file immessi"<<endl;
@@ -61,7 +61,7 @@ int main()
                 exit(1);
             }
         }else{
-            cerr<<"file di test corrotto"<<endl;
+            cerr<<"file di test corrotto o non esistente"<<endl;
             exit(1);
         }
     }

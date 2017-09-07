@@ -1,0 +1,48 @@
+12 23
+Eta' del paziente?   meno di 30
+Nuove domande:
+
+1 18
+Sesso del paziente   femmina
+Nuove domande: 2 3
+
+2 20
+La paziente e' in cinta?   non incinta
+Nuove domande:
+
+3 21
+Il paziente e' fumatore?   fumatore
+Nuove domande: 4 11
+
+4 2
+Il paziente e' stato sottoposto a controllo ai polmoni?   no
+Nuove domande:
+
+11 1
+Il paziente e' stato sottoposto a controllo per invecchiamento precoce?   si'
+Nuove domande:
+
+5 2
+E' stata acquisita una retinografia dell'occhio sinistro?   no
+Nuove domande:
+
+6 1
+E' stata acquisita una retinografia dell'occhio destro?   si'
+Nuove domande: 7 8
+
+7 12
+L'immagine viene giudicata ammissibile?   necessaria per il referto
+Nuove domande:
+
+8 14
+La qualità dell'immagine viene giudicata ammissibile?   chiara luminosa refertabile
+Nuove domande: 9
+
+9 4
+L'immagine presenta macchie?   zero macchie
+Nuove domande: 10
+
+10 10
+L'immagine presenta lesioni?   meno di dieci lesioni
+Nuove domande:
+

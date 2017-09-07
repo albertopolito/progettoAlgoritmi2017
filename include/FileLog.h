@@ -60,7 +60,10 @@ void FileLog<T,R>::scriviFileOutput(const R id_risposta,const T id_domanda, cons
         vector<T> domande=domande_successive;
         typename vector<T>::iterator it;
         for (it=domande.begin();it!=domande.end(); it++){
-            _file_output << " "<< *it;
+                if(*it!=T())
+                {
+                    _file_output << " "<< *it;
+                }
         }
         _file_output << endl<<endl;
 }

@@ -5,7 +5,6 @@
 #include"FileStart.h"
 #include"FileTest.h"
 #include"FileLog.h"
-//#include <iostream>
 ///modalità di lettura o scrittura del file di test
 #define LETTURA 0
 #define SCRITTURA 1
@@ -97,11 +96,9 @@ const bool GestioneRefertazione<T,R>:: analisiSintatticaSemanticaEdInizializzazi
         typename vector<R>::iterator it_risposte;
 
         vector<R> risposte_possibili=_domande.getTutteLeRispostePossibili();
-
         //guardo che gli id delle risposte che ci sono nel file delle domande sono presenti anche nel file delle risposte
         for(it_risposte=risposte_possibili.begin();it_risposte!=risposte_possibili.end();it_risposte++)
         {
-
             if(_risposte.getRispostaDaId(*it_risposte)=="")
             {
                 return 1;
@@ -140,7 +137,7 @@ const bool  GestioneRefertazione<T,R>:: apriLetturaScritturaFileTest(const strin
         //lo analizzo guardando grazie al grafo inserito nel file delle domande se le risposte sono valide, se non lo sono dò errore
         while(!_test.hoFinitoLeDomande(ANALISI))
         {
-            if(_domande.getDomandaDaId(_test.leggiDomandaCorrente())!=T())
+            if(_domande.getDomandaDaId(_test.leggiDomandaCorrente())!="")
             {
                 vector<R> risposte_valide=_domande.getRispostaDataLaDomanda(_test.leggiDomandaCorrente());
 
