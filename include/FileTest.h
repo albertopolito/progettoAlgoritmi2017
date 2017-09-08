@@ -37,8 +37,7 @@ class FileTest : public FileInput , FileOutput
     struct f_test{
         R f_id_risposta;
         T f_id_domanda;
-        bool f_ho_risposto;
-        short int f_ricerca_risposta_domanda;
+        bool f_ricerca_risposta_domanda;
         f_test(R id_risposta) : f_id_risposta(id_risposta)
         {
             f_ricerca_risposta_domanda=0;
@@ -48,15 +47,9 @@ class FileTest : public FileInput , FileOutput
         {
             f_ricerca_risposta_domanda=1;
         }
-
-        f_test(T id_domanda, bool risposto, const bool domanda) : f_id_domanda(id_domanda),f_ho_risposto(risposto)
-        {
-            f_ricerca_risposta_domanda=2;
-        }
-
         bool operator () ( const test& f_test ) const
         {
-            return ((f_ricerca_risposta_domanda==0&&f_test.id_risposta==f_id_risposta)||(f_ricerca_risposta_domanda==1&&f_test.id_domanda==f_id_domanda)||(f_ricerca_risposta_domanda==2&&f_test.id_domanda==f_id_domanda&&f_test.ho_risposto==f_ho_risposto));
+            return ((f_ricerca_risposta_domanda==0&&f_test.id_risposta==f_id_risposta)||(f_ricerca_risposta_domanda==1&&f_test.id_domanda==f_id_domanda));
         }
     };
     public:
@@ -67,7 +60,7 @@ class FileTest : public FileInput , FileOutput
         const T leggiDomandaCorrente();//leggi la domanda puntata dall'iteratore
         void  prossimaDomanda();//aumenta l'iteratore di 1
         const R getRispostaDaDomanda(const T id_domanda,const bool modalita=ANALISI);
-        const bool hoGiaRisposto(const T id_domanda);
+        //const bool hoGiaRisposto(const T id_domanda);
         const bool hoFinitoLeDomande(const bool modalita=ANALISI);
         void resettaIlPuntoDiAnalisi();
         void immettiNuovoElemento(const T id_domanda,const R id_risposta, const bool modalita_scrittura_in_struttura_dati=DA_FILE);
@@ -144,7 +137,7 @@ const R FileTest<T,R>::getRispostaDaDomanda(const T id_domanda, const bool modal
     }
 }
 
-template<class T, class R>
+/*template<class T, class R>
 const bool FileTest<T,R>::hoGiaRisposto(const T id_domanda)
 {
 
@@ -155,7 +148,7 @@ const bool FileTest<T,R>::hoGiaRisposto(const T id_domanda)
     }else{
         return 1;
     }
-}
+}*/
 
 template<class T, class R>
 const bool FileTest<T,R>::hoFinitoLeDomande(const bool modalita)

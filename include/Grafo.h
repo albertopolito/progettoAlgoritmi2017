@@ -175,7 +175,7 @@ const bool Grafo<T,R>:: aciclicoOppureArchiDiCross(/*const*/ vector<T> contenuto
             {
                 if(nodo->getRadici().size()>1)
                 {
-                    if(nodo->getContenuto()!=0)
+                    if(nodo->getContenuto()!=T())
                     {
                         return 1;
                     }
@@ -183,7 +183,7 @@ const bool Grafo<T,R>:: aciclicoOppureArchiDiCross(/*const*/ vector<T> contenuto
                 if(nodo->findArcoPerTipologia(CROSS)!=NULL)
                 {
                     nodo=nodo->findArcoPerTipologia(CROSS);
-                    if(nodo->getContenuto()!=0)
+                    if(nodo->getContenuto()!=T())
                     {
                         return 1;
                     }

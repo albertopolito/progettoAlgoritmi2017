@@ -26,18 +26,21 @@ class GestioneRefertazione
         const bool apriLetturaScritturaFileTest(const string nome_file_test);
         ///scrive il file di log a partire dal file di test
         const bool daFileDiTestAFileDiLog(const string nome_file_log);
+        ///dà in uscita la nuova domanda da porre all'utente
+        const string getNuovaDomanda();
+        ///dà in uscita la risposta scritta nel file di test dato in lettura
+        const string getRisposta();
+        ///dice se sono finite le domande da porre oppure no
+        const bool fineDomande();
         ///per la scrittura del file di test:
 
-            ///dà in uscita la nuova domanda da porre all'utente
-            const string getNuovaDomanda();
-
-            const vector<string> getRisposta();
+            ///dà in uscita tutte le risposte possibili
+            const vector<string> getRispostePossibili();
             ///registra la risposta data se è corretta, offrendo in uscita un flag per verificare il corretto funzionamento della procedura, inoltre fa anadare avanti le domande
             const bool setRisposta(const string risposta);
             ///quando le domande sono concluse scrive il file di test e setta la sua uscita a 0 altrimenti la setta a 1
             const bool scriviFileTest();
-            ///dice se sono finite le domande da porre oppure no
-            const bool fineDomande();
+
 
     protected:
 
@@ -135,7 +138,6 @@ const bool  GestioneRefertazione<T,R>:: apriLetturaScritturaFileTest(const strin
     {
        return 1;    //se ho un errore nell'apertura allora ritorno un errore e non continuo
     }
-
     //se devo leggere il file
     if(_modalita_di_funzionamento_per_il_file_test==LETTURA)
     {
@@ -156,6 +158,33 @@ const bool  GestioneRefertazione<T,R>:: apriLetturaScritturaFileTest(const strin
                 return 1;
             }
         }
+        //finchè le domande da porre non sono finite le leggo tutte in modo corretto attraverso il file delle domande e scrivo il file di log
+        while(!fineDomande())
+        {
+            if(_domande_da_porre.empty())
+            {
+                _domande_da_porre.push_back(_start.getDomandaObbligatoria());
+            }
+            T domanda_corrente=_domande_da_porre.back();
+            if(domanda_corrente!=T())
+            {
+                vector<T> domande;
+                _domande_da_porre.pop_back();
+                domande=_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO));
+                reverse(domande.begin(),domande.end());
+                for(typename vector<T>::iterator it=domande.begin();it!=domande.end();it++)
+                {
+                    if((*it)!=T())
+                    {
+                        _domande_da_porre.push_back(*it);
+                    }
+                }
+            }
+        }
+        _start.resettaDomandeObbligatorie();
+        _domande_da_porre.push_back(_start.getDomandaObbligatoria());
+        //ritorno il parametro che mi indica se ho preso o no in considerazione tutte le righe scritte sul file di test, se non è così do in uscita un errore
+        return !_test.hoFinitoLeDomande(FUNZIONAMENTO);
     }
     return 0;
 }
@@ -169,10 +198,6 @@ const bool GestioneRefertazione<T,R>:: daFileDiTestAFileDiLog(const string nome_
     {
         return 1;
     }else{
-
-        if(_modalita_di_funzionamento_per_il_file_test==SCRITTURA)
-        {
-
             //dò errore se non ho finito di sottoporre le domande all'utente
             if(!fineDomande())
             {
@@ -186,36 +211,6 @@ const bool GestioneRefertazione<T,R>:: daFileDiTestAFileDiLog(const string nome_
                     _test.prossimaDomanda();
                 }
             }
-        }else if(_modalita_di_funzionamento_per_il_file_test==LETTURA)
-        {
-            //finchè le domande da porre non sono finite le leggo tutte in modo corretto attraverso il file delle domande e scrivo il file di log
-            while(!fineDomande())
-            {
-                if(_domande_da_porre.empty())
-                {
-                    _domande_da_porre.push_back(_start.getDomandaObbligatoria());
-                }
-                T domanda_corrente=_domande_da_porre.back();
-                if(domanda_corrente!=T())
-                {
-                    vector<T> domande;
-                    log.scriviFileOutput(_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO),domanda_corrente,_domande.getDomandaDaId(domanda_corrente),_risposte.getRispostaDaId(_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO)),_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente,FUNZIONAMENTO)));
-                    _domande_da_porre.pop_back();
-                    domande=_domande.getDomandaDataRisposta(domanda_corrente,_test.getRispostaDaDomanda(domanda_corrente));
-                    reverse(domande.begin(),domande.end());
-                    for(typename vector<T>::iterator it=domande.begin();it!=domande.end();it++)
-                    {
-                        if((*it)!=T())
-                        {
-                            _domande_da_porre.push_back(*it);
-                        }
-                    }
-
-                }
-            }
-            //ritorno il parametro che mi indica se ho preso o no in considerazione tutte le righe scritte sul file di test, se non è così do in uscita un errore
-            return !_test.hoFinitoLeDomande(FUNZIONAMENTO);
-        }
     }
     return 0;
 }
@@ -227,7 +222,15 @@ const string GestioneRefertazione<T,R>:: getNuovaDomanda()
 }
 
 template<class T, class R>
-const vector<string> GestioneRefertazione<T,R>:: getRisposta()
+const string GestioneRefertazione<T,R>:: getRisposta()
+{
+    string risposta=_risposte.getRispostaDaId(_test.getRispostaDaDomanda(_domande_da_porre.back(),ANALISI));
+    setRisposta(risposta);
+    return risposta;
+}
+
+template<class T, class R>
+const vector<string> GestioneRefertazione<T,R>:: getRispostePossibili()
 {
     vector<string> vettore_di_ritorno;
     vector<R> risposte=_domande.getRispostaDataLaDomanda(_domande_da_porre.back());
@@ -243,7 +246,7 @@ const bool GestioneRefertazione<T,R>:: setRisposta(const string risposta)
 {
     //faccio un primo controllo per essere certo di essere veramente in modalità scrittura e dò errore se non è così
     //dò errore anche se ho finito le domande da porre
-    if(_modalita_di_funzionamento_per_il_file_test==SCRITTURA&&!fineDomande())
+    if(!fineDomande())
     {
         T domanda_posta=_domande_da_porre.back();
         R id_risposta=_risposte.getIdDaRisposta(risposta);
@@ -255,7 +258,10 @@ const bool GestioneRefertazione<T,R>:: setRisposta(const string risposta)
         }else{
             vector<T> domande;
             //immetto altre domande nel vettore finchè non le finisco
-            _test.immettiNuovoElemento(_domande_da_porre.back(),id_risposta,DA_FUNZIONAMENTO);
+            if(_modalita_di_funzionamento_per_il_file_test==SCRITTURA)
+            {
+                _test.immettiNuovoElemento(_domande_da_porre.back(),id_risposta,DA_FUNZIONAMENTO);
+            }
             _domande_da_porre.pop_back();
             domande=_domande.getDomandaDataRisposta(domanda_posta,id_risposta);
             reverse (domande.begin(),domande.end());
@@ -266,7 +272,7 @@ const bool GestioneRefertazione<T,R>:: setRisposta(const string risposta)
             if(!_domande_da_porre.empty())
             {
 
-            while(!_domande_da_porre.empty()&&(_domande_da_porre.back()==T()||_test.hoGiaRisposto(_domande_da_porre.back())))
+            while(!_domande_da_porre.empty()&&(_domande_da_porre.back()==T()/*||_test.hoGiaRisposto(_domande_da_porre.back())*/))
             {
                     _domande_da_porre.pop_back();
                 if(!_start.finitoDomandeObbligatorie()&&_domande_da_porre.empty())
