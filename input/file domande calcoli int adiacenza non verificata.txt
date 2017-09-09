@@ -1,0 +1,42 @@
+[Q] 1 2 Sesso del paziente
+[A] 17 3
+[A] 18 2 3
+[Q] 2 2 La paziente e' in cinta?
+[A] 19
+[A] 20
+[Q] 3 2 Il paziente e' dolorante all'addome?
+[A] 21 4 5
+[A] 22
+[Q] 4 2 Si e' esclusa la possibile frattura ossea?
+[A] 1
+[A] 2
+[Q] 5 2 Ha mai avuto dei calcoli ?
+[A] 1
+[A] 2
+[Q] 6 2 E' stata acquisita una ecografia al rene destro?
+[A] 1 7 8
+[A] 2
+[Q] 7 2 L'immagine viene giudicata ammissibile?
+[A] 12
+[A] 13
+[Q] 8 3 La qualità dell'immagine viene giudicata ammissibile?
+[A] 14 9
+[A] 15
+[A] 16
+[Q] 9 4 L'immagine presenta possibili calcoli?
+[A] 4
+[A] 5 10
+[A] 6 10
+[A] 7 10
+[Q] 10 4 Il paziente e' stato sottoposto ad una cura?
+[A] 8
+[A] 9
+[A] 10
+[A] 11
+[Q] 11 2 E' stata acquisita una ecografia al rene sinistro?
+[A] 1 7 8 100
+[A] 2
+[Q] 12 3 Eta' del paziente?
+[A] 23
+[A] 24
+[A] 25

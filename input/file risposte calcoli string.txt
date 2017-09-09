@@ -1,0 +1,24 @@
+uno si'
+due no
+quattro zero calcoli
+cinque meno di un millimetro di diametro
+sei da uno a cinque millimetri di diametro
+sette piu' di cinque millimetri di diametro
+otto no cure
+nove cure imposte dal medico di base
+dieci ricovero in pronto soccorso
+undici ricovero ospedaliero
+dodici necessaria per il referto
+tredici non necessaria per il referto
+quattordici chiara luminosa refertabile
+quindici scura non refertabile
+sedici mossa o non definita non refertabile
+diciassette maschio
+diciotto femmina
+diciannove incinta
+venti non incinta
+ventuno dolorante
+ventidue non dolorante
+ventitre meno di 30
+ventiquattro da 30 a 65
+venticinque piu' di 65

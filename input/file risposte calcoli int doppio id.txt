@@ -1,0 +1,24 @@
+1 si'
+2 no
+4 zero calcoli
+5 meno di un millimetro di diametro
+6 da uno a cinque millimetri di diametro
+7 piu' di cinque millimetri di diametro
+8 no cure
+9 cure imposte dal medico di base
+10 ricovero in pronto soccorso
+11 ricovero ospedaliero
+12 necessaria per il referto
+13 non necessaria per il referto
+14 chiara luminosa refertabile
+15 scura non refertabile
+16 mossa o non definita non refertabile
+17 maschio
+18 femmina
+1 incinta
+20 non incinta
+21 dolorante
+22 non dolorante
+23 meno di 30
+24 da 30 a 65
+25 piu' di 65

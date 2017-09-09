@@ -15,10 +15,6 @@ FileOutput::~FileOutput()
     chiudiFileOutput();
 }
 
-FileOutput::FileOutput(const FileOutput& to_copy)
-{
-
-}
 
 void FileOutput::scriviFileOutput()
 {
@@ -28,12 +24,7 @@ void FileOutput::scriviFileOutput()
 const bool FileOutput::apriFileOutput(const string nome_file)
 {
     _file_output.open(nome_file.c_str());
-    if(_file_output.is_open())
-    {
-        return 0;
-    }else{
-        return 1;
-    }
+    return (!_file_output.is_open()||!_file_output.good());
 }
 
 void FileOutput::chiudiFileOutput()

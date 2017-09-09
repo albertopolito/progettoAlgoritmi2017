@@ -1,0 +1,81 @@
+# depslib dependency file v1.0
+1504954347 source:c:\users\toshiba\documents\università\c++\progetto_finito\main.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	"GestioneRefertazione.hpp"
+
+1504955999 c:\users\toshiba\documents\università\c++\progetto_finito\gestionerefertazione.hpp
+	"FileRisposte.hpp"
+	"FileDomande.hpp"
+	"FileStart.hpp"
+	"FileTest.hpp"
+	"FileLog.hpp"
+
+1504943068 c:\users\toshiba\documents\università\c++\progetto_finito\filerisposte.hpp
+	"FileInput.h"
+	"VocabolarioId.hpp"
+	<sstream>
+
+1504949344 c:\users\toshiba\documents\università\c++\progetto_finito\include\fileinput.h
+	<string>
+	<fstream>
+
+1504948025 c:\users\toshiba\documents\università\c++\progetto_finito\vocabolarioid.hpp
+	<string>
+	<vector>
+	<algorithm>
+
+1504955747 c:\users\toshiba\documents\università\c++\progetto_finito\filedomande.hpp
+	"FileInput.h"
+	"VocabolarioId.hpp"
+	"Grafo.hpp"
+	<sstream>
+
+1504955786 c:\users\toshiba\documents\università\c++\progetto_finito\grafo.hpp
+	"Nodo.hpp"
+
+1504868106 c:\users\toshiba\documents\università\c++\progetto_finito\nodo.hpp
+	<string>
+	<vector>
+	<algorithm>
+
+1504948025 c:\users\toshiba\documents\università\c++\progetto_finito\filestart.hpp
+	<string>
+	<vector>
+	<algorithm>
+	"FileInput.h"
+
+1504948025 c:\users\toshiba\documents\università\c++\progetto_finito\filetest.hpp
+	<string>
+	<vector>
+	<algorithm>
+	"FileOutput.h"
+	"FileInput.h"
+
+1504949344 c:\users\toshiba\documents\università\c++\progetto_finito\include\fileoutput.h
+	<string>
+	<vector>
+	<algorithm>
+	<fstream>
+
+1504948025 c:\users\toshiba\documents\università\c++\progetto_finito\filelog.hpp
+	<string>
+	<vector>
+	<algorithm>
+	"FileOutput.h"
+
+1504949344 source:c:\users\toshiba\documents\università\c++\progetto_finito\src\fileinput.cpp
+	"FileInput.h"
+	<string>
+	<vector>
+	<algorithm>
+	<fstream>
+
+1504949363 source:c:\users\toshiba\documents\università\c++\progetto_finito\src\fileoutput.cpp
+	"FileOutput.h"
+	<string>
+	<vector>
+	<algorithm>
+	<fstream>
+

@@ -1,0 +1,40 @@
+dodici ventitre
+Eta' del paziente?  meno di 30
+Nuove domande:
+
+uno diciassette
+Sesso del paziente  maschio
+Nuove domande: tre
+
+tre ventuno
+Il paziente e' dolorante all'addome?  dolorante
+Nuove domande: quattro cinque
+
+quattro uno
+Si e' esclusa la possibile frattura ossea?  si'
+Nuove domande:
+
+cinque uno
+Ha mai avuto dei calcoli ?  si'
+Nuove domande:
+
+sei uno
+E' stata acquisita una ecografia al rene destro?  si'
+Nuove domande: sette otto
+
+sette dodici
+L'immagine viene giudicata ammissibile?  necessaria per il referto
+Nuove domande:
+
+otto quattordici
+La qualità dell'immagine viene giudicata ammissibile?  chiara luminosa refertabile
+Nuove domande: nove
+
+nove sei
+L'immagine presenta possibili calcoli?  da uno a cinque millimetri di diametro
+Nuove domande: dieci
+
+dieci dieci
+Il paziente e' stato sottoposto ad una cura?  ricovero in pronto soccorso
+Nuove domande:
+

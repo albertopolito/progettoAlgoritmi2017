@@ -1,0 +1,42 @@
+[Q] uno 2 Sesso del paziente
+[A] diciassette tre
+[A] diciotto due tre
+[Q] due 2 La paziente e' in cinta?
+[A] diciannove
+[A] venti
+[Q] tre 2 Il paziente e' dolorante all'addome?
+[A] ventuno quattro cinque
+[A] ventidue
+[Q] quattro 2 Si e' esclusa la possibile frattura ossea?
+[A] uno
+[A] due
+[Q] cinque 2 Ha mai avuto dei calcoli ?
+[A] uno
+[A] due
+[Q] sei 2 E' stata acquisita una ecografia al rene destro?
+[A] uno sette otto
+[A] due
+[Q] sette 2 L'immagine viene giudicata ammissibile?
+[A] dodici
+[A] tredici
+[Q] otto 3 La qualità dell'immagine viene giudicata ammissibile?
+[A] quattordici nove
+[A] quindici
+[A] sedici
+[Q] nove 4 L'immagine presenta possibili calcoli?
+[A] quattro
+[A] cinque dieci
+[A] sei dieci
+[A] sette dieci
+[Q] dieci 4 Il paziente e' stato sottoposto ad una cura?
+[A] otto
+[A] nove
+[A] dieci
+[A] undici
+[Q] undici 2 E' stata acquisita una ecografia al rene sinistro?
+[A] uno sette otto
+[A] due
+[Q] dodici 3 Eta' del paziente?
+[A] ventitre
+[A] ventiquattro
+[A] venticinque

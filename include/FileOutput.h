@@ -11,7 +11,6 @@ class FileOutput
     public:
         FileOutput();
         virtual ~FileOutput();
-        FileOutput(const FileOutput& to_copy);
         const bool apriFileOutput(const string nome_file);
         void chiudiFileOutput();
         virtual void scriviFileOutput();
