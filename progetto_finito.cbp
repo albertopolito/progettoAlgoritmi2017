@@ -4,13 +4,13 @@
 	<Project>
 		<Option title="progetto_finito" />
 		<Option pch_mode="2" />
-		<Option compiler="ppc-gcc" />
+		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/Debug/progetto_finito" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
-				<Option compiler="ppc-gcc" />
+				<Option compiler="gcc" />
 				<Option parameters="file risposte calcoli int.txt file domande calcoli int.txt file start calcoli int.txt" />
 				<Compiler>
 					<Add option="-g" />
@@ -21,7 +21,7 @@
 				<Option output="bin/Release/progetto_finito" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
-				<Option compiler="ppc-gcc" />
+				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add directory="include" />
