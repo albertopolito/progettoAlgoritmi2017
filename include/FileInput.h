@@ -3,17 +3,17 @@
 #include <string>
 #include<fstream>
 using namespace std;
-
+///classe generale da cui si derivano quelle per i file input
 class FileInput
 {
     public:
         FileInput();
-        virtual ~FileInput(); //chiude il file se ancora aperto
+        virtual ~FileInput();
         virtual const bool leggiFile(const string nome_file);
     protected:
         ifstream _file_input;
-        const bool apriFileInput(const string nome_file);//se errore 1 altrimenti 0
-        void chiudiFileInput();//chiude il file se ancora aperto
+        const bool apriFileInput(const string nome_file);
+        void chiudiFileInput();
     private:
 };
 
