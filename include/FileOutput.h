@@ -11,11 +11,11 @@ class FileOutput
     public:
         FileOutput();
         virtual ~FileOutput();
-        const bool apriFileOutput(const string nome_file);
-        void chiudiFileOutput();
         virtual void scriviFileOutput();
     protected:
         ofstream _file_output;
+        const bool apriFileOutput(const string nome_file);
+        void chiudiFileOutput();
     private:
         string _nome_file;
 };

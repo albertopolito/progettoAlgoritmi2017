@@ -77,9 +77,14 @@ template<class T>
 const T FileStart<T>::getDomandaObbligatoria()
 {
     //ottengo la prossima domanda da porre e vado alla domanda successiva
-    T domanda_di_appoggio=*_it_domande_obbligatorie;
-    _it_domande_obbligatorie++;
-    return domanda_di_appoggio;
+    if(!finitoDomandeObbligatorie())
+    {
+        T domanda_di_appoggio=*_it_domande_obbligatorie;
+        _it_domande_obbligatorie++;
+        return domanda_di_appoggio;
+    }else{
+        return T();
+    }
 }
 
 template<class T>

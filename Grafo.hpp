@@ -147,7 +147,7 @@ const vector<T> Grafo<T,R>:: daArcoAnalisi(const R arco, const T contenuto)
 }
 
 template<class T,class R>
-const bool Grafo<T,R>:: aciclicoOppureArchiDiCross(/*const*/ vector<T> contenuto_radici, const short int tipologia_arco_da_ricercare)
+const bool Grafo<T,R>:: aciclicoOppureArchiDiCross(vector<T> contenuto_radici, const short int tipologia_arco_da_ricercare)
 {
     typename vector<Nodo<T,R>*>::iterator itr_lista_nodi;
     vector<Nodo<T,R>*> nodi_da_analizzare;

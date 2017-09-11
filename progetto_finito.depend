@@ -79,3 +79,83 @@
 	<algorithm>
 	<fstream>
 
+1504954347 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\main.cpp
+	<iostream>
+	<stdio.h>
+	<stdlib.h>
+	"GestioneRefertazione.hpp"
+
+1504955999 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\gestionerefertazione.hpp
+	"FileRisposte.hpp"
+	"FileDomande.hpp"
+	"FileStart.hpp"
+	"FileTest.hpp"
+	"FileLog.hpp"
+
+1505148148 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filerisposte.hpp
+	"FileInput.h"
+	"VocabolarioId.hpp"
+	<sstream>
+
+1505115140 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\include\fileinput.h
+	<string>
+	<fstream>
+
+1504948025 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\vocabolarioid.hpp
+	<string>
+	<vector>
+	<algorithm>
+
+1504955747 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filedomande.hpp
+	"FileInput.h"
+	"VocabolarioId.hpp"
+	"Grafo.hpp"
+	<sstream>
+
+1505145262 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\grafo.hpp
+	"Nodo.hpp"
+
+1504868106 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\nodo.hpp
+	<string>
+	<vector>
+	<algorithm>
+
+1505147153 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filestart.hpp
+	<string>
+	<vector>
+	<algorithm>
+	"FileInput.h"
+
+1504948025 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filetest.hpp
+	<string>
+	<vector>
+	<algorithm>
+	"FileOutput.h"
+	"FileInput.h"
+
+1505145262 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\include\fileoutput.h
+	<string>
+	<vector>
+	<algorithm>
+	<fstream>
+
+1504948025 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filelog.hpp
+	<string>
+	<vector>
+	<algorithm>
+	"FileOutput.h"
+
+1504949344 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\src\fileinput.cpp
+	"FileInput.h"
+	<string>
+	<vector>
+	<algorithm>
+	<fstream>
+
+1504949363 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\src\fileoutput.cpp
+	"FileOutput.h"
+	<string>
+	<vector>
+	<algorithm>
+	<fstream>
+

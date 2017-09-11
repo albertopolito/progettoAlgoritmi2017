@@ -11,7 +11,7 @@ class FileRisposte : public FileInput
     public:
         FileRisposte();
         virtual ~FileRisposte();
-        FileRisposte(const FileRisposte& other);
+        FileRisposte(const FileRisposte& to_copy);
         ///ritorna una string contenente il testo della risposta associato al ID immesso
         const string getRispostaDaId(const R id);
         ///ritorna un ID di tipo R associato al testo della risposta immesso
@@ -39,9 +39,9 @@ FileRisposte<R>::~FileRisposte()
 }
 
 template<class R>
-FileRisposte<R>::FileRisposte(const FileRisposte& other): FileInput(other)
+FileRisposte<R>::FileRisposte(const FileRisposte& to_copy)
 {
-    //copy ctor
+    this->_vocabolario_risposte=to_copy._vocabolario_risposte;
 }
 
 template<class R>
