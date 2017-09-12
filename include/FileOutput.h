@@ -1,8 +1,6 @@
 #ifndef FILEOUTPUT_H
 #define FILEOUTPUT_H
 #include <string>
-#include<vector>
-#include<algorithm>
 #include<fstream>
 using namespace std;
 

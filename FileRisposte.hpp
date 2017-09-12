@@ -93,5 +93,4 @@ const R FileRisposte<R>:: getIdDaRisposta(const string risposta)
     return _vocabolario_risposte.getIdDaStriga(risposta);
 }
 
-
 #endif // FILERISPOSTE_HPP_INCLUDED

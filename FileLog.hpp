@@ -46,7 +46,6 @@ void FileLog<T,R>::chiudiFileLog()
     chiudiFileOutput();
 }
 
-
 template<class T, class R>
 // Scrive il file di log
 void FileLog<T,R>::scriviFileOutput(const R id_risposta,const T id_domanda, const string domanda, const string risposta,const vector<T> domande_successive)
@@ -63,6 +62,4 @@ void FileLog<T,R>::scriviFileOutput(const R id_risposta,const T id_domanda, cons
         }
         _file_output << endl<<endl;
 }
-
-
 #endif // FILELOG_HPP_INCLUDED

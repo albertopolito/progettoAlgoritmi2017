@@ -1,6 +1,5 @@
 #ifndef VOCABOLARIOID_HPP_INCLUDED
 #define VOCABOLARIOID_HPP_INCLUDED
-
 #include <string>
 #include<vector>
 #include<algorithm>
@@ -136,6 +135,4 @@ bool VocabolarioId<T>:: controlloSintattico()
     }
     return 0;
 }
-
-
 #endif // VOCABOLARIOID_HPP_INCLUDED

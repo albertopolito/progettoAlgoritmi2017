@@ -308,5 +308,4 @@ vector<T> Grafo<T,R>:: getTuttiIcontenuti()
     }
     return vettore_di_ritorno;
 }
-
 #endif // GRAFO_HPP_INCLUDED

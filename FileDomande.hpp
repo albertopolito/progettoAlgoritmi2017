@@ -198,6 +198,4 @@ const bool FileDomande<T,R>:: controlloAccodamentoDomande(vector<T> inizio_doman
 {
     return(_grafo_domande_da_sottoporre.aciclicoOppureArchiDiCross(inizio_domande,CROSS)||_grafo_domande_da_sottoporre.aciclicoOppureArchiDiCross(inizio_domande,BACKWARD));
 }
-
-
 #endif // FILEDOMANDE_HPP_INCLUDED

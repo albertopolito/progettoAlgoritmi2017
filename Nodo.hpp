@@ -301,6 +301,4 @@ const vector<T> Nodo<T,R>::getRadici()
 {
     return _radici;
 }
-
-
 #endif // NODO_HPP_INCLUDED

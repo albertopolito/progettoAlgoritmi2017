@@ -126,17 +126,15 @@
 	<algorithm>
 	"FileInput.h"
 
-1504948025 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filetest.hpp
+1505207131 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filetest.hpp
 	<string>
 	<vector>
 	<algorithm>
 	"FileOutput.h"
 	"FileInput.h"
 
-1505145262 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\include\fileoutput.h
+1505207131 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\include\fileoutput.h
 	<string>
-	<vector>
-	<algorithm>
 	<fstream>
 
 1504948025 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filelog.hpp

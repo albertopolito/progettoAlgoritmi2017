@@ -234,6 +234,4 @@ const bool FileTest<T,R>::leggiFile()
         return 0;
     }
 }
-
-
 #endif // FILETEST_HPP_INCLUDED

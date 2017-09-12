@@ -312,6 +312,4 @@ const bool GestioneRefertazione<T,R>:: fineDomande()
     }
     return 0;
 }
-
-
 #endif // GESTIONEREFERTAZIONE_HPP_INCLUDED
