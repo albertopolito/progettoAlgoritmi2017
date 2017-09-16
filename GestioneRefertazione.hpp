@@ -14,19 +14,19 @@ template<class T, class R>
 class GestioneRefertazione
 {
     public:
-        GestioneRefertazione(const string nome_file_risposte,const string nome_file_domande,const string nome_file_start);
+        GestioneRefertazione(const string& nome_file_risposte,const string& nome_file_domande,const string& nome_file_start);
         GestioneRefertazione(const GestioneRefertazione& to_copy);
         virtual ~GestioneRefertazione();
         ///setta se il file di test viene letto o deve essere scritto
-        void setModalitaDiFunzionamentoFileTest(const bool modalita);
+        void setModalitaDiFunzionamentoFileTest(const bool& modalita);
         ///procede con le diverse analisi e se queste vanno a buon fine inizializza il vettore delle domande da porre con le domande obbligatorie inserite nel file di start
         const bool analisiSintatticaSemanticaEdInizializzazione();
         ///apre il file di test in lettura o in scrittura  a seconda della modalità e fa i dovuti controlli
-        const bool apriLetturaScritturaFileTest(const string nome_file_test);
+        const bool apriLetturaScritturaFileTest(const string& nome_file_test);
         ///scrive il file di log a partire dal file di test
-        const bool daFileDiTestAFileDiLog(const string nome_file_log);
+        const bool daFileDiTestAFileDiLog(const string& nome_file_log);
         ///dà in uscita la nuova domanda da porre all'utente
-        const string getNuovaDomanda();
+        const string getNuovaDomanda() ;
         ///dà in uscita la risposta scritta nel file di test dato in lettura
         const string getRisposta();
         ///dice se sono finite le domande da porre oppure no
@@ -36,7 +36,7 @@ class GestioneRefertazione
             ///dà in uscita tutte le risposte possibili
             const vector<string> getRispostePossibili();
             ///registra la risposta data se è corretta, offrendo in uscita un flag per verificare il corretto funzionamento della procedura, inoltre fa anadare avanti le domande
-            const bool setRisposta(const string risposta);
+            const bool setRisposta(const string& risposta);
             ///quando le domande sono concluse scrive il file di test e setta la sua uscita a 0 altrimenti la setta a 1
             const bool scriviFileTest();
 
@@ -59,7 +59,7 @@ class GestioneRefertazione
         bool _errore_start;
 };
 template<class T, class R>
-GestioneRefertazione<T,R>::GestioneRefertazione(const string nome_file_risposte,const string nome_file_domande,const string nome_file_start)
+GestioneRefertazione<T,R>::GestioneRefertazione(const string& nome_file_risposte,const string& nome_file_domande,const string& nome_file_start)
 {
     //inizializzazione delle 3 classi
     _errore_risposte=_risposte.leggiFile(nome_file_risposte);
@@ -85,7 +85,7 @@ GestioneRefertazione<T,R>::~GestioneRefertazione()
 }
 
 template<class T, class R>
-void GestioneRefertazione<T,R>::setModalitaDiFunzionamentoFileTest(const bool modalita)
+void GestioneRefertazione<T,R>::setModalitaDiFunzionamentoFileTest(const bool& modalita)
 {
     _modalita_di_funzionamento_per_il_file_test=modalita;
 }
@@ -132,7 +132,7 @@ const bool GestioneRefertazione<T,R>:: analisiSintatticaSemanticaEdInizializzazi
 }
 
 template<class T, class R>
-const bool  GestioneRefertazione<T,R>:: apriLetturaScritturaFileTest(const string nome_file_test)
+const bool  GestioneRefertazione<T,R>:: apriLetturaScritturaFileTest(const string& nome_file_test)
 {
     //apre il file di test in modo opportuno, in lettura o in scrittura
     if(_test.apriInLetturaScrittura(nome_file_test, _modalita_di_funzionamento_per_il_file_test))
@@ -191,7 +191,7 @@ const bool  GestioneRefertazione<T,R>:: apriLetturaScritturaFileTest(const strin
 }
 
 template<class T, class R>
-const bool GestioneRefertazione<T,R>:: daFileDiTestAFileDiLog(const string nome_file_log)
+const bool GestioneRefertazione<T,R>:: daFileDiTestAFileDiLog(const string& nome_file_log)
 {
     //inizializzo la classe del file di log, se ho un problema in apertura allora esco dalla funzione e dò errore
     FileLog<T,R> log;
@@ -243,7 +243,7 @@ const vector<string> GestioneRefertazione<T,R>:: getRispostePossibili()
 }
 
 template<class T, class R>
-const bool GestioneRefertazione<T,R>:: setRisposta(const string risposta)
+const bool GestioneRefertazione<T,R>:: setRisposta(const string& risposta)
 {
     //faccio un primo controllo per essere certo di essere veramente in modalità scrittura e dò errore se non è così
     //dò errore anche se ho finito le domande da porre

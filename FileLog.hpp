@@ -13,11 +13,11 @@ class FileLog : public FileOutput
         FileLog();
         virtual ~FileLog();
         ///apre il file richiamando il metodo del padre (FileOutput) ritornando il successo di tale operazione
-        const bool apriFileLog(const string nome_file);
+        const bool apriFileLog(const string& nome_file);
         ///chiude il file di log
         void chiudiFileLog();
         ///scrive sul file di log la refertazione con la giusta formattazione
-        void scriviFileOutput(const R id_risposta,const T id_domanda, const string domanda, const string risposta, const vector<T> domande_successive);
+        void scriviFileOutput(const R& id_risposta,const T& id_domanda, const string& domanda, const string& risposta, const vector<T>& domande_successive);
     protected:
     private:
 };
@@ -35,7 +35,7 @@ FileLog<T,R>::~FileLog()
 }
 
 template<class T, class R>
-const bool FileLog<T,R>::apriFileLog(const string nome_file)
+const bool FileLog<T,R>::apriFileLog(const string& nome_file)
 {
     return apriFileOutput(nome_file);
 }
@@ -48,7 +48,7 @@ void FileLog<T,R>::chiudiFileLog()
 
 template<class T, class R>
 // Scrive il file di log
-void FileLog<T,R>::scriviFileOutput(const R id_risposta,const T id_domanda, const string domanda, const string risposta,const vector<T> domande_successive)
+void FileLog<T,R>::scriviFileOutput(const R& id_risposta,const T& id_domanda, const string& domanda, const string& risposta,const vector<T>& domande_successive)
 {
         _file_output << id_domanda << " " << id_risposta << "\n";
         _file_output << domanda << " "<< risposta << "\n" << "Nuove domande:";

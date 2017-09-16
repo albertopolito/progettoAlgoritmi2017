@@ -24,7 +24,7 @@ class FileTest : public FileInput , FileOutput
         R id_risposta;
         T id_domanda;
         bool ho_risposto;
-        test(R n_id_risposta,T n_id_domanda,bool risposto)
+        test(const R& n_id_risposta,const T& n_id_domanda,const bool& risposto)
         {
             id_domanda=n_id_domanda;
             id_risposta=n_id_risposta;
@@ -36,12 +36,12 @@ class FileTest : public FileInput , FileOutput
         R f_id_risposta;
         T f_id_domanda;
         bool f_ricerca_risposta_domanda;
-        f_test(R id_risposta) : f_id_risposta(id_risposta)
+        f_test(const R& id_risposta) : f_id_risposta(id_risposta)
         {
             f_ricerca_risposta_domanda=0;
         }
 
-        f_test(T id_domanda, const bool domanda) : f_id_domanda(id_domanda)
+        f_test(const T& id_domanda, const bool& domanda) : f_id_domanda(id_domanda)
         {
             f_ricerca_risposta_domanda=1;
         }
@@ -55,19 +55,19 @@ class FileTest : public FileInput , FileOutput
         virtual ~FileTest();
         FileTest(const FileTest& to_copy);
         ///apre il file in modalità lettura o scrittura richiamando i metodi dai suoi genitori
-        const bool apriInLetturaScrittura(const string nome_file,const bool modalita=LETTURA );
+        const bool apriInLetturaScrittura(const string& nome_file,const bool& modalita=LETTURA );
         ///legge la domanda puntata dall'iteratore
         const T leggiDomandaCorrente();
         ///aumenta l'iteratore di 1
         void  prossimaDomanda();
         ///ritorna l'id della risposta dall'id della domanda
-        const R getRispostaDaDomanda(const T id_domanda,const bool modalita=ANALISI);
+        const R getRispostaDaDomanda(const T& id_domanda,const bool& modalita=ANALISI);
         ///ritorna se le domande sono concluse o in modalità analisi o in modalità funzionamento
-        const bool hoFinitoLeDomande(const bool modalita=ANALISI);
+        const bool hoFinitoLeDomande(const bool& modalita=ANALISI);
         ///resetta l'iteratore
         void resettaIlPuntoDiAnalisi();
         ///immette un nuovo elemento nella struttura dati
-        void immettiNuovoElemento(const T id_domanda,const R id_risposta, const bool modalita_scrittura_in_struttura_dati=DA_FILE);
+        void immettiNuovoElemento(const T& id_domanda,const R& id_risposta, const bool& modalita_scrittura_in_struttura_dati=DA_FILE);
         ///scrive il file di test
         void scriviFileOutput();
     protected:
@@ -100,7 +100,7 @@ FileTest<T,R>::FileTest(const FileTest& to_copy)
 }
 
 template<class T, class R>
-const bool  FileTest<T,R>:: apriInLetturaScrittura(const string nome_file, const bool modalita)
+const bool  FileTest<T,R>:: apriInLetturaScrittura(const string& nome_file, const bool& modalita)
 {
     //se sono in lettura lo apro come un file di input, se in scrittura come file di output
     if(modalita)
@@ -133,7 +133,7 @@ void FileTest<T,R>:: prossimaDomanda()
 }
 
 template<class T, class R>
-const R FileTest<T,R>::getRispostaDaDomanda(const T id_domanda, const bool modalita)
+const R FileTest<T,R>::getRispostaDaDomanda(const T& id_domanda, const bool& modalita)
 {
     typename vector<test>::iterator it_test=find_if(_domande_con_risposta.begin(),_domande_con_risposta.end(),f_test(id_domanda,0));
     if(it_test!=_domande_con_risposta.end())
@@ -153,7 +153,7 @@ const R FileTest<T,R>::getRispostaDaDomanda(const T id_domanda, const bool modal
 
 
 template<class T, class R>
-const bool FileTest<T,R>::hoFinitoLeDomande(const bool modalita)
+const bool FileTest<T,R>::hoFinitoLeDomande(const bool& modalita)
 {
     if(modalita==FUNZIONAMENTO)
     {
@@ -178,7 +178,7 @@ const bool FileTest<T,R>::hoFinitoLeDomande(const bool modalita)
 }
 
 template<class T, class R>
-void FileTest<T, R>::immettiNuovoElemento(const T id_domanda,const R id_risposta, const bool modalita_scrittura_in_struttura_dati)
+void FileTest<T, R>::immettiNuovoElemento(const T& id_domanda,const R& id_risposta, const bool& modalita_scrittura_in_struttura_dati)
 {
 
     test t(id_risposta,id_domanda,0);

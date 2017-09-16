@@ -16,15 +16,15 @@ class FileDomande : public FileInput
         virtual ~FileDomande();
         FileDomande(const FileDomande& to_copy);
         ///ritorna un vettore con le risposte possibili per quella domanda
-        const vector<R> getRispostaDataLaDomanda(const T id_domanda);
+        const vector<R> getRispostaDataLaDomanda(const T& id_domanda);
         ///ritorna un vettore con le domande successive data la risposta alla domanda precedente
-        const vector<T> getDomandaDataRisposta(const T id_domanda, const R id_risposta);
+        const vector<T> getDomandaDataRisposta(const T& id_domanda, const R& id_risposta);
         ///ritorna l'id data la stringa della domanda
-        const string getDomandaDaId(const T id_domanda);
+        const string getDomandaDaId(const T& id_domanda);
         ///ritorna tutte le risposte possibili
         const vector<R> getTutteLeRispostePossibili();
         ///implementazione della funzione virtuale della classe FileInput
-        const bool leggiFile(const string nome_file);
+        const bool leggiFile(const string& nome_file);
         ///controllo incrociato con file di start
         const bool controlloAccodamentoDomande(vector<T> inizio_domande);
     protected:
@@ -57,7 +57,7 @@ FileDomande<T,R>::FileDomande(const FileDomande& to_copy)
 }
 
 template<class T, class R>
-const vector<R> FileDomande<T,R>:: getRispostaDataLaDomanda(const T id_domanda)
+const vector<R> FileDomande<T,R>:: getRispostaDataLaDomanda(const T& id_domanda)
 {
     vector<R> vettore_senza_ripetizioni=_grafo_domande_da_sottoporre.daContenutoAnalisi(id_domanda);
     typename vector<R>::iterator itr_inizio_analisi=vettore_senza_ripetizioni.begin();
@@ -78,13 +78,13 @@ const vector<R> FileDomande<T,R>:: getRispostaDataLaDomanda(const T id_domanda)
 }
 
 template<class T, class R>
-const vector<T> FileDomande<T,R>:: getDomandaDataRisposta(const T id_domanda, const R id_risposta)
+const vector<T> FileDomande<T,R>:: getDomandaDataRisposta(const T& id_domanda, const R& id_risposta)
 {
     return _grafo_domande_da_sottoporre.daArcoAnalisi(id_risposta,id_domanda);
 }
 
 template<class T, class R>
-const string FileDomande<T,R>:: getDomandaDaId(const T id_domanda)
+const string FileDomande<T,R>:: getDomandaDaId(const T& id_domanda)
 {
     return _vocabolario_domande.getStringaDaId(id_domanda);
 }
@@ -112,7 +112,7 @@ const vector<R> FileDomande<T,R>:: getTutteLeRispostePossibili()
 }
 
 template<class T, class R>
-const bool FileDomande<T,R>:: leggiFile(const string nome_file)
+const bool FileDomande<T,R>:: leggiFile(const string& nome_file)
 {
     T domanda_corrente;
     T domanda_adiacente;

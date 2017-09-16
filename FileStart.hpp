@@ -20,7 +20,7 @@ class FileStart : public FileInput
         ///ritorna all'inizio del vettore di domande
         void resettaDomandeObbligatorie();
         ///legge da file le domande da sottoporre e le inserisce nel vettore
-        const bool leggiFile(const string nome_file);
+        const bool leggiFile(const string& nome_file);
     protected:
 
     private:
@@ -49,7 +49,7 @@ FileStart<T>::FileStart(const FileStart& to_copy)
 }
 
 template<class T>
-const bool FileStart<T>::leggiFile(const string nome_file)
+const bool FileStart<T>::leggiFile(const string& nome_file)
 {
     T id_domanda;
     //controllo che il file sia leggibile e non vuoto

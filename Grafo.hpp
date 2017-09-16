@@ -24,15 +24,15 @@ class Grafo
         virtual ~Grafo();
         Grafo(const Grafo& to_copy);
         ///immette un nuovo nodo attraverso il contenuto del nodo, l'arco, e il contenuto del nodo adiacente
-        void setNuovoNodo(const T contenuto,const R arco,const T contenuto_nodo_adiacente);
+        void setNuovoNodo(const T& contenuto,const R& arco,const T& contenuto_nodo_adiacente);
         ///immette un nuovo nodo senza archi
-        void setNuovoNodo(const T contenuto);
+        void setNuovoNodo(const T& contenuto);
         ///ritorna un vettore degli archi che partono dal nodo ricercato
-        const vector<R> daContenutoAnalisi(const T contenuto);
+        const vector<R> daContenutoAnalisi(const T& contenuto);
         ///ritorna il contenuto dei nodi collegati al nodo ricercato attraverso un ben preciso peso degli archi
-        const vector<T> daArcoAnalisi(const R arco, const T contenuto);
+        const vector<T> daArcoAnalisi(const R& arco, const T& contenuto);
         ///ritorna 1 se gli alberi con quelle radici sono ciclici, o esistono archi di cross, 0 altrimenti
-        const bool aciclicoOppureArchiDiCross(/*const*/ vector<T> contenuto_radici, const short int tipologia_arco_da_ricercare);
+        const bool aciclicoOppureArchiDiCross( vector<T> contenuto_radici, const short int& tipologia_arco_da_ricercare);
         ///ritorna un vettore con i contenuti di tutti i nodi
         vector<T> getTuttiIcontenuti();
     protected:
@@ -45,13 +45,13 @@ class Grafo
         ///implementa l'analisi in profondità su tutto il grafo
         void analisiTotaleInProfondita( vector<Nodo<T,R>*> nodi_da_visitare);
         ///implementa l'analisi in profondità per un singolo nodo
-        void visitaNodoDfs( Nodo<T,R>* nodo_da_visitare, const T contenuto_radice);
+        void visitaNodoDfs( Nodo<T,R>* nodo_da_visitare, const T & contenuto_radice);
         ///resetta i valori di analisi del grafo
         void resettaNodi();
         ///crea un nuovo nodo e lo immette nella lista; ritorna il puntatore al nodo creato
-        Nodo<T,R>* immettiNellaListaUnNuovoNodo(const T contenuto);
+        Nodo<T,R>* immettiNellaListaUnNuovoNodo(const T& contenuto);
         ///ritorna l'indirizzo del nodo ricercato per contenuto
-        Nodo<T,R>* ricercaNodoPerContenuto(const T contenuto);
+        Nodo<T,R>* ricercaNodoPerContenuto(const T& contenuto);
 };
 
 
@@ -97,7 +97,7 @@ Grafo<T,R>::Grafo(const Grafo& to_copy)
 }
 
 template<class T,class R>
-void Grafo<T,R>:: setNuovoNodo(const T contenuto,const R arco,const T contenuto_nodo_adiacente)
+void Grafo<T,R>:: setNuovoNodo(const T& contenuto,const R& arco,const T& contenuto_nodo_adiacente)
 {
     Nodo<T,R>* puntatore_nodo_a_cui_aggiungere_adiacenze=NULL;
     Nodo<T,R>* puntatore_nodo_adiacente=NULL;
@@ -116,7 +116,7 @@ void Grafo<T,R>:: setNuovoNodo(const T contenuto,const R arco,const T contenuto_
 }
 
 template<class T,class R>
-void Grafo<T,R>:: setNuovoNodo(const T contenuto)
+void Grafo<T,R>:: setNuovoNodo(const T& contenuto)
 {
     Nodo<T,R>* puntatore_nodo=NULL;
     //gurdo se il nod0 richiesto è già nella lista, se non lo è lo creo
@@ -127,13 +127,13 @@ void Grafo<T,R>:: setNuovoNodo(const T contenuto)
 }
 
 template<class T,class R>
-const vector<R> Grafo<T,R>:: daContenutoAnalisi(const T contenuto)
+const vector<R> Grafo<T,R>:: daContenutoAnalisi(const T& contenuto)
 {
     return ricercaNodoPerContenuto(contenuto)->getPesoArchi();
 }
 
 template<class T,class R>
-const vector<T> Grafo<T,R>:: daArcoAnalisi(const R arco, const T contenuto)
+const vector<T> Grafo<T,R>:: daArcoAnalisi(const R& arco, const T& contenuto)
 {
     vector<T> vettore_contenuto_adiacenze;
     vector<Nodo<T,R>*> vettore_adiacenze=ricercaNodoPerContenuto(contenuto)->getNodiAdiacentiDaPesoArco(arco);
@@ -147,7 +147,7 @@ const vector<T> Grafo<T,R>:: daArcoAnalisi(const R arco, const T contenuto)
 }
 
 template<class T,class R>
-const bool Grafo<T,R>:: aciclicoOppureArchiDiCross(vector<T> contenuto_radici, const short int tipologia_arco_da_ricercare)
+const bool Grafo<T,R>:: aciclicoOppureArchiDiCross(vector<T> contenuto_radici, const short int& tipologia_arco_da_ricercare)
 {
     typename vector<Nodo<T,R>*>::iterator itr_lista_nodi;
     vector<Nodo<T,R>*> nodi_da_analizzare;
@@ -218,7 +218,7 @@ void Grafo<T,R>:: analisiTotaleInProfondita(vector<Nodo<T,R>*> nodi_da_visitare)
 }
 
 template<class T,class R>
-void Grafo<T,R>:: visitaNodoDfs( Nodo<T,R>* nodo_da_visitare, const T contenuto_radice)
+void Grafo<T,R>:: visitaNodoDfs( Nodo<T,R>* nodo_da_visitare, const T& contenuto_radice)
 {
     Nodo<T,R>* nodo_adiacente=NULL;
     nodo_da_visitare->setNuovoColore(GREY);
@@ -256,7 +256,7 @@ void Grafo<T,R>:: visitaNodoDfs( Nodo<T,R>* nodo_da_visitare, const T contenuto_
 }
 
 template<class T,class R>
-Nodo<T,R>* Grafo<T,R>:: immettiNellaListaUnNuovoNodo(const T contenuto)
+Nodo<T,R>* Grafo<T,R>:: immettiNellaListaUnNuovoNodo(const T& contenuto)
 {
     //creo dinamicamente un nuovo nodo e lo aggiungo ai nodi del grafo
     Nodo<T,R>* nuovo_nodo=new Nodo<T,R>(contenuto);
@@ -278,7 +278,7 @@ void Grafo<T,R>::resettaNodi()
 }
 
 template<class T,class R>
-Nodo<T,R>* Grafo<T,R>::ricercaNodoPerContenuto(const T contenuto)
+Nodo<T,R>* Grafo<T,R>::ricercaNodoPerContenuto(const T& contenuto)
 {
     //tramite gli iteratori e tramite la funzione getContenuto() della classe Nodo ricerco l'indirizzo del nodo sapendone il contenuto
     typename vector<Nodo<T,R>*>::iterator f_it_nodo;

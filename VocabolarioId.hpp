@@ -11,7 +11,7 @@ class VocabolarioId
     struct _vocabolo{
         T _id;
         string _testo;
-        _vocabolo(const T id, const string testo)
+        _vocabolo(const T& id, const string& testo)
         {
             _id=id;
             _testo=testo;
@@ -22,12 +22,12 @@ class VocabolarioId
         T f_id;
         string f_testo;
         bool f_ricerca_id_testo;
-        f_vocabolo(T id) : f_id(id)
+        f_vocabolo(const T& id) : f_id(id)
         {
             f_ricerca_id_testo=0;
         }
 
-        f_vocabolo(const string testo, const bool diverso_da_template) : f_testo(testo)
+        f_vocabolo(const string& testo, const bool& diverso_da_template) : f_testo(testo)
         {
             f_ricerca_id_testo=1;
         }
@@ -42,15 +42,15 @@ class VocabolarioId
         virtual ~VocabolarioId();
         VocabolarioId(const VocabolarioId& to_copy);
         ///immette un nuovo elemento all'interno della struttura dati
-        void setNuovoElemento(const T id,const string testo);
+        void setNuovoElemento(const T& id,const string& testo);
         ///ricerca il vocabolo tramite il suo id e restituisce la stringa correlata
-        string getStringaDaId(const T id);
+        const string getStringaDaId(const T& id);
         ///ricerca il vocabolo tramite la sua stringa e restituisce l'id correlato
-        T getIdDaStriga(const string testo);
+        const T getIdDaStriga(const string& testo);
         ///riempie un vettore con tutti gli id che sono all'interno del vocabolario
         vector<T> getTuttiGliId();
         ///esegue il controllo sintattico sulla struttura trovando eventuali ripetizioni di id o di stringhe
-        bool controlloSintattico();
+        const bool controlloSintattico();
     protected:
 
     private:
@@ -75,13 +75,13 @@ VocabolarioId<T>::VocabolarioId(const VocabolarioId& to_copy)
 }
 
 template<class T>
-void VocabolarioId<T>::setNuovoElemento(const T id,const string testo)
+void VocabolarioId<T>::setNuovoElemento(const T& id,const string& testo)
 {
     _vocaboli.push_back(_vocabolo(id,testo));
 }
 
 template<class T>
-string VocabolarioId<T>::getStringaDaId(const T id)
+const string VocabolarioId<T>::getStringaDaId(const T& id)
 {
     //tramite la struttura di find e il find_if ricerca il vocabolo attraverso il suo id
     typename vector<_vocabolo>::iterator it;
@@ -95,7 +95,7 @@ string VocabolarioId<T>::getStringaDaId(const T id)
 }
 
 template<class T>
-T VocabolarioId<T>:: getIdDaStriga(const string testo)
+const T VocabolarioId<T>:: getIdDaStriga(const string& testo)
 {
     //tramite la struttura di find e il find_if ricerca il vocabolo attraverso la sua stringa
     typename vector<_vocabolo>::iterator it;
@@ -121,7 +121,7 @@ vector<T> VocabolarioId<T>:: getTuttiGliId()
 }
 
 template<class T>
-bool VocabolarioId<T>:: controlloSintattico()
+const bool VocabolarioId<T>:: controlloSintattico()
 {
     //tramite la struttura di find e i find_if controlla che non vi siano stringhe uguali o id uguali
     for(typename vector<_vocabolo>::iterator it=_vocaboli.begin();it!=_vocaboli.end();it++)

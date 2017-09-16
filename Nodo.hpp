@@ -37,13 +37,13 @@ class Nodo
             Nodo<T,R>* f_nodo_adiacente;    //per indirizzo dell'adiacenza
             bool ricerca_nodo_adiacente;    //indica che sto ricercando per indirizzo dell'adiacenza
 
-            find_adiacenza(const short int tipologia,const bool diverso_da_template) : f_tipologia(tipologia)    //costruttore della struct per la ricerca per tipologia
+            find_adiacenza(const short int & tipologia,const bool & diverso_da_template) : f_tipologia(tipologia)    //costruttore della struct per la ricerca per tipologia
             {
                 ricerca_tipologia=1;        //setto il flag per capire che sto ricercando per tipologia, ed annullo gli altri
                 ricerca_peso_arco=0;
                 ricerca_nodo_adiacente=0;
             }
-            find_adiacenza(const R peso_arco) : f_peso_arco(peso_arco)            //costruttore della struct per la ricerca per peso dell'arco
+            find_adiacenza(const R & peso_arco) : f_peso_arco(peso_arco)            //costruttore della struct per la ricerca per peso dell'arco
             {
                 ricerca_tipologia=0;        //setto il flag per capire che sto ricercando per peso dell'arco, ed annullo gli altri
                 ricerca_peso_arco=1;
@@ -67,35 +67,35 @@ class Nodo
         virtual ~Nodo();
         Nodo(const Nodo& to_copy);
         ///immette una nuova adiacenza al vettore delle adiacenze del nodo
-        void setAdiacenza(const R arco, Nodo *nodo_adiacente);
+        void setAdiacenza(const R & arco, Nodo *nodo_adiacente);
         ///ritorna il contenuto del nodo
-        const T getContenuto();
+        const T getContenuto()const;
         ///setta un nuovo contenuto al nodo
-        void setContenuto(const T nuovo_contenuto);
+        void setContenuto(const T & nuovo_contenuto);
         ///setta un nuovo colore al nodo
-        void setNuovoColore(const short int nuovo_colore);
+        void setNuovoColore(const short int & nuovo_colore);
         ///ritorna il colore del nodo
-        const short int getColore();
+        const short int getColore()const;
         ///setta la tipologia dell'arco
-        void setTipologiaArco(const short int nuova_tipologia, Nodo *nodo_adiacente);
+        void setTipologiaArco(const short int & nuova_tipologia, Nodo *nodo_adiacente);
         ///ritorna l'indirizzo del primo nodo che trova collegato col nodo corrente attraverso un arco con la tipologia ricercata
-        Nodo<T,R>* findArcoPerTipologia(const short int tipologia_ricerca);
+        Nodo<T,R>* findArcoPerTipologia(const short int & tipologia_ricerca);
         ///resetta la tipologia di tutti gli archi rendendoli uguali a NEUTRO
         void resettaTipologiaArchi();
         ///ritorna un vettore con il peso di tutti gli archi collegati al nodo corrente
         const vector<R> getPesoArchi();
         ///ritorna un vettore con gli indirizzi di tutti i nodi adiacenti collegati al nodo corrente attraverso archi con il peso ricercato
-        const vector<Nodo<T,R>* > getNodiAdiacentiDaPesoArco(R peso_arco);
+        const vector<Nodo<T,R>* > getNodiAdiacentiDaPesoArco(const R & peso_arco);
         ///per le visite in ampiezza e in profondità, ritorna il tempo in cui è iniziata la visita
-        const int getTempoInizioVisita();
+        const int getTempoInizioVisita()const;
         ///per le visite in ampiezza e in profondità, ritorna il tempo in cui è finita la visita
-        const int getTempoFineVisita();
+        const int getTempoFineVisita()const;
         ///per le visite in ampiezza e in profondità, setta il tempo in cui è iniziata la visita
-        void setTempoInizioVisita(const int tempo_inizio_visita);
+        void setTempoInizioVisita(const int & tempo_inizio_visita);
         ///per le visite in ampiezza e in profondità, setta il tempo in cui è finita la visita
-        void setTempoFineVisita(const int tempo_fine_visita);
+        void setTempoFineVisita(const int  & tempo_fine_visita);
         ///immette una nuova radice da cui deriva il nodo
-        void setNuovaRadice(const T contenuto_radice);
+        void setNuovaRadice(const T& contenuto_radice);
         ///ritorna tutte le radici del nodo
         const vector<T> getRadici();
     protected:
@@ -139,7 +139,7 @@ Nodo<T,R>::Nodo(const Nodo& to_copy)
 }
 
 template<class T,class R>
-void Nodo<T,R>::setAdiacenza(const R arco, Nodo *nodo_adiacente)
+void Nodo<T,R>::setAdiacenza(const R& arco, Nodo *nodo_adiacente)
 {
     //setto prima tutto nella struttura delle adiacenze e poi la metto nel vettore delle adiacenze
     adiacenza nuova_adiacenza;
@@ -149,31 +149,31 @@ void Nodo<T,R>::setAdiacenza(const R arco, Nodo *nodo_adiacente)
 }
 
 template<class T,class R>
-const T Nodo<T,R>::getContenuto()
+const T Nodo<T,R>::getContenuto()const
 {
     return _contenuto;
 }
 
 template<class T,class R>
-void Nodo<T,R>:: setContenuto(const T nuovo_contenuto)
+void Nodo<T,R>:: setContenuto(const T& nuovo_contenuto)
 {
     _contenuto=nuovo_contenuto;
 }
 
 template<class T,class R>
-void Nodo<T,R>:: setNuovoColore(const short int nuovo_colore)
+void Nodo<T,R>:: setNuovoColore(const short int& nuovo_colore)
 {
     _colore_nodo=nuovo_colore;
 }
 
 template<class T,class R>
-const short int Nodo<T,R>:: getColore()
+const short int Nodo<T,R>:: getColore()const
 {
     return _colore_nodo;
 }
 
 template<class T,class R>
-void Nodo<T,R>:: setTipologiaArco(const short int nuova_tipologia, Nodo *nodo_adiacente)
+void Nodo<T,R>:: setTipologiaArco(const short int& nuova_tipologia, Nodo *nodo_adiacente)
 {
     //la nuova tipologia deve essere diversa da NEUTRO, a questa tipologia si può arrivare solo resettando tutti gli archi
     if(nuova_tipologia!=NEUTRO)
@@ -199,7 +199,7 @@ void Nodo<T,R>:: setTipologiaArco(const short int nuova_tipologia, Nodo *nodo_ad
 }
 
 template<class T,class R>
-Nodo<T,R>* Nodo<T,R>:: findArcoPerTipologia(const short int tipologia_ricerca)
+Nodo<T,R>* Nodo<T,R>:: findArcoPerTipologia(const short int& tipologia_ricerca)
 {
 
     typename vector<adiacenza>::iterator f_it;
@@ -245,7 +245,7 @@ const vector<R> Nodo<T,R>:: getPesoArchi()
 }
 
 template<class T,class R>
-const vector<Nodo<T,R>* > Nodo<T,R>:: getNodiAdiacentiDaPesoArco(R peso_arco)
+const vector<Nodo<T,R>* > Nodo<T,R>:: getNodiAdiacentiDaPesoArco(const R& peso_arco)
 {
     //vettore perchè più archi con lo stesso peso possono collegarsi a nodi differenti
     vector<Nodo<T,R>* > nodi_adiacenti_da_peso_arco;
@@ -264,31 +264,31 @@ const vector<Nodo<T,R>* > Nodo<T,R>:: getNodiAdiacentiDaPesoArco(R peso_arco)
 }
 //metodi per settare o leggere i tempi di visita
 template<class T,class R>
-const int Nodo<T,R>::getTempoInizioVisita()
+const int Nodo<T,R>::getTempoInizioVisita()const
 {
     return _tempo_inizio_visita;
 }
 
 template<class T,class R>
-const int Nodo<T,R>::getTempoFineVisita()
+const int Nodo<T,R>::getTempoFineVisita()const
 {
     return _tempo_fine_visita;
 }
 
 template<class T,class R>
-void Nodo<T,R>::setTempoInizioVisita(const int tempo_inizio_visita)
+void Nodo<T,R>::setTempoInizioVisita(const int& tempo_inizio_visita)
 {
     _tempo_inizio_visita=tempo_inizio_visita;
 }
 
 template<class T,class R>
-void Nodo<T,R>::setTempoFineVisita(const int tempo_fine_visita)
+void Nodo<T,R>::setTempoFineVisita(const int& tempo_fine_visita)
 {
     _tempo_fine_visita=tempo_fine_visita;
 }
 
 template<class T,class R>
-void Nodo<T,R>::setNuovaRadice(const T contenuto_radice)
+void Nodo<T,R>::setNuovaRadice(const T& contenuto_radice)
 {
     if(find(_radici.begin(),_radici.end(),contenuto_radice)==_radici.end())
     {

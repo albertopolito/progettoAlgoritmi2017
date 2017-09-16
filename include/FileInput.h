@@ -9,10 +9,10 @@ class FileInput
     public:
         FileInput();
         virtual ~FileInput();
-        virtual const bool leggiFile(const string nome_file);
+        virtual const bool leggiFile(const string& nome_file);
     protected:
         ifstream _file_input;
-        const bool apriFileInput(const string nome_file);
+        const bool apriFileInput(const string& nome_file);
         void chiudiFileInput();
     private:
 };

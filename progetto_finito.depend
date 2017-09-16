@@ -85,70 +85,70 @@
 	<stdlib.h>
 	"GestioneRefertazione.hpp"
 
-1505208222 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\gestionerefertazione.hpp
+1505553903 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\gestionerefertazione.hpp
 	"FileRisposte.hpp"
 	"FileDomande.hpp"
 	"FileStart.hpp"
 	"FileTest.hpp"
 	"FileLog.hpp"
 
-1505208224 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filerisposte.hpp
+1505553579 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filerisposte.hpp
 	"FileInput.h"
 	"VocabolarioId.hpp"
 	<sstream>
 
-1505115140 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\include\fileinput.h
+1505554057 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\include\fileinput.h
 	<string>
 	<fstream>
 
-1505208227 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\vocabolarioid.hpp
+1505553459 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\vocabolarioid.hpp
 	<string>
 	<vector>
 	<algorithm>
 
-1505208228 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filedomande.hpp
+1505553439 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filedomande.hpp
 	"FileInput.h"
 	"VocabolarioId.hpp"
 	"Grafo.hpp"
 	<sstream>
 
-1505208228 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\grafo.hpp
+1505553227 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\grafo.hpp
 	"Nodo.hpp"
 
-1505208229 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\nodo.hpp
+1505552982 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\nodo.hpp
 	<string>
 	<vector>
 	<algorithm>
 
-1505147153 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filestart.hpp
+1505553622 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filestart.hpp
 	<string>
 	<vector>
 	<algorithm>
 	"FileInput.h"
 
-1505208222 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filetest.hpp
+1505553784 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filetest.hpp
 	<string>
 	<vector>
 	<algorithm>
 	"FileOutput.h"
 	"FileInput.h"
 
-1505207131 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\include\fileoutput.h
+1505554057 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\include\fileoutput.h
 	<string>
 	<fstream>
 
-1505208226 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filelog.hpp
+1505553531 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filelog.hpp
 	<string>
 	<vector>
 	<algorithm>
 	"FileOutput.h"
 
-1505207130 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\src\fileinput.cpp
+1505554080 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\src\fileinput.cpp
 	"FileInput.h"
 	<string>
 	<fstream>
 
-1505207131 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\src\fileoutput.cpp
+1505554085 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\src\fileoutput.cpp
 	"FileOutput.h"
 	<string>
 	<fstream>

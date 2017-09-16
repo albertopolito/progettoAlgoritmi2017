@@ -12,7 +12,7 @@ class FileOutput
         virtual void scriviFileOutput();
     protected:
         ofstream _file_output;
-        const bool apriFileOutput(const string nome_file);
+        const bool apriFileOutput(const string& nome_file);
         void chiudiFileOutput();
     private:
         string _nome_file;

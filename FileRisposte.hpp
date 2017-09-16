@@ -13,12 +13,12 @@ class FileRisposte : public FileInput
         virtual ~FileRisposte();
         FileRisposte(const FileRisposte& to_copy);
         ///ritorna una string contenente il testo della risposta associato al ID immesso
-        const string getRispostaDaId(const R id);
+        const string getRispostaDaId(const R& id);
         ///ritorna un ID di tipo R associato al testo della risposta immesso
-        const R getIdDaRisposta(const string risposta);
+        const R getIdDaRisposta(const string& risposta);
         ///legge il file di risposte e crea il vocabolario di ID e testo delle risposte
         ///ritorna 1 in caso di errore di lettura del file
-        const bool leggiFile(const string nome_file);
+        const bool leggiFile(const string& nome_file);
     protected:
 
     private:
@@ -45,7 +45,7 @@ FileRisposte<R>::FileRisposte(const FileRisposte& to_copy)
 }
 
 template<class R>
-const bool FileRisposte<R>::leggiFile(const string nome_file)
+const bool FileRisposte<R>::leggiFile(const string& nome_file)
 {
     R id_risposta;
     string testo_risposta;
@@ -82,13 +82,13 @@ const bool FileRisposte<R>::leggiFile(const string nome_file)
 }
 
 template<class R>
-const string FileRisposte<R>::getRispostaDaId(const R id)
+const string FileRisposte<R>::getRispostaDaId(const R& id)
 {
     return _vocabolario_risposte.getStringaDaId(id);
 }
 
 template<class R>
-const R FileRisposte<R>:: getIdDaRisposta(const string risposta)
+const R FileRisposte<R>:: getIdDaRisposta(const string& risposta)
 {
     return _vocabolario_risposte.getIdDaStriga(risposta);
 }
