@@ -106,16 +106,17 @@
 	<vector>
 	<algorithm>
 
-1505553439 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filedomande.hpp
+1505554982 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filedomande.hpp
 	"FileInput.h"
 	"VocabolarioId.hpp"
 	"Grafo.hpp"
 	<sstream>
 
-1505553227 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\grafo.hpp
+1505554982 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\grafo.hpp
 	"Nodo.hpp"
+	<memory>
 
-1505552982 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\nodo.hpp
+1505554982 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\nodo.hpp
 	<string>
 	<vector>
 	<algorithm>
@@ -148,7 +149,7 @@
 	<string>
 	<fstream>
 
-1505554085 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\src\fileoutput.cpp
+1505554982 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\src\fileoutput.cpp
 	"FileOutput.h"
 	<string>
 	<fstream>

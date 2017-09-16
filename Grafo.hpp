@@ -11,10 +11,6 @@
 #define WHITE 0
 #define GREY 1
 #define BLACK 2
-///tipo di analisi
-#define NESSUNA_ANALISI 0
-#define PROFONDITA 1
-#define AMPIEZZA 2
 using namespace std;
 template<class T,class R>
 class Grafo
@@ -119,7 +115,7 @@ template<class T,class R>
 void Grafo<T,R>:: setNuovoNodo(const T& contenuto)
 {
     Nodo<T,R>* puntatore_nodo=NULL;
-    //gurdo se il nod0 richiesto è già nella lista, se non lo è lo creo
+    //guardo se il nodo richiesto è già nella lista, se non lo è lo creo
     if((puntatore_nodo=ricercaNodoPerContenuto(contenuto))==NULL)
     {
         puntatore_nodo=immettiNellaListaUnNuovoNodo(contenuto);
