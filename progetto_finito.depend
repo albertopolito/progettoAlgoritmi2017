@@ -79,24 +79,23 @@
 	<algorithm>
 	<fstream>
 
-1505558488 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\main.cpp
+1505576321 source:c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\main.cpp
 	<iostream>
 	<stdio.h>
 	<stdlib.h>
 	"GestioneRefertazione.hpp"
 
-1505560479 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\gestionerefertazione.hpp
+1505638487 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\gestionerefertazione.hpp
 	"FileRisposte.hpp"
 	"FileDomande.hpp"
 	"FileStart.hpp"
 	"FileTest.hpp"
 	"FileLog.hpp"
 
-1505557867 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filerisposte.hpp
+1505635778 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filerisposte.hpp
 	"FileInput.h"
 	"VocabolarioId.hpp"
 	<sstream>
-	<iostream>
 
 1505554057 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\include\fileinput.h
 	<string>
@@ -113,19 +112,18 @@
 	"Grafo.hpp"
 	<sstream>
 
-1505560479 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\grafo.hpp
+1505638157 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\grafo.hpp
 	"Nodo.hpp"
 
-1505554982 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\nodo.hpp
+1505638157 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\nodo.hpp
 	<string>
 	<vector>
 	<algorithm>
 
-1505557867 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filestart.hpp
+1505635778 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filestart.hpp
 	<string>
 	<vector>
 	<algorithm>
-	<iostream>
 	"FileInput.h"
 
 1505553784 c:\users\toshiba\documents\università\c++\progetto\progettoalgoritmi\filetest.hpp

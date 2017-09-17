@@ -8,22 +8,22 @@
 	</File>
 	<File name="src\FileInput.cpp" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="348" topLine="15" />
+			<Cursor1 position="348" topLine="9" />
 		</Cursor>
 	</File>
 	<File name="FileStart.hpp" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="140" topLine="90" />
+			<Cursor1 position="120" topLine="89" />
 		</Cursor>
 	</File>
 	<File name="FileTest.hpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4964" topLine="219" />
+			<Cursor1 position="4964" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="FileRisposte.hpp" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="159" topLine="79" />
+			<Cursor1 position="2819" topLine="78" />
 		</Cursor>
 	</File>
 	<File name="include\FileOutput.h" open="1" top="1" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -33,17 +33,17 @@
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1749" topLine="50" />
+			<Cursor1 position="2468" topLine="101" />
 		</Cursor>
 	</File>
 	<File name="Grafo.hpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1162" topLine="288" />
+			<Cursor1 position="3681" topLine="68" />
 		</Cursor>
 	</File>
 	<File name="Nodo.hpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="11631" topLine="286" />
+			<Cursor1 position="7848" topLine="172" />
 		</Cursor>
 	</File>
 	<File name="include\FileInput.h" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -53,22 +53,22 @@
 	</File>
 	<File name="GestioneRefertazione.hpp" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="295" />
+			<Cursor1 position="12838" topLine="293" />
 		</Cursor>
 	</File>
 	<File name="FileDomande.hpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1362" topLine="183" />
+			<Cursor1 position="8140" topLine="183" />
 		</Cursor>
 	</File>
 	<File name="FileLog.hpp" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1468" topLine="47" />
+			<Cursor1 position="1468" topLine="3" />
 		</Cursor>
 	</File>
 	<File name="VocabolarioId.hpp" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3738" topLine="120" />
+			<Cursor1 position="3738" topLine="57" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

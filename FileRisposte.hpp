@@ -3,7 +3,6 @@
 #include"FileInput.h"
 #include"VocabolarioId.hpp"
 #include<sstream>
-#include<iostream>
 using namespace std;
 template<class R>
 ///file delle risposte

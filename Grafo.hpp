@@ -71,11 +71,12 @@ Grafo<T,R>::~Grafo()
 template<class T,class R>
 Grafo<T,R>::Grafo(const Grafo& to_copy)
 {
+    typename vector<Nodo<T,R>* >::iterator it=to_copy._lista_nodi.begin();
     //finchè la lista dei nodi da copiare non è vuota l'analizzo
-    while(!to_copy._lista_nodi.empty())
+    while(it!=to_copy._lista_nodi.end())
     {
         //analizzo il peso degli archi e le adiacenze a cui sono collegati e scrivo un grafo con all'interno nodi con indirizzi diversi ma stesso contenuto
-        Nodo<T,R>* nodo=to_copy._lista_nodi.back();
+        Nodo<T,R>* nodo=*it;
         typename vector<R>::iterator it_archi;
         for(it_archi=nodo->getPesoArchi().begin();it_archi!=nodo->getPesoArchi().end();it_archi++)
         {
@@ -87,7 +88,7 @@ Grafo<T,R>::Grafo(const Grafo& to_copy)
             }
         }
         //elimino l'ultimo nodo dalla lista di nodi da copiare e ricomincio
-        to_copy._lista_nodi.pop_back();
+        it++;
     }
     //il vettore della lista nodi rimane copiato ma al rovescio però ciò non è importante, basta che le adiacenze siano giuste
 }
@@ -102,7 +103,6 @@ void Grafo<T,R>:: setNuovoNodo(const T& contenuto,const R& arco,const T& contenu
     {
         puntatore_nodo_a_cui_aggiungere_adiacenze=immettiNellaListaUnNuovoNodo(contenuto);
     }
-
     if((puntatore_nodo_adiacente=ricercaNodoPerContenuto(contenuto_nodo_adiacente))==NULL)
     {
         puntatore_nodo_adiacente=immettiNellaListaUnNuovoNodo(contenuto_nodo_adiacente);

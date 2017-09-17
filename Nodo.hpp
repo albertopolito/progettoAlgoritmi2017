@@ -181,7 +181,6 @@ void Nodo<T,R>:: setTipologiaArco(const short int& nuova_tipologia, Nodo *nodo_a
         bool trovato_arco_neutro=0; //flag che mi indica se ho tovato un arco neutro in cui posso settare una nuova tipologia
         typename vector<adiacenza>::iterator f_it=_adiacenze.begin();
         //finchè non ho trovato un arco neutro che è collegato al nodo di cui ho passato l'indirizzo alla funzione
-
         while((!trovato_arco_neutro)&&((f_it=find_if(f_it,_adiacenze.end(),find_adiacenza(nodo_adiacente)))!=_adiacenze.end())){
 
                 if(adiacenza(*f_it).tipologia_arco==NEUTRO)
@@ -201,7 +200,6 @@ void Nodo<T,R>:: setTipologiaArco(const short int& nuova_tipologia, Nodo *nodo_a
 template<class T,class R>
 Nodo<T,R>* Nodo<T,R>:: findArcoPerTipologia(const short int& tipologia_ricerca)
 {
-
     typename vector<adiacenza>::iterator f_it;
     if(!_adiacenze.empty())
     {
@@ -213,7 +211,6 @@ Nodo<T,R>* Nodo<T,R>:: findArcoPerTipologia(const short int& tipologia_ricerca)
         //altrimenti gli ritorno un indirizzo nullo
         return NULL;
     }
-
     return NULL;
 }
 

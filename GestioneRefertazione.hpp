@@ -73,7 +73,6 @@ GestioneRefertazione<T,R>::GestioneRefertazione(const GestioneRefertazione& to_c
 {
     this->_domande=to_copy._domande;
     this->_domande_da_porre=to_copy._domande_da_porre;
-    this->_iteratore_delle_domande_da_porre=to_copy._iteratore_delle_domande_da_porre;
     this->_risposte=to_copy._risposte;
     this->_start=to_copy._start;
     this->_test=to_copy._test;
@@ -99,7 +98,6 @@ const bool GestioneRefertazione<T,R>:: analisiSintatticaSemanticaEdInizializzazi
         return 1;   //se ho un errore nella lettura dei tre file non continuo l'analisi e dò un errore
     }else{
         typename vector<R>::iterator it_risposte;
-
         vector<R> risposte_possibili=_domande.getTutteLeRispostePossibili();
         //guardo che gli id delle risposte che ci sono nel file delle domande sono presenti anche nel file delle risposte
         for(it_risposte=risposte_possibili.begin();it_risposte!=risposte_possibili.end();it_risposte++)
