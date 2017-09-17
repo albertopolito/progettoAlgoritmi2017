@@ -8,6 +8,7 @@
 ///modalità di lettura o scrittura del file di test
 #define LETTURA 0
 #define SCRITTURA 1
+
 using namespace std;
 
 template<class T, class R>
@@ -105,7 +106,6 @@ const bool GestioneRefertazione<T,R>:: analisiSintatticaSemanticaEdInizializzazi
         {
             if(_risposte.getRispostaDaId(*it_risposte)=="")
             {
-
                 return 1;
             }
         }
@@ -126,7 +126,7 @@ const bool GestioneRefertazione<T,R>:: analisiSintatticaSemanticaEdInizializzazi
         }
     }
     _start.resettaDomandeObbligatorie();
-    //i controlli sono andati abuon fine allore inizializzo il vettore delle domande da porre con la prima domanda obbligatoria
+    //i controlli sono andati a buon fine allore inizializzo il vettore delle domande da porre con la prima domanda obbligatoria
     _domande_da_porre.push_back(_start.getDomandaObbligatoria());
     return 0;
 }
@@ -245,7 +245,6 @@ const vector<string> GestioneRefertazione<T,R>:: getRispostePossibili()
 template<class T, class R>
 const bool GestioneRefertazione<T,R>:: setRisposta(const string& risposta)
 {
-    //faccio un primo controllo per essere certo di essere veramente in modalità scrittura e dò errore se non è così
     //dò errore anche se ho finito le domande da porre
     if(!fineDomande())
     {
@@ -272,15 +271,14 @@ const bool GestioneRefertazione<T,R>:: setRisposta(const string& risposta)
             }
             if(!_domande_da_porre.empty())
             {
-
-            while(!_domande_da_porre.empty()&&(_domande_da_porre.back()==T()))
-            {
-                    _domande_da_porre.pop_back();
-                if(!_start.finitoDomandeObbligatorie()&&_domande_da_porre.empty())
+                while(!_domande_da_porre.empty()&&(_domande_da_porre.back()==T()))
                 {
-                    _domande_da_porre.push_back(_start.getDomandaObbligatoria());
+                        _domande_da_porre.pop_back();
+                    if(!_start.finitoDomandeObbligatorie()&&_domande_da_porre.empty())
+                    {
+                        _domande_da_porre.push_back(_start.getDomandaObbligatoria());
+                    }
                 }
-            }
             }
             return 0;
         }

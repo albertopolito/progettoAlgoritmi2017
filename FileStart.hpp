@@ -3,6 +3,7 @@
 #include <string>
 #include<vector>
 #include<algorithm>
+#include<iostream>
 #include "FileInput.h"
 using namespace std;
 template<class T>

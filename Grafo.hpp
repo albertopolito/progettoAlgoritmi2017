@@ -239,7 +239,6 @@ void Grafo<T,R>:: visitaNodoDfs( Nodo<T,R>* nodo_da_visitare, const T& contenuto
                             nodo_da_visitare->setTipologiaArco(FORWARD,nodo_adiacente);
                         }else{
                             //altrimenti è di cross
-
                             nodo_da_visitare->setTipologiaArco(CROSS,nodo_adiacente);
                         }
                         break;
